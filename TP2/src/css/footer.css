@@ -50,16 +50,25 @@ ul {
 }
 
 .brand {
-  grid-column: 1;
   display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 16px;
-}
-.brand .logo svg {
-    width: 64px; 
-    height: 64px; 
+  grid-template-columns: 64px 1fr;      /* logo | text */
+  grid-template-areas:
+    "logo title"
+    "logo tagline"
+    "desc desc";
+  column-gap: 16px;
+  row-gap: 6px;
+  align-items: start;
 }
 
+.brand .logo { grid-area: logo; }
+.brand .logo svg { width: 90px; height: 90px; }
+
+.brand .brand-text { display: contents; }
+
+.brand h3        { grid-area: title; margin: 0; }
+.brand .tagline  { grid-area: tagline; margin: 0; opacity: .9; }
+.brand .desc     { grid-area: desc; margin-top: 16px; line-height: 1.6; }
 
 .links {
   grid-column: 2 / -1;            
