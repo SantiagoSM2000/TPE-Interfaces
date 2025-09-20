@@ -120,9 +120,8 @@ html {
     background-color: var(--b-900); 
 }
 
-body{
-    margin: 0;
-}
+body { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; margin: 0;}
+main { min-height: 0; }
 
 /*         */
 /* Fuentes */
