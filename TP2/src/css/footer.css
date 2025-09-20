@@ -50,25 +50,25 @@ ul {
 }
 
 .brand {
-  display: grid;
-  grid-template-columns: 64px 1fr;      /* logo | text */
-  grid-template-areas:
-    "logo title"
-    "logo tagline"
-    "desc desc";
-  column-gap: 16px;
-  row-gap: 6px;
-  align-items: start;
+--logo-size: 84px; 
+display: grid;
+grid-template-columns: var(--logo-size) 1fr;
+grid-template-areas:
+"logo title"
+"logo tagline"
+"desc desc";
+column-gap: 16px;
+row-gap: 10px;
+align-items: start;
 }
 
-.brand .logo { grid-area: logo; }
-.brand .logo svg { width: 90px; height: 90px; }
-
 .brand .brand-text { display: contents; }
+.brand .logo { grid-area: logo; width: var(--logo-size); height: var(--logo-size); }
+.brand .logo svg { width: 100%; height: 100%; display: block; }
 
-.brand h3        { grid-area: title; margin: 0; }
-.brand .tagline  { grid-area: tagline; margin: 0; opacity: .9; }
-.brand .desc     { grid-area: desc; margin-top: 16px; line-height: 1.6; }
+.brand h3 { grid-area: title; margin: 0; }
+.brand .tagline { grid-area: tagline; margin: 0; opacity: .9; }
+.brand .desc { grid-area: desc; margin: 0; line-height: 1.6; }
 
 .links {
   grid-column: 2 / -1;            
