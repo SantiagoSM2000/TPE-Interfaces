@@ -111,6 +111,7 @@
 
 html {
     font-size: 1rem;
+    background-color: var(--b-900); 
 }
 
 body{

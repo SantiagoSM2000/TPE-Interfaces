@@ -25,3 +25,32 @@ ul {
     padding-left: 0;
     margin: 0; 
 }
+
+.footer-bottom{
+    text-align: center;
+}
+
+.links li {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-b1);
+    line-height: var(--line-height-b1);
+    font-weight: 400;
+    color: var(--b-050);
+    margin: 0;
+}
+
+.links h4 {
+    font-family: var(--font-primary);
+    font-size: 1.25rem;
+    line-height: var(--line-height-subtitle-s1);
+    font-weight: 500;
+    color: var(--b-050);
+    margin: 0;
+    margin-bottom: 6px;
+    
+}
+
+.brand{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+}
