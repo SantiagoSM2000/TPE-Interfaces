@@ -117,33 +117,6 @@ body{
     margin: 0;
 }
 
-.site-footer{
-    color:var(--b-050);
-    background:var(--b-800);
-    font-family: --font-primary;
-  }
-
-.footer-inner{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.links{
-    display:grid;
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-a, a:link, a:visited, a:hover, a:active {
-    text-decoration: none; color: inherit; 
-}
-
-ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0; 
-}
-
-
 /*         */
 /* Fuentes */
 /*         */
