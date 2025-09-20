@@ -1,0 +1,131 @@
+/* Donation page layout and styles */
+
+.donation-page {
+  background: var(--b-900);
+  padding: 32px 90px 64px;
+}
+
+.donation-container {
+  display: grid;
+  grid-template-columns: 1fr minmax(340px, 420px);
+  gap: 32px;
+  align-items: start;
+}
+
+.donation-copy h1 {
+  margin: 0 0 16px;
+}
+
+.donation-copy p {
+  color: var(--b-050);
+  opacity: 0.95;
+  margin: 0 0 16px;
+}
+
+.donation-widget {
+  background: var(--b-700);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.donation-widget .widget-title {
+  text-align: center;
+  margin: 0 0 16px;
+}
+
+.amount-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.amount-button {
+  background: var(--b-800);
+  color: var(--a-500);
+  border: 2px solid var(--a-500);
+  border-radius: 12px;
+  padding: 10px 8px;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background .15s ease, box-shadow .15s ease, transform .05s ease;
+  /* body-b1 typography */
+  font-family: var(--font-primary);
+  font-size: var(--font-size-b1);
+  line-height: var(--line-height-b1);
+  font-weight: 400;
+}
+
+.amount-button:hover {
+  background: var(--a-10t);
+}
+
+.amount-button.is-selected {
+  background: var(--a-20t);
+  box-shadow: 0 0 0 2px var(--a-500) inset;
+  color: var(--a-500);
+}
+
+.custom-amount {
+  margin-top: 12px;
+}
+
+.custom-amount label {
+  display: block;
+  color: var(--b-300);
+  margin-bottom: 6px;
+}
+
+.custom-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--b-800);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.custom-input span { color: var(--b-300); }
+.custom-input input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--b-050);
+}
+
+.donation-widget .actions {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.donation-widget .actions button { width: 100%; }
+
+.what-for {
+  margin-top: 16px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+
+.what-for h4 {
+  margin: 0 0 4px;
+  font-weight: 600;
+  color: var(--b-050);
+}
+
+.what-for p {
+  margin: 0;
+  color: var(--b-300);
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .donation-page { padding: 24px; }
+  .donation-container {
+    grid-template-columns: 1fr;
+  }
+}
