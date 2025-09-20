@@ -38,6 +38,10 @@ a:hover {
     margin-bottom: 1.5rem;
 }
 
+.h2 {
+    text-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.3);
+}
+
 /* Inputs */
 .input {
     height: 1.75rem;
@@ -46,6 +50,7 @@ a:hover {
     align-self: center;
     border-radius: 12px;
     width: 100%;
+    box-shadow: 0.2rem 0.2rem 0.6rem rgba(255, 255, 255, 0.1);
 }
 
 .input-label {
