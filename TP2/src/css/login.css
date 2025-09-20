@@ -1,10 +1,26 @@
+/* Global */
+body {
+    background-color: var(--b-900);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+a:hover {
+    text-decoration: underline;
+    color: var(--p-500);
+}
+
+/* Sección de login */
 .login-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 70vh;
+    min-height: 100vh;
 }
 
+/* Formulario de inicio de sesión */
 #login-form {
     display: flex;
     justify-content: center;
@@ -16,4 +32,72 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
+}
+
+.form-title {
+    margin-bottom: 1.5rem;
+}
+
+.h2 {
+    text-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.3);
+}
+
+/* Inputs */
+.input {
+    height: 1.75rem;
+    border: 1px solid var(--p-500);
+    font-size: 1rem;
+    align-self: center;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0.2rem 0.2rem 0.6rem rgba(255, 255, 255, 0.1);
+}
+
+.input-label {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin-bottom: 1rem;
+}
+
+/* Botones */
+.btn-login {
+    background-color: var(--p-500);
+    color: var(--b-900);
+}
+
+.btn-login:hover {
+    background-color: var(--p-700);
+}
+
+.btn-google {
+    background-color: var(--b-050);
+    color: var(--b-900);
+    border: 1px solid var(--b-300);
+}
+.btn-google:hover {
+    background-color: var(--b-300);
+}
+
+.btn-facebook {
+    background-color: var(--s-800);
+    color: var(--b-050);
+    border: 1px solid var(--s-900);
+}
+.btn-facebook:hover {
+    background-color: var(--s-900);
+}
+
+/* Links */
+.register-link {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.continue-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    width: 65%;
 }
