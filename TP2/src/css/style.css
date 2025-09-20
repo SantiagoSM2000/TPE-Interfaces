@@ -117,9 +117,59 @@ html {
     grid-template-columns: repeat(6, 1fr);
   }
 
-/*          */
-/* BOTONES  */
-/*          */
+/*         */
+/* Fuentes */
+/*         */
+
+.h1 {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    font-weight: 600;
+    color: var(--b-050);
+    margin: 0;
+}
+
+.h2 {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: 600;
+    color: var(--b-050);
+    margin: 0;
+}
+
+.h3 {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: 600;
+    color: var(--b-050);
+    margin: 0;
+}
+
+.subtitle-s1 {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-subtitle-s1);
+    line-height: var(--line-height-subtitle-s1);
+    font-weight: 500;
+    color: var(--b-050);
+    margin: 0;
+}
+
+.body-b1 {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-b1);
+    line-height: var(--line-height-b1);
+    font-weight: 400;
+    color: var(--b-050);
+    margin: 0;
+}
+
+
+/*         */
+/* BOTONES */
+/*         */
 
 button {
     font-family: inherit;
