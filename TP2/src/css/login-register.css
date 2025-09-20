@@ -1,0 +1,118 @@
+/* Global */
+body {
+    background-color: var(--b-900);
+}
+
+/* Sección de login */
+.form-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Formulario de inicio de sesión */
+.container-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: var(--b-800);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-title {
+    margin-bottom: 1.5rem;
+}
+
+.h2 {
+    text-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.3);
+}
+
+/* Inputs */
+.input {
+    height: 1.75rem;
+    border: 1px solid var(--p-500);
+    font-size: 1rem;
+    align-self: center;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0.2rem 0.2rem 0.6rem rgba(255, 255, 255, 0.1);
+}
+
+.input-label {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin-bottom: 1rem;
+}
+
+
+.input-label-number {
+    display: flex;
+    flex-direction: column;
+    width: 65%;  
+    margin-bottom: 1rem;
+}
+
+
+.input-label-number input {
+    width: 35%;
+    align-self: flex-start;
+}
+
+/* Botones */
+.btn-form {
+    background-color: var(--p-200);
+    color: var(--b-900);
+}
+
+.btn-form:hover {
+    cursor: pointer;
+    background-color: var(--p-700);
+}
+
+.btn-google {
+    background-color: var(--b-050);
+    color: var(--b-900);
+    border: 1px solid var(--b-300);
+}
+.btn-google:hover {
+    cursor: pointer;
+    background-color: var(--b-300);
+}
+
+.btn-facebook {
+    background-color: var(--s-800);
+    color: var(--b-050);
+    border: 1px solid var(--s-900);
+}
+.btn-facebook:hover {
+    cursor: pointer;
+    background-color: var(--s-900);
+}
+
+/* Links */
+.links-lgn-reg {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.continue-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    width: 65%;
+}
+
+.g-recaptcha {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 0.75rem;
+}
