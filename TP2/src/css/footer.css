@@ -6,28 +6,16 @@
     font-family: --font-primary;
 }
 
-.footer-inner{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
+.site-footer a {
+    color: inherit;
+    text-decoration: none; 
 }
 
-.links{
-    display:grid;
-    grid-template-columns: repeat(6, 1fr);
-}
-
-a, a:link, a:visited, a:hover, a:active {
-    text-decoration: none; color: inherit; 
-}
 
 ul {
     list-style: none;
     padding-left: 0;
     margin: 0; 
-}
-
-.footer-bottom{
-    text-align: center;
 }
 
 .links li {
@@ -50,7 +38,49 @@ ul {
     
 }
 
-.brand{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
+
+.footer-inner {
+  width: min(1200px, 100% - 48px);
+  margin: 0 auto;
+  padding: 48px 0 24px;
+  display: grid;
+  grid-template-columns: minmax(320px, 2.2fr) repeat(6, minmax(140px, 1fr));
+  gap: 56px;
+  align-items: start;
 }
+
+.brand {
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 16px;
+}
+.brand .logo svg {
+    width: 64px; 
+    height: 64px; 
+}
+
+
+.links {
+  grid-column: 2 / -1;            
+  display: grid;
+  grid-template-columns: repeat(6, minmax(140px, 1fr));
+  gap: 56px;
+}
+.links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0; 
+}
+.links li + li {
+    margin-top: 8px; 
+}
+
+
+.footer-bottom {
+  width: min(1200px, 100% - 48px);
+  margin: 0 auto;
+  padding: 16px 0 32px;
+  text-align: center;
+}
+
