@@ -24,3 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => selectButton(btn));
   });
 });
+
+// Header component
+document.addEventListener('DOMContentLoaded', () => {
+  const headerPlaceholder = document.getElementById('header-placeholder');
+  if (headerPlaceholder) {
+    fetch('components/header.html')
+      .then(response => response.text())
+      .then(html => {
+        headerPlaceholder.innerHTML = html;
+      })
+      .catch(err => console.error('Error loading header:', err));
+}
+});
