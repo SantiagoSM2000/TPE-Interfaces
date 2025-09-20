@@ -13,7 +13,7 @@ a:hover {
 }
 
 /* Sección de login */
-.login-section {
+.form-section {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +21,7 @@ a:hover {
 }
 
 /* Formulario de inicio de sesión */
-#login-form {
+.container-form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,13 +60,27 @@ a:hover {
     margin-bottom: 1rem;
 }
 
+
+.input-label-number {
+    display: flex;
+    flex-direction: column;
+    width: 65%;  
+    margin-bottom: 1rem;
+}
+
+
+.input-label-number input {
+    width: 35%;
+    align-self: flex-start;
+}
+
 /* Botones */
-.btn-login {
-    background-color: var(--p-500);
+.btn-form {
+    background-color: var(--p-200);
     color: var(--b-900);
 }
 
-.btn-login:hover {
+.btn-form:hover {
     background-color: var(--p-700);
 }
 
@@ -89,7 +103,7 @@ a:hover {
 }
 
 /* Links */
-.register-link {
+.links-lgn-reg {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
@@ -100,4 +114,11 @@ a:hover {
     gap: 0.5rem;
     margin-top: 1rem;
     width: 65%;
+}
+
+.g-recaptcha {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 0.75rem;
 }
