@@ -81,6 +81,7 @@ a:hover {
 }
 
 .btn-form:hover {
+    cursor: pointer;
     background-color: var(--p-700);
 }
 
@@ -90,6 +91,7 @@ a:hover {
     border: 1px solid var(--b-300);
 }
 .btn-google:hover {
+    cursor: pointer;
     background-color: var(--b-300);
 }
 
@@ -99,6 +101,7 @@ a:hover {
     border: 1px solid var(--s-900);
 }
 .btn-facebook:hover {
+    cursor: pointer;
     background-color: var(--s-900);
 }
 
