@@ -242,18 +242,21 @@ header{
     width: 28px;
     height: 28px;
     border-radius: 50%;
+    box-shadow: none;
 }
 
 #sidebar-toggle{
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: none;
 }
 
 #profile-toggle{
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: none;
 }
 
 /*         */
@@ -335,3 +338,4 @@ button {
 .secondary:active{
     background-color: var(--s-800);
 }
+
