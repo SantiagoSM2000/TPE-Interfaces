@@ -35,5 +35,28 @@ document.addEventListener('DOMContentLoaded', () => {
         headerPlaceholder.innerHTML = html;
       })
       .catch(err => console.error('Error loading header:', err));
-}
+  }
+
+  let footerPlaceholder = document.getElementById('footer-placeholder');
+  if (!footerPlaceholder) {
+    const existingFooter = document.querySelector('footer.site-footer');
+    if (existingFooter) {
+      existingFooter.innerHTML = '';
+      existingFooter.id = 'footer-placeholder';
+      footerPlaceholder = existingFooter;
+    }
+  }
+
+  if (footerPlaceholder) {
+    // Clear any inline fallback footer to ensure we only use the component
+    try { footerPlaceholder.innerHTML = ''; } catch (e) {}
+    fetch('components/fat-footer.tpl', { cache: 'no-store' })
+      .then(response => response.text())
+      .then(html => {
+        const tpl = document.createElement('template');
+        tpl.innerHTML = html.trim();
+        footerPlaceholder.replaceChildren(tpl.content.cloneNode(true));
+      })
+      .catch(err => console.error('Error loading footer:', err));
+  }
 });

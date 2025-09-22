@@ -13,8 +13,8 @@
     margin: 0;
     padding: 48px 0 0; 
     display: grid;
-    grid-template-columns: minmax(340px, auto) 1fr; 
-    column-gap: 56px; 
+    grid-template-columns: minmax(360px, 520px) 1fr; 
+    column-gap: 150px; 
     align-items: start;
 }
 
@@ -25,14 +25,16 @@
     grid-template-areas:
     "logo title"
     "logo tagline"
-    "desc desc";
+    "desc desc"
+    "social-title social-title"
+    "social-links social-links";
     column-gap: 16px;
-    row-gap: 10px;
+    row-gap: 0px; 
     align-items: start;
 }
 .brand .brand-text { display: contents; }
 .brand .logo { grid-area: logo; width: var(--logo-size); height: var(--logo-size); }
-.brand .logo svg { width: 100%; height: 100%; display: block; }
+.brand .logo svg, .brand .logo img { width: 100%; height: 100%; display: block; }
 .brand h3 { grid-area: title; margin: 0; }
 .brand .tagline { grid-area: tagline; margin: 0; opacity: .9; }
 .brand .desc { grid-area: desc; margin: 0; line-height: 1.6; }
@@ -43,8 +45,8 @@
 .links {
     padding-right: 90px; 
     display: grid;
-    grid-template-columns: repeat(6, minmax(140px, 1fr));
-    gap: 56px;
+    grid-template-columns: repeat(6, max-content);
+    gap: 50px;
 }
 .links h4 {
     white-space: nowrap;
@@ -64,7 +66,7 @@
     margin: 0;
 }
 .links li + li {
-    margin-top: 8px; 
+    margin-top: 4px; 
 }
 
 .footer-bottom {
@@ -74,8 +76,8 @@
 }
 
 .brand .social-title {
-  grid-column: 1 / -1;
-  margin: 24px 0 12px;
+  grid-area: social-title;
+  margin: 32px 0 12px;
   text-align: center;
   font-weight: 600;
   color: var(--b-050);
@@ -83,9 +85,9 @@
 }
 
 .brand .social-links {
-  grid-column: 1 / -1;
+  grid-area: social-links;
   display: flex;
-  gap: 12px;
+  gap: 16px;
   justify-content: center;
   align-items: center;
   padding: 0;
@@ -103,6 +105,37 @@
   text-decoration: none;      
 }
 
+.brand .social-links img { width: 24px; height: 24px; display: block; }
+
 .brand .social-links a:hover {
   background: rgba(255, 255, 255, 0.16);
+}
+
+
+
+@media (max-width: 980px) {
+  .site-footer { padding-left: 24px; }
+  .footer-inner {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+    padding-top: 32px;
+  }
+  .brand { --logo-size: 72px; }
+  .links {
+    padding-right: 24px;
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 20px;
+  }
+  .footer-bottom { padding: 16px 24px 0; }
+}
+
+
+@media (max-width: 1440px) and (min-width: 981px) {
+  .footer-inner { grid-template-columns: minmax(340px, 480px) 1fr; column-gap: 64px; }
+  .links { grid-template-columns: repeat(5, max-content); gap: 50px; }
+}
+
+@media (max-width: 1280px) and (min-width: 981px) {
+  .footer-inner { grid-template-columns: minmax(320px, 420px) 1fr; column-gap: 48px; }
+  .links { grid-template-columns: repeat(4, max-content); gap: 32px; }
 }
