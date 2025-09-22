@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (footerPlaceholder) {
-    // Clear any inline fallback footer to ensure we only use the component
     try { footerPlaceholder.innerHTML = ''; } catch (e) {}
     fetch('components/fat-footer.tpl', { cache: 'no-store' })
       .then(response => response.text())
