@@ -133,18 +133,6 @@ body {
     margin: 0;
 }
 
-html, body {
-  /* Allow scrolling but hide scrollbar */
-  overflow: auto;
-  scrollbar-width: none;      /* Firefox */
-  -ms-overflow-style: none;   /* IE/Edge */
-}
-
-html::-webkit-scrollbar, 
-body::-webkit-scrollbar {
-  display: none;
-}
-
 main { min-height: 0; }
 
 /*         */
@@ -221,7 +209,7 @@ main { min-height: 0; }
 header{
     background-color: var(--b-700);
     padding: 0 15px;
-    height: 70px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -293,39 +281,37 @@ button {
 }
 
 .btn-giant{
-    height: 56px;
     font-size: var(--font-size-button-giant);
     line-height: var(--line-height-button-giant);
-    padding: 16px 36px;
+    padding: 16px 24px;
 }
 
 .btn-large{
-    height: 48px;
     font-size: var(--font-size-button-large);
     line-height: var(--font-size-button-large);
-    padding: 14px 32px;
+    padding: 14px 20px;
 }
 
 .btn-medium{
-    height: 40px;
     font-size: var(--font-size-button-medium);
     line-height: var(--line-height-button-medium);
-    padding: 12px 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
 }
 
 .btn-small{
-    height: 32px;
     font-size: var(--font-size-button-small);
     line-height: var(--line-height-button-small);
-    padding: 8px 24px;
+    padding: 8px 12px;
     border-radius: 8px;
 }
 
 .btn-tiny{
-    height: 24px;
     font-size: var(--font-size-button-tiny);
     line-height: var(--line-height-button-tiny);
-    padding: 6px 20px;
+    padding: 6px 8px;
     border-radius: 8px;
 }
 
@@ -365,59 +351,3 @@ a:hover {
     text-decoration: underline;
     color: var(--p-500);
 }
-
-
-/*         */
-/* BOTONES */
-/*   ????? */
-
-/* SON LIGERAMENTE DISTINTOS A LOS DE ARRIBA PERO NO SÉ CON CUAL HAY QUE QUEDARNOS, POR ALGÚN MOTIVO ESTÁN DUPLICADOS
-button {
-    font-family: var(--font-primary);
-    border: none;
-    border-radius: 12px;
-    font-weight: 500;
-    box-shadow: 0.3rem 0.3rem 0.5rem rgba(0, 0, 0, 0.3);
-}
-
-.btn-giant{
-    font-size: var(--font-size-button-giant);
-    line-height: var(--line-height-button-giant);
-    padding: 16px 24px;
-}
-
-.btn-large{
-    font-size: var(--font-size-button-large);
-    line-height: var(--font-size-button-large);
-    padding: 14px 20px;
-}
-
-.btn-medium{
-    font-size: var(--font-size-button-medium);
-    line-height: var(--line-height-button-medium);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 12px 16px;
-}
-
-.btn-small{
-    font-size: var(--font-size-button-small);
-    line-height: var(--line-height-button-small);
-    padding: 8px 12px;
-    border-radius: 8px;
-}
-
-.btn-tiny{
-    font-size: var(--font-size-button-tiny);
-    line-height: var(--line-height-button-tiny);
-    padding: 6px 8px;
-    border-radius: 8px;
-}
-
-.btn-icon {
-    margin-right: 0.5rem;
-}
-*/
-
-
