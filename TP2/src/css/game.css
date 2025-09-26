@@ -1,0 +1,53 @@
+
+.game {
+    grid-area: juego;
+    background-color: #A8DADC;
+    min-height: 600px;
+}
+
+.game-details {
+    grid-area: detalles;
+    background-color: #457B9D;
+    color: white;
+}
+
+.game-reviews {
+    grid-area: reviews;
+    background-color: #F1FAEE; 
+    color: #1D3557;
+}
+
+.game-similar {
+    grid-area: similar;
+    background-color: #E63946; 
+    color: white;
+}
+
+.game-comments {
+    grid-area: comentarios;
+    background-color: #1D3557; 
+    color: white;
+}
+
+main section {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 250px; /* Altura base */
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "juego"
+        "detalles"
+        "reviews"
+        "similar"
+        "comentarios";
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
