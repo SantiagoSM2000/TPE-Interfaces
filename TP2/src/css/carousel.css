@@ -5,11 +5,14 @@
   - Full-height nav paddles overlay the viewport
 */
 
-.game-carousel { 
-  margin: 0px 0px 40px 50px; 
-  max-width: 1840px;
-  padding: 0 16px; 
+.game-carousel {
+  margin: 0 auto 40px auto;   
+  max-width: 1840px;         
+  width: 100%;          
+  padding: 0 16px;
+  box-sizing: border-box;
 }
+
 
 .game-carousel__head {
   display: flex;
