@@ -20,16 +20,18 @@
 <body>
   <header id="header-placeholder"></header>
     <!-- Carrusel de juegos de cartas (240x130) -->
-    <game-carousel title="Cartas" genre="Card" limit="20"></game-carousel>
-    <game-carousel title="Acción" genre="action" limit="20"></game-carousel>
-    <game-carousel title="Aventura" genre="adventure" limit="9"></game-carousel>
-    <game-carousel title="Rompecabezas" genre="puzzle" limit="9"></game-carousel>
+    <game-carousel title="shooter" genre="shooter" limit="20" card-variant="mini" ></game-carousel>
+    <game-carousel title="Continuar jugando" genre="" limit="20" card-variant="big" ></game-carousel>
+    <game-carousel title="Acción" genre="action" limit="9"></game-carousel>
+    <game-carousel title="Aventura" genre="adventure" limit="20"></game-carousel>
   </main>
 
   <footer class="site-footer" role="contentinfo" id="footer-placeholder">
   </footer>
 
   <script src="js/main.js"></script>
+  <!-- Load card component before carousel so it can render cards -->
+  <script src="js/game-card.js" defer></script>
   <script src="js/carousel.js" defer></script>
 </body>
 
