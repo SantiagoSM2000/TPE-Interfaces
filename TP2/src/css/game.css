@@ -69,6 +69,36 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
+    align-items: flex-end;
+    gap: 4rem;
 }
+
+.keyboard-controls, .mouse-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+
+.game-share {
+    margin-top: 0.75rem;
+}
+
+.share-buttons .btn-tiny {
+    transition: background-color 0.3s ease;
+}
+
+.share-buttons .btn-tiny:hover {
+    background-color: var(--p-500);
+}
+
+
+.btn-icon {
+    margin-right: 0;
+}
+
+.btn-tiny {
+    box-shadow: none;
+}
+
