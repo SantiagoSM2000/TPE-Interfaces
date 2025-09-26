@@ -14,6 +14,8 @@
       this._genre = this.getAttribute('genre') || '';
       this._limit = parseInt(this.getAttribute('limit') || '20', 10);
       this._title = this.getAttribute('title') || 'Juegos';
+      // Optional: pass a variant down to <game-card>
+      this._cardVariant = this.getAttribute('card-variant') || '';
     }
 
     // When the element is added to the page, we immediately render a
@@ -25,17 +27,11 @@
 
     // Render a lightweight placeholder while we load the real data
     renderSkeleton(){
-      // Build 8 placeholder items using a simple for-loop.
+      // Build 8 placeholder items using <game-card skeleton>
       let skeletons = '';
       for (let i = 0; i < 8; i++) {
-        skeletons += `
-        <li class="game-card is-skeleton">
-          <a class="game-card__link" href="#" draggable="false" tabindex="-1" aria-hidden="true">
-            <div class="game-card__thumb">
-              <div class="game-card__overlay"><span class="game-card__title">&nbsp;</span></div>
-            </div>
-          </a>
-        </li>`;
+        const v = this._cardVariant ? ` variant=\"${this.escape(this._cardVariant)}\"` : '';
+        skeletons += `<li><game-card skeleton${v}></game-card></li>`;
       }
 
       // Insert the carousel structure with the placeholder list
@@ -122,7 +118,7 @@
       const isFirstCarousel = document.querySelector('game-carousel') === this;
       const eagerCount = isFirstCarousel ? 9 : 0; // roughly one page worth
 
-      // Build HTML for each card using a classic for-loop
+      // Build HTML for each card using a classic for-loop producing <game-card> elements
       let items = '';
       for (let idx = 0; idx < list.length; idx++) {
         const g = list[idx];
@@ -130,15 +126,11 @@
         const img = String(g && g.background_image ? g.background_image : '');
         const eager = idx < eagerCount; // first items load eagerly
 
+        // The <game-card> component takes care of rendering consistent markup
+        const v = this._cardVariant ? ` variant=\"${this.escape(this._cardVariant)}\"` : '';
         items += `
-          <li class="game-card" title="${this.escape(name)}">
-            <a class="game-card__link" href="#" draggable="false">
-              <div class="game-card__thumb">
-                <div class="game-card__backdrop" style="background-image:url('${this.cssUrl(img)}')"></div>
-                <img src="${this.escape(img)}" alt="${this.escape(name)}" width="240" height="100" ${eager ? 'loading=\"eager\" fetchpriority=\"high\"' : 'loading=\"lazy\" fetchpriority=\"low\"'} decoding=\"async\" />
-                <div class="game-card__overlay"><span class="game-card__title">${this.escape(name)}</span></div>
-              </div>
-            </a>
+          <li>
+            <game-card name="${this.escape(name)}" img="${this.escape(img)}" ${eager ? 'eager' : ''}${v}></game-card>
           </li>`;
       }
 
@@ -165,9 +157,24 @@
       try { prev.textContent = '<'; next.textContent = '>'; } catch(e){}
 
       // Compute how far to scroll when clicking the buttons.
-      // We choose the larger of (3 cards) or (viewport minus paddles)
+      // We choose the larger of (3 cards) or (viewport minus paddles).
+      // Card widths can vary by variant, so we measure the first card.
       const NAV = 60; // keep in sync with CSS --nav-width
-      const step = () => Math.max(240 * 3 + 24, this.clientWidth - (NAV * 2 + 20));
+      const measure = () => {
+        const firstCard = track.querySelector('.game-card');
+        const cw = firstCard ? firstCard.getBoundingClientRect().width : 240;
+        const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '12');
+        return { cw, gap };
+      };
+      const step = () => {
+        const { cw, gap } = measure();
+        // For big cards, always move exactly 3 cards to avoid cutting one in half
+        if ((this._cardVariant || '').toLowerCase() === 'big') {
+          return cw * 3 + gap * 2;
+        }
+        // Otherwise, choose the larger of 3 cards or (viewport minus paddles)
+        return Math.max(cw * 3 + gap * 2, this.clientWidth - (NAV * 2 + 20));
+      };
 
       // Enable or disable the nav buttons depending on scroll position
       const update = () => {
@@ -176,9 +183,37 @@
         next.toggleAttribute('disabled', track.scrollLeft >= max);
       };
 
+      // Smooth programmatic scrolling (eased) for a softer feel
+      const isBig = (this._cardVariant || '').toLowerCase() === 'big';
+      const duration = () => isBig ? 600 : 450; // ms
+      let animating = false;
+      const animateTo = (target, ms) => {
+        const start = track.scrollLeft;
+        const max = track.scrollWidth - track.clientWidth;
+        const end = Math.max(0, Math.min(max, target));
+        const dist = end - start;
+        if (Math.abs(dist) < 1) { track.scrollLeft = end; update(); return; }
+        animating = true;
+        const t0 = performance.now();
+        const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+        const tick = (now) => {
+          const t = Math.min(1, (now - t0) / ms);
+          const eased = easeOutCubic(t);
+          track.scrollLeft = start + dist * eased;
+          if (t < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            animating = false; update();
+          }
+        };
+        requestAnimationFrame(tick);
+      };
+
+      const animateBy = (dx) => { if (animating) return; animateTo(track.scrollLeft + dx, duration()); };
+
       // Scroll the track when clicking the buttons
-      prev.addEventListener('click', () => { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-      next.addEventListener('click', () => { track.scrollBy({ left: step(),  behavior: 'smooth' }); });
+      prev.addEventListener('click', () => { animateBy(-step()); });
+      next.addEventListener('click', () => { animateBy(step());  });
 
       // Throttle updates to once per animation frame while the user scrolls
       let ticking = false;
