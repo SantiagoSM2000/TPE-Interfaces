@@ -7,6 +7,8 @@
   <title>Proyecto Base</title>
   <!-- CSS principal -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- Carousel component CSS -->
+  <link rel="stylesheet" href="css/carousel.css">
   <!-- CSS footer -->
   <link rel="stylesheet" href="css/footer.css">
 
@@ -17,18 +19,18 @@
 
 <body>
   <header id="header-placeholder"></header>
-
-  <main>
-    <section>
-      <h2>Bienvenidos</h2>
-      <p>Esta es la estructura base del proyecto.</p>
-    </section>
+    <!-- Carrusel de juegos de cartas (240x130) -->
+    <game-carousel title="Cartas" genre="Card" limit="20"></game-carousel>
+    <game-carousel title="Acción" genre="action" limit="20"></game-carousel>
+    <game-carousel title="Aventura" genre="adventure" limit="9"></game-carousel>
+    <game-carousel title="Rompecabezas" genre="puzzle" limit="9"></game-carousel>
   </main>
 
   <footer class="site-footer" role="contentinfo" id="footer-placeholder">
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/carousel.js" defer></script>
 </body>
 
 </html>

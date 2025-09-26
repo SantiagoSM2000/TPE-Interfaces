@@ -126,7 +126,25 @@ html {
     background-color: var(--b-900); 
 }
 
-body { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; margin: 0;}
+body { 
+    min-height: 100dvh; 
+    display: grid; 
+    grid-template-rows: auto 1fr auto; 
+    margin: 0;
+}
+
+html, body {
+  /* Allow scrolling but hide scrollbar */
+  overflow: auto;
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE/Edge */
+}
+
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 main { min-height: 0; }
 
 /*         */
@@ -339,266 +357,21 @@ button {
     background-color: var(--s-800);
 }
 
-
-:root {
-    /* Colores */
-    /* Primary */
-    --p-100: #FFD6EB;
-    --p-200: #FF66B2;
-    --p-300: #FF3399;
-    --p-500: #FF007F;
-    --p-700: #CC0066;
-    --p-800: #800040;
-    --p-900: #330019;
-
-    /* Secondary */
-    --s-100: #E0F7FF;
-    --s-200: #80E5FF;
-    --s-300: #33CCFF;
-    --s-500: #00BFFF;
-    --s-700: #0099CC;
-    --s-800: #006680;
-    --s-900: #003344;
-
-    /* Accent */
-    --a-100: #F0FFD6;
-    --a-200: #CCFF66;
-    --a-300: #A3FF00;
-    --a-500: #A3FF00;
-    --a-700: #7ACC00;
-    --a-800: #4D9900;
-    --a-900: #1A3300;
-
-    /* Background */
-    --b-050: #F9FAFB;
-    --b-100: #F3F4F6;
-    --b-300: #D2D5DB;
-    --b-500: #6D717F;
-    --b-700: #394050;
-    --b-800: #212936;
-    --b-900: #131927;
-
-    /* With transparency */
-    /* Secondary transparent */
-    --s-10t: #rgba(0, 191, 255, 0.1);
-    --s-20t: #rgba(0, 191, 255, 0.2);
-    --s-30t: #rgba(0, 191, 255, 0.3);
-    --s-40t: #rgba(0, 191, 255, 0.4);
-    --s-70t: #rgba(0, 191, 255, 0.7);
-    --s-80t: #rgba(0, 191, 255, 0.8);
-    --s-90t: #rgba(0, 191, 255, 0.9);
-
-    /* Accent transparent */
-    --a-10t: rgba(163, 255, 0, 0.1);
-    --a-20t: rgba(163, 255, 0, 0.2);
-    --a-30t: rgba(163, 255, 0, 0.3);
-    --a-40t: rgba(163, 255, 0, 0.4);
-    --a-70t: rgba(163, 255, 0, 0.7);
-    --a-80t: rgba(163, 255, 0, 0.8);
-    --a-90t: rgba(163, 255, 0, 0.9);
-
-    /* Primary transparent */
-    --p-10t: rgba(255, 0, 127, 0.1);
-    --p-20t: rgba(255, 0, 127, 0.2);
-    --p-30t: rgba(255, 0, 127, 0.3);
-    --p-40t: rgba(255, 0, 127, 0.4);
-    --p-70t: rgba(255, 0, 127, 0.7);
-    --p-80t: rgba(255, 0, 127, 0.8);
-    --p-90t: rgba(255, 0, 127, 0.9);
-
-    /* Tipografia */
-    --font-primary: 'Montserrat', sans-serif;
-
-    /* Titles */
-    --font-size-h1: 3rem;
-    --line-height-h1: 3.625rem;
-
-    --font-size-h2: 2.5rem;
-    --line-height-h2: 3rem;
-
-    --font-size-h3: 2rem;
-    --line-height-h3: 2.375rem;
-
-    /* Subtitles */
-    --font-size-subtitle-s1: 1.125rem;
-    --line-height-subtitle-s1: 1.75rem;
-
-    /* Body */
-    --font-size-b1: 1rem;
-    --line-height-b1: 1.5rem;
-
-    --font-size-b2: 0.875rem;
-    --line-height-b2: 1.25rem;
-
-    --font-size-b3: 0.75rem;
-    --line-height-b3: 1rem;
-
-    /* Buttons */
-    --font-size-button-giant: 1.125rem;
-    --line-height-button-giant: 1.5rem;
-
-    --font-size-button-large: 1rem;
-    --line-height-button-large: 1.25rem;
-
-    --font-size-button-medium: 0.875rem;
-    --line-height-button-medium: 1rem;
-
-    --font-size-button-small: 0.75rem;
-    --line-height-button-small: 1rem;
-
-    --font-size-button-tiny: 0.625rem;
-    --line-height-button-tiny: 0.75rem;
+a {
+    text-decoration: none;
+    color: inherit;
+}
+a:hover {
+    text-decoration: underline;
+    color: var(--p-500);
 }
 
-@font-face {
-    font-family: 'Montserrat';
-    src: url('../fonts/Montserrat-VariableFont_wght.ttf');
-    font-weight: 100 900;
-    font-style: normal;
-}
-
-html {
-    font-size: 1rem;
-    background-color: var(--b-900); 
-}
-
-body { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; margin: 0;}
-main { min-height: 0; }
-
-/*         */
-/* Fuentes */
-/*         */
-
-.h1 {
-    font-family: var(--font-primary);
-    font-size: var(--font-size-h1);
-    line-height: var(--line-height-h1);
-    font-weight: 600;
-    color: var(--b-050);
-    margin: 0;
-}
-
-.h2 {
-    font-family: var(--font-primary);
-    font-size: var(--font-size-h2);
-    line-height: var(--line-height-h2);
-    font-weight: 600;
-    color: var(--b-050);
-    margin: 0;
-}
-
-.h3 {
-    font-family: var(--font-primary);
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    font-weight: 600;
-    color: var(--b-050);
-    margin: 0;
-}
-
-.subtitle-s1 {
-    font-family: var(--font-primary);
-    font-size: var(--font-size-subtitle-s1);
-    line-height: var(--line-height-subtitle-s1);
-    font-weight: 500;
-    color: var(--b-050);
-    margin: 0;
-}
-
-.body-b1 {
-    font-family: var(--font-primary);
-    font-size: var(--font-size-b1);
-    line-height: var(--line-height-b1);
-    font-weight: 400;
-    color: var(--b-050);
-    margin: 0;
-}
-
-.body-b2 {
-    font-family: var(--font-primary);
-    font-size: var(--font-size-b2);
-    line-height: var(--line-height-b2);
-    font-weight: 400;
-    color: var(--b-050);
-    margin: 0;
-}
-
-.body-b3 {
-    font-family: var(--font-primary);
-    font-size: var(--font-size-b3);
-    line-height: var(--line-height-b3);
-    font-weight: 400;
-    color: var(--b-050);
-    margin: 0;
-}
-
-/*         */
-/* HEADER  */
-/*         */
-
-header{
-    background-color: var(--b-700);
-    padding: 0 15px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header-section{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-#searchbar{
-    width: 350px;
-    height: 40px;
-    position: relative;
-}
-
-.search-input{
-    width: 100%;
-    height: 100%;
-    background-color: var(--b-300);
-    border: none;
-    border-radius: 12px;
-    padding: 0px 15px;
-    color: var(--b-900);
-}
-
-.search-input::placeholder{
-    color: var(--b-500);
-}
-
-#search-icon{
-    position: absolute;
-    right: 15px;
-    aspect-ratio: 1;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    box-shadow: none;
-}
-
-#sidebar-toggle{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: none;
-}
-
-#profile-toggle{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: none;
-}
 
 /*         */
 /* BOTONES */
-/*         */
+/*   ????? */
 
+/* SON LIGERAMENTE DISTINTOS A LOS DE ARRIBA PERO NO SÉ CON CUAL HAY QUE QUEDARNOS, POR ALGÚN MOTIVO ESTÁN DUPLICADOS
 button {
     font-family: var(--font-primary);
     border: none;
@@ -645,36 +418,6 @@ button {
 .btn-icon {
     margin-right: 0.5rem;
 }
+*/
 
-.primary{
-    background-color: var(--p-500);
-}
 
-.primary:hover{
-    background-color: var(--p-700);
-}
-
-.primary:active{
-    background-color: var(--p-800);
-}
-
-.secondary{
-    background-color: var(--s-500);
-}
-
-.secondary:hover{
-    background-color: var(--s-700);
-}
-
-.secondary:active{
-    background-color: var(--s-800);
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-a:hover {
-    text-decoration: underline;
-    color: var(--p-500);
-}

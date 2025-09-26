@@ -1,0 +1,160 @@
+/*
+  Game carousel component
+  - Card visual size: 240x130 (image 100px + 30px title bar)
+  - Horizontal scroll track with CSS grid columns
+  - Full-height nav paddles overlay the viewport
+*/
+
+.game-carousel { 
+  margin: 0px 0px 40px 50px; 
+  max-width: 1840px;
+  max-height: 150px; 
+  padding: 0 16px; 
+}
+
+.game-carousel__head {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin: 0 4px 0px 16px;
+}
+
+.game-carousel__title {
+
+}
+
+.game-carousel__more {
+  color: var(--p-500);
+  margin-left: 7px;
+}
+.game-carousel__more:hover, .game-carousel__more:focus, .game-carousel__more:active {
+  text-decoration: none;
+}
+
+.game-carousel__viewport {
+  position: relative;
+  /* Tip: set overflow:hidden if any card shadows/images bleed outside */
+}
+
+.game-carousel__track {
+  list-style: none;
+  /* Horizontal gutters; consider matching nav width to avoid overlap */
+  padding: 5px;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.game-carousel__track::-webkit-scrollbar { display: none; }
+
+/* Cards (visual 240x130) */
+.game-card { 
+  width: 240px; 
+  border-radius: 12px;
+  box-shadow: 0px 0px 6px black;
+}
+.game-card__link { display: block; color: inherit; }
+.game-card__thumb {
+  position: relative;
+  width: 240px;
+  height: 130px; /* 100 image + 30 title bar */
+  border-radius: 12px;
+  overflow: hidden;
+  /*background: linear-gradient(180deg, var(--p-200), var(--p-800)); /* placeholder */
+}
+.game-card__backdrop {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(18px);
+  transform: scale(1.08); /* avoids blur edges */
+  pointer-events: none;
+  z-index: 0;
+}
+.game-card__thumb img {
+  position: relative;
+  z-index: 1;
+  width: 240px; /* force exact width */
+  height: 100px; /* image area */
+  object-fit: contain; /* letterbox, no cropping */
+  object-position: center center;
+  display: block;
+}
+
+/* Bottom overlay title bar */
+.game-card__overlay {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 30px; /* fixed title bar height */
+  display: flex;
+  align-items: center;
+  padding: 0px 12px;
+  background: var(--b-900); /* solid background */
+  z-index: 2;
+}
+.game-card__title {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--b-050);
+  font-weight: 600;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-button-large);
+  line-height: var(--line-height-button-large);
+}
+
+.game-card:hover .game-card__thumb,
+.game-card:focus-within .game-card__thumb { outline: 2px solid var(--s-500); }
+
+.game-card__link:focus-visible .game-card__thumb { outline: 3px solid var(--s-300); }
+
+/* Nav paddles (full-height overlay) */
+.game-carousel__nav {
+  position: absolute;
+  top: 0;
+  bottom: 0; /* full height: covers card drop shadows */
+  width: 60px;
+  background: var(--b-900);
+  color: var(--b-050);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 5; /* ensure above cards */
+  box-shadow: none;
+  border: 2px solid var(--b-800);
+}
+
+.game-carousel__nav[disabled] { opacity: 0.0; pointer-events: none; }
+
+.game-carousel__nav--prev { 
+  left: -5px;
+  border-radius: 12px 0px 0px 12px;
+  
+}
+.game-carousel__nav--next { 
+  right: -5px;
+  border-radius: 0px 12px 12px 0px;
+}
+
+.game-card::after {
+  content: "";
+}
+
+
+/* Skeletons while loading */
+.game-card.is-skeleton .game-card__thumb { 
+  background: linear-gradient(90deg, var(--b-800), var(--b-700), var(--b-800));
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer { 
+  0% { background-position: 200% 0; } 
+  100% { background-position: -200% 0; } 
+}
