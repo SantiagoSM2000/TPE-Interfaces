@@ -33,12 +33,10 @@
 
 .game-carousel__viewport {
   position: relative;
-  /* Tip: set overflow:hidden if any card shadows/images bleed outside */
 }
 
 .game-carousel__track {
   list-style: none;
-  /* Horizontal gutters; consider matching nav width to avoid overlap */
   padding: 5px;
   display: grid;
   grid-auto-flow: column;
@@ -64,15 +62,13 @@
   height: 130px; /* 100 image + 30 title bar */
   border-radius: 12px;
   overflow: hidden;
-  /*background: linear-gradient(180deg, var(--p-200), var(--p-800)); /* placeholder */
 }
 .game-card__backdrop {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
-  filter: blur(18px);
-  transform: scale(1.08); /* avoids blur edges */
+  filter: blur(14px);
   pointer-events: none;
   z-index: 0;
 }
@@ -110,9 +106,9 @@
 }
 
 .game-card:hover .game-card__thumb,
-.game-card:focus-within .game-card__thumb { outline: 2px solid var(--s-500); }
+.game-card:focus-within .game-card__thumb { outline: 2px solid var(--p-500); }
 
-.game-card__link:focus-visible .game-card__thumb { outline: 3px solid var(--s-300); }
+.game-card__link:focus-visible .game-card__thumb { outline: 3px solid var(--p-300); }
 
 /* Nav paddles (full-height overlay) */
 .game-carousel__nav {
@@ -135,7 +131,6 @@
 .game-carousel__nav--prev { 
   left: -5px;
   border-radius: 12px 0px 0px 12px;
-  
 }
 .game-carousel__nav--next { 
   right: -5px;
