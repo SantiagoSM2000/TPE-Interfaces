@@ -6,8 +6,10 @@
 */
 
 .game-carousel { 
-  margin: 0px 0px 40px 50px; 
-  max-width: 1840px;
+  /* Responsive container: take nearly full width and center */
+  margin: 16px auto 40px; 
+  width: 100%;
+  max-width: min(96vw, 1840px);
   padding: 0 16px; 
 }
 
@@ -30,13 +32,62 @@
   text-decoration: none;
 }
 
+.page-index .game-carousel {
+  margin: 12px 0 20px;
+  padding: 0 8px;
+}
+
+.page-index .game-carousel__head {
+  margin: 0 2px 8px 2px;
+  gap: 8px;
+}
+
+.page-index .game-carousel__more {
+  font-size: 0.9rem;
+}
+
+.page-index .game-carousel__track {
+  gap: 10px;
+  padding: 5px 0;
+}
+
+.page-index .game-carousel__nav {
+  display: none;
+}
+
+@media (min-width: 480px) and (max-width: 767.98px) {
+  .page-index .game-carousel__nav {
+    display: grid;
+    width: 52px;
+  }
+  .page-index .game-carousel__track {
+    padding: 5px 0;
+    gap: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .page-index .game-carousel {
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+  .page-index .game-carousel__track {
+    gap: 20px;
+    padding: 5px 0;
+  }
+  .page-index .game-carousel__nav {
+    display: grid;
+    width: 60px;
+  }
+}
+
 .game-carousel__viewport {
   position: relative;
 }
 
 .game-carousel__track {
   list-style: none;
-  padding: 5px;
+  padding: 5px 0;
   display: grid;
   grid-auto-flow: column;
   gap: 12px;
@@ -173,6 +224,12 @@
 .game-card--mini .game-card__thumb img { width: 132px; height: 70px; object-fit: cover; }
 .game-card--mini .game-card__overlay { display: none; }
 
+/* Square variant: 60x60, image only */
+.game-card--square { width: 60px; }
+.game-card--square .game-card__thumb { width: 60px; height: 60px; }
+.game-card--square .game-card__thumb img { width: 60px; height: 60px; object-fit: cover; }
+.game-card--square .game-card__overlay { display: none; }
+
 /* Big variant: 405x220, image only (no title bar) */
 .game-card--big { 
   width: 405px;
@@ -225,9 +282,10 @@
 }
 /* Hide the play button on variants that have different behaviors */
 .game-card--mini .game-card__play,
-.game-card--big .game-card__play { display: none; }
+.game-card--big .game-card__play,
+.game-card--square .game-card__play { display: none; }
 
-.game-card:not(.game-card--mini):not(.game-card--big) .game-card__thumb::before {
+.game-card:not(.game-card--mini):not(.game-card--big):not(.game-card--square) .game-card__thumb::before {
   content: "";
   position: absolute;
   left: 0; top: 0;
@@ -238,11 +296,11 @@
   pointer-events: none;
   z-index: 2;
 }
-.game-card:not(.game-card--mini):not(.game-card--big):hover .game-card__thumb::before,
-.game-card:not(.game-card--mini):not(.game-card--big):focus-within .game-card__thumb::before { opacity: 1; }
+.game-card:not(.game-card--mini):not(.game-card--big):not(.game-card--square):hover .game-card__thumb::before,
+.game-card:not(.game-card--mini):not(.game-card--big):not(.game-card--square):focus-within .game-card__thumb::before { opacity: 1; }
 
 /* Use a pseudo-element as the play button for default cards so no markup change is required */
-.game-card:not(.game-card--mini):not(.game-card--big) .game-card__thumb::after {
+.game-card:not(.game-card--mini):not(.game-card--big):not(.game-card--square) .game-card__thumb::after {
   content: "";
   position: absolute;
   left: 50%; top: calc(var(--img-h) / 2);
@@ -254,8 +312,11 @@
   pointer-events: none;
   z-index: 3;
 }
-.game-card:not(.game-card--mini):not(.game-card--big):hover .game-card__thumb::after,
-.game-card:not(.game-card--mini):not(.game-card--big):focus-within .game-card__thumb::after {
+.game-card:not(.game-card--mini):not(.game-card--big):not(.game-card--square):hover .game-card__thumb::after,
+.game-card:not(.game-card--mini):not(.game-card--big):not(.game-card--square):focus-within .game-card__thumb::after {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
+
+/* No hover visuals for square variant (mobile usage); keep focus outline for a11y */
+.game-card--square:hover .game-card__thumb { outline: none; }

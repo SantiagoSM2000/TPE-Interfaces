@@ -1,31 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- CSS principal -->
+    <title>Crear cuenta | PlayNow</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- CSS login-registro -->
     <link rel="stylesheet" href="css/login-register.css">
 </head>
 
 <body>
-    <!-- Header / Navbar -->
     <header id="header-placeholder"></header>
 
     <main>
-        <!-- Sección de registro -->
         <section class="form-section">
-            <!-- Formulario de registro -->
             <form id="register-form" class="container-form">
-                <!-- Titulo -->
                 <div class="form-title">
-                    <h2 class="h2">Registrar</h2>
+                    <h2 class="h2">Crear cuenta</h2>
                 </div>
 
-                <!-- Inputs -->
                 <div class="input-label">
                     <label for="name" class="subtitle-s1">Nombre</label>
                     <input type="text" id="name" name="name" required class="input">
@@ -41,9 +34,9 @@
                     <input type="text" id="nickname" name="nickname" required class="input">
                 </div>
 
-                <div class="input-label-number">
+                <div class="input-label input-label--number">
                     <label for="age" class="subtitle-s1">Edad</label>
-                    <input type="text" id="age" name="age" required class="input">
+                    <input type="number" id="age" name="age" min="13" class="input">
                 </div>
 
                 <div class="input-label">
@@ -52,45 +45,42 @@
                 </div>
 
                 <div class="input-label">
-                    <label for="Password" class="subtitle-s1">Contraseña</label>
-                    <input type="password" id="Password" name="Password" required class="input">
-                    <p class="body-b3">Mínimo 8 caracteres, 1 letra y 1 número</p>
+                    <label for="Password" class="subtitle-s1">Contrase&ntilde;a</label>
+                    <input type="password" id="Password" name="Password" required class="input" minlength="8">
+                    <p class="body-b3">M&iacute;nimo 8 caracteres, al menos una letra y un n&uacute;mero.</p>
                 </div>
 
                 <div class="input-label">
-                    <label for="repeat-password" class="subtitle-s1">Repetir Contraseña</label>
-                    <input type="password" id="repeat-password" name="repeat-password" required class="input">
+                    <label for="repeat-password" class="subtitle-s1">Repetir contrase&ntilde;a</label>
+                    <input type="password" id="repeat-password" name="repeat-password" required class="input" minlength="8">
                 </div>
 
                 <div class="g-recaptcha" data-sitekey="clave-de-la-pagina"></div>
 
-                <button type="submit" class="btn-form btn-medium">Registrar</button>
+                <button type="submit" class="btn-form btn-medium">Crear cuenta</button>
 
-                <!-- Links -->
                 <div class="links-lgn-reg">
-                    <p class="body-b3">¿Ya tienes una cuenta?
-                        <a href="login.html" class="body-b2">Inicia sesión</a>
+                    <p class="body-b3">&iquest;Ya tienes una cuenta?
+                        <a href="login.html" class="body-b2">Inicia sesi&oacute;n</a>
                     </p>
                 </div>
 
                 <div class="continue-links">
-                    <button type="submit" class="btn-medium subtitle-s1 btn-google">
-                        <img src="../src/assets/svg/google-logo.svg" alt="google-logo" class="btn-icon">
-                        Continuar con Google</button>
-                    <button type="submit" class="btn-medium subtitle-s1 btn-facebook">
-                        <img src="../src/assets/svg/facebook-logo.svg" alt="facebook-logo" class="btn-icon">
-                        Continuar con Facebook</button>
+                    <button type="button" class="btn-medium subtitle-s1 btn-google">
+                        <img src="assets/svg/google-logo.svg" alt="Google" class="btn-icon">
+                        Continuar con Google
+                    </button>
+                    <button type="button" class="btn-medium subtitle-s1 btn-facebook">
+                        <img src="assets/svg/facebook-logo.svg" alt="Facebook" class="btn-icon">
+                        Continuar con Facebook
+                    </button>
                 </div>
-
             </form>
         </section>
     </main>
 
-    <!-- componente fat footer -->
-
+    <script src="js/main.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
-
-<script src="js/main.js"></script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </html>

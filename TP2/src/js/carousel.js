@@ -39,7 +39,7 @@
         <section class="game-carousel">
           <div class="game-carousel__head">
             <h3 class="game-carousel__title">${this._title}</h3>
-            <a class="game-carousel__more" href="#">Ver más</a>
+            <a class="game-carousel__more" href="#">Ver m&aacute;s</a>
           </div>
           <div class="game-carousel__viewport">
             <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior" disabled>&lt;</button>
@@ -71,7 +71,7 @@
       }
 
       // If a specific genre was requested, try to filter by it using
-      // basic loops so it’s easy to read.
+      // basic loops so it's easy to read.
       if (wanted) {
         const byGenre = [];
         for (let i = 0; i < list.length; i++) {
@@ -139,7 +139,7 @@
         <section class="game-carousel">
           <div class="game-carousel__head">
             <h3 class="game-carousel__title subtitle-s1">${this._title}</h3>
-            <a class="game-carousel__more body-b1" href="#">Ver más</a>
+            <a class="game-carousel__more body-b1" href="#">Ver m&aacute;s</a>
           </div>
           <div class="game-carousel__viewport">
             <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior">&lt;</button>
@@ -159,7 +159,9 @@
       // Compute how far to scroll when clicking the buttons.
       // We choose the larger of (3 cards) or (viewport minus paddles).
       // Card widths can vary by variant, so we measure the first card.
-      const NAV = 60; // keep in sync with CSS --nav-width
+      const navW = () => {
+        try { return Math.max(0, (prev && prev.getBoundingClientRect().width) || 60); } catch(e) { return 60; }
+      };
       const measure = () => {
         const firstCard = track.querySelector('.game-card');
         const cw = firstCard ? firstCard.getBoundingClientRect().width : 240;
@@ -173,7 +175,7 @@
           return cw * 3 + gap * 2;
         }
         // Otherwise, choose the larger of 3 cards or (viewport minus paddles)
-        return Math.max(cw * 3 + gap * 2, this.clientWidth - (NAV * 2 + 20));
+        return Math.max(cw * 3 + gap * 2, this.clientWidth - (navW() * 2 + 20));
       };
 
       // Enable or disable the nav buttons depending on scroll position

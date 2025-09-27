@@ -47,11 +47,12 @@
       const href = this.getAttribute('href') || '#';
       const img = this.getAttribute('img') || '';
       const eager = this.hasAttribute('eager');
-      const noTitle = variant === 'mini';
+      const noTitle = (variant === 'mini' || variant === 'square');
       const revealOnHover = variant === 'big';
       // Choose width/height hints based on variant (CSS still rules final size)
       let w = 240, h = 100;
       if (variant === 'mini') { w = 132; h = 70; }
+      else if (variant === 'square') { w = 60; h = 60; }
       else if (variant === 'big') { w = 405; h = 220; }
 
       // Build the same structure the CSS already styles

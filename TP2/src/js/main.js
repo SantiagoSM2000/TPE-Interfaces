@@ -1,17 +1,17 @@
-// Minimal interactivity for the donation page
-// Handles amount selection and toggles custom amount input.
+// Minimal interactivity for the donation page and shared layout bootstrap.
 
-document.addEventListener('DOMContentLoaded', () => {
+const initDonationWidget = () => {
   const widget = document.querySelector('.donation-widget');
-  if (!widget) return; // Only run on donation page
+  if (!widget) return;
 
   const buttons = Array.from(widget.querySelectorAll('.amount-button'));
   const customWrap = widget.querySelector('.custom-amount');
   const customInput = widget.querySelector('#monto');
 
   const selectButton = (btn) => {
-    buttons.forEach(b => b.classList.remove('is-selected'));
+    buttons.forEach((b) => b.classList.remove('is-selected'));
     btn.classList.add('is-selected');
+
     if (btn.dataset.other === 'true') {
       customWrap.hidden = false;
       setTimeout(() => customInput && customInput.focus(), 0);
@@ -20,21 +20,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  buttons.forEach(btn => {
+  buttons.forEach((btn) => {
     btn.addEventListener('click', () => selectButton(btn));
   });
-});
+};
 
-// Header component
-document.addEventListener('DOMContentLoaded', () => {
+const injectFragment = (placeholder, url) => {
+  return fetch(url, { cache: 'no-store' })
+    .then((response) => response.text())
+    .then((html) => {
+      const tpl = document.createElement('template');
+      tpl.innerHTML = html.trim();
+      placeholder.replaceChildren(tpl.content.cloneNode(true));
+    });
+};
+
+const initLayoutFragments = () => {
   const headerPlaceholder = document.getElementById('header-placeholder');
   if (headerPlaceholder) {
-    fetch('components/header.html')
-      .then(response => response.text())
-      .then(html => {
-        headerPlaceholder.innerHTML = html;
-      })
-      .catch(err => console.error('Error loading header:', err));
+    injectFragment(headerPlaceholder, 'components/header.html')
+      .catch((err) => console.error('Error loading header:', err));
   }
 
   let footerPlaceholder = document.getElementById('footer-placeholder');
@@ -48,14 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (footerPlaceholder) {
-    try { footerPlaceholder.innerHTML = ''; } catch (e) {}
-    fetch('components/fat-footer.tpl', { cache: 'no-store' })
-      .then(response => response.text())
-      .then(html => {
-        const tpl = document.createElement('template');
-        tpl.innerHTML = html.trim();
-        footerPlaceholder.replaceChildren(tpl.content.cloneNode(true));
-      })
-      .catch(err => console.error('Error loading footer:', err));
+    try { footerPlaceholder.innerHTML = ''; } catch (e) { /* noop */ }
+    injectFragment(footerPlaceholder, 'components/fat-footer.tpl')
+      .catch((err) => console.error('Error loading footer:', err));
   }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  initDonationWidget();
+  initLayoutFragments();
 });
