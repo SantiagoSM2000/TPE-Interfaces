@@ -6,7 +6,7 @@
 */
 
 .game-carousel {
-  margin: 0 auto 40px auto;   
+  margin: 0 auto 0px auto;   
   max-width: 1840px;         
   width: 100%;          
   padding: 0 16px;
@@ -38,7 +38,7 @@
 }
 
 .game-carousel__track {
-  list-style: none;
+  list-style: none; 
   padding: 5px;
   display: grid;
   grid-auto-flow: column;
