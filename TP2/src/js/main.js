@@ -1,61 +1,34 @@
-// Minimal interactivity for the donation page
-// Handles amount selection and toggles custom amount input.
-
 document.addEventListener('DOMContentLoaded', () => {
+  // Donation widget
   const widget = document.querySelector('.donation-widget');
-  if (!widget) return; // Only run on donation page
+  if(widget){
+    const buttons = [...widget.querySelectorAll('.amount-button')];
+    const customWrap = widget.querySelector('.custom-amount');
+    const customInput = widget.querySelector('#monto');
 
-  const buttons = Array.from(widget.querySelectorAll('.amount-button'));
-  const customWrap = widget.querySelector('.custom-amount');
-  const customInput = widget.querySelector('#monto');
-
-  const selectButton = (btn) => {
-    buttons.forEach(b => b.classList.remove('is-selected'));
-    btn.classList.add('is-selected');
-    if (btn.dataset.other === 'true') {
-      customWrap.hidden = false;
-      setTimeout(() => customInput && customInput.focus(), 0);
-    } else {
-      customWrap.hidden = true;
-    }
-  };
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => selectButton(btn));
-  });
-});
-
-// Header component
-document.addEventListener('DOMContentLoaded', () => {
-  const headerPlaceholder = document.getElementById('header-placeholder');
-  if (headerPlaceholder) {
-    fetch('components/header.html')
-      .then(response => response.text())
-      .then(html => {
-        headerPlaceholder.innerHTML = html;
-      })
-      .catch(err => console.error('Error loading header:', err));
+    const selectButton = btn => {
+      buttons.forEach(b => b.classList.remove('is-selected'));
+      btn.classList.add('is-selected');
+      customWrap.hidden = btn.dataset.other !== 'true';
+      if(!customWrap.hidden) setTimeout(()=>customInput?.focus(),0);
+    };
+    buttons.forEach(btn => btn.addEventListener('click', ()=>selectButton(btn)));
   }
 
-  let footerPlaceholder = document.getElementById('footer-placeholder');
-  if (!footerPlaceholder) {
-    const existingFooter = document.querySelector('footer.site-footer');
-    if (existingFooter) {
-      existingFooter.innerHTML = '';
-      existingFooter.id = 'footer-placeholder';
-      footerPlaceholder = existingFooter;
-    }
-  }
+  // Header
+  const header = document.getElementById('header-placeholder');
+  if(header) fetch('components/header.html').then(r=>r.text()).then(html=>header.innerHTML=html).catch(console.error);
 
-  if (footerPlaceholder) {
-    try { footerPlaceholder.innerHTML = ''; } catch (e) {}
-    fetch('components/fat-footer.tpl', { cache: 'no-store' })
-      .then(response => response.text())
-      .then(html => {
+  // Footer
+  let footer = document.getElementById('footer-placeholder') || document.querySelector('footer.site-footer');
+  if(footer){
+    footer.id = 'footer-placeholder';
+    fetch('components/fat-footer.tpl',{cache:'no-store'})
+      .then(r=>r.text())
+      .then(html=>{
         const tpl = document.createElement('template');
         tpl.innerHTML = html.trim();
-        footerPlaceholder.replaceChildren(tpl.content.cloneNode(true));
-      })
-      .catch(err => console.error('Error loading footer:', err));
+        footer.replaceChildren(tpl.content.cloneNode(true));
+      }).catch(console.error);
   }
 });
