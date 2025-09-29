@@ -4,8 +4,6 @@
 
 /* ========================= */
 
-
-
 /* Layout helpers */
 
 .container { width: 1920px; padding: 0px;}
@@ -18,18 +16,11 @@
 }
 
 
-
-
-
-
-
 @media (max-width: 960px) {
 
   .two-cols { grid-template-columns: 1fr; }
 
 }
-
-
 
 /* Breadcrumb + title */
 
@@ -45,63 +36,11 @@
 
 .page-title{ margin: 34px 0 20px; }
 
-/*.game-page .page-title{ margin-left: 260px; }*/
-
-
-
-/* Media hero */
-/*
-.game-page .media-hero{
-  margin-left: 260px;
-  margin-right: 260px;
-}*/
-
-@media (max-width: 1200px) {
-
-  .game-page .media-hero{
-    margin-left: 24px;
-    margin-right: 24px;
-  }
-
-  .game-page .page-title{
-    margin-left: 24px;
-  }
-
-  .game-page .media-video{
-    width: auto;
-    height: auto;
-    margin-left: 24px;
-    margin-right: 24px;
-  }
-
-  .game-page .grid.two-cols{
-    margin-left: 24px;
-    margin-right: 24px;
-  }
-
-  .game-page .comments{
-    margin-left: 24px;
-    margin-right: 24px;
-    margin-bottom: 40px;
-  }
-
-  .game-page game-carousel{
-    margin-left: 24px;
-    margin-right: 24px;
-  }
-
-  .game-page .share{
-    margin: 16px 24px 0;
-  }
-
-}
-
-
-.media-hero{
+.game-placeholder{
 
   position: relative;
 
-  border-radius: 16px;
+  border-radius: 12px;
 
   overflow: hidden;
 
@@ -111,7 +50,7 @@
 
               url('../assets/svg/Pantalla juego.png') center/cover no-repeat;
 
-  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  box-shadow: 0 4px 4px rgba(0,0,0,.25);
 
 }
 
@@ -139,7 +78,6 @@
 
 }
 
-.play-btn:hover{ transform: translateY(-1px) scale(1.02); }
 
 
 
@@ -153,7 +91,6 @@
 
 }
 
-.icon-btn:hover{ background: rgba(33,41,54,.9); }
 
 .icon-btn svg{ width: 22px; height: 22px; fill: currentColor; }
 
@@ -183,13 +120,9 @@
 
 /* Descripción + Controles */
 
-.section-title{ font-family: var(--font-primary); font-size: 1.5rem; color: var(--b-050); margin: 22px 0 8px; }
+.section-title{ font-family: var(--font-primary); font-size: 1.5rem; color: var(--b-050); margin: 22px 0 8px; margin-bottom: 20px; }
 
 article p{ color: var(--b-100); margin-top: 8px; }
-
-.section-title{
-    margin-bottom: 20px;
-}
 
 .controls .controls-wrap{ display: grid; grid-template-columns: min-content min-content; gap: 140px; align-items: center; }
 
@@ -223,13 +156,16 @@ article p{ color: var(--b-100); margin-top: 8px; }
 
 /* Video */
 
-
+.game-page .media-video-section .section-title{
+  margin-bottom: 0px;
+}
 
 .game-page .media-video-section{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+  margin-bottom: 40px;
 }
 
 .game-page .media-video-section .section-title{
@@ -247,6 +183,7 @@ article p{ color: var(--b-100); margin-top: 8px; }
   margin-left: 442px;
   margin-right: 442px;
   aspect-ratio: 1036 / 568;
+  margin-top: 0px;
 }
 
 @media (max-width: 1920px) and (min-width: 1201px) {
@@ -257,6 +194,8 @@ article p{ color: var(--b-100); margin-top: 8px; }
   }
 
 }
+
+/*Batman youtube video*/
 
 .media-video{
   margin-top: 16px;
@@ -276,48 +215,48 @@ article p{ color: var(--b-100); margin-top: 8px; }
   border-radius: inherit;
 }
 
-/*
-.game-page game-carousel{
-  display: block;
-  margin-left: 260px;
-  margin-right: 260px;
-}*/
-
-/* Similar games */
-
-
-
-
-
-
-
 
 /* Comments */
 .comments{ display: grid; gap: 36px; }
 
-.game-page .comments { margin-left: 180px; margin-right: 180px; margin-bottom: 40px; }
+.game-page .comments { margin-inline: 180px; margin-bottom: 40px; }
 
 .game-page .share { margin: 16px 0px 0; }
+
+.comment-new,
+.comment .bubble {
+  background: var(--b-800);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 18px 20px;
+}
 
 .comment-new{
   display: grid;
   grid-template-columns: 56px 1fr auto;
-  gap: 20px;
-  align-items: center;
-  background: var(--b-800);
-  border: 1px solid rgba(255,255,255,.08);
+  grid-template-rows: auto auto;
+  column-gap: 20px;
+  row-gap: 12px;
+  align-items: start;
   border-radius: 16px;
-  padding: 18px 20px;
   box-shadow: 0 12px 30px rgba(0,0,0,.35);
 }
-.comment-new .avatar{
+.comment-new .avatar,
+.comment .avatar {
   width: 56px;
   height: 56px;
   border-radius: 50%;
   background: linear-gradient(180deg, #324d7a, #1e2f4c);
   border: 1px solid rgba(255,255,255,.08);
 }
-.comment-field{ display: grid; gap: 8px; }
+.comment-new .avatar{
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+.comment .avatar{
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+}
+.comment-field{ display: grid; gap: 8px; grid-column: 2; grid-row: 1 / span 2; }
 .comment-label{ color: var(--b-300); font-weight: 600; }
 .comment-field input{
   width: 100%;
@@ -336,34 +275,52 @@ article p{ color: var(--b-100); margin-top: 8px; }
   background: var(--p-500);
   color: var(--b-050);
   font-weight: 600;
-  cursor: pointer;
-  transition: background 150ms ease, transform 150ms ease;
+  grid-column: 4;
+  grid-row: 2;
+  align-self: center;
+  justify-self: end;
 }
-.comment-submit:hover{ background: var(--p-700); transform: translateY(-1px); }
 .comment-submit:active{ background: var(--p-800); transform: translateY(0); }
 
-.comment{ display: grid; grid-template-columns: 56px 1fr; gap: 18px; }
-.comment .avatar{ width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(180deg, #324d7a, #1e2f4c); border: 1px solid rgba(255,255,255,.08); box-shadow: inset 0 1px 0 rgba(255,255,255,.05); }
-.comment .bubble{ background: var(--b-800); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 18px 20px; box-shadow: 0 10px 24px rgba(0,0,0,.25); display: grid; gap: 12px; }
+.comment .bubble{
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.25);
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  align-items: flex-start;
+}
+.comment-content{ display: grid; gap: 12px; }
 .comment-header{ display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 .comment-author{ display: flex; align-items: center; gap: 8px; }
 .comment-name{ color: var(--b-050); font-weight: 600; }
 .comment-date{ color: var(--b-300); font-size: 0.85rem; }
-.comment-like{ display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); background: rgba(33,41,54,.75); color: var(--b-050); font-weight: 600; cursor: pointer; transition: background 150ms ease; }
-.comment-like:hover{ background: rgba(33,41,54,.95); }
+.comment-like{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(33,41,54,.75);
+  color: var(--b-050);
+  font-weight: 600;
+}
+.comment-submit,
+.comment-like {
+  cursor: pointer;
+  transition: background 150ms ease;
+}
 .comment-like img{ width: 18px; height: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
 .comment p{ color: var(--b-100); line-height: 1.5; }
-
 
 @media (max-width: 640px) {
   .comment-new{ grid-template-columns: 48px 1fr; grid-template-rows: auto auto; padding: 16px; }
   .comment-new .avatar{ width: 48px; height: 48px; }
-  .comment-field{ grid-column: 2 / 3; }
-  .comment-submit{ grid-column: 2 / 3; justify-self: flex-end; margin-top: 8px; }
-  .comment{ grid-template-columns: 48px 1fr; }
+  .comment-field{ grid-column: 2 / 3; grid-row: 1 / span 2; }
+  .comment-submit{ grid-column: 2 / 3; grid-row: 2; justify-self: end; margin-top: 0; }
+  .comment .bubble{ grid-template-columns: 48px 1fr; gap: 12px; }
   .comment .avatar{ width: 48px; height: 48px; }
   .comment-like{ padding: 6px 12px; }
 }
-
-
 
