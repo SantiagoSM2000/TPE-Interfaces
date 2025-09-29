@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 .game {
     grid-area: juego;
@@ -13,7 +18,7 @@
 
 .game-reviews {
     grid-area: reviews;
-    background-color: #F1FAEE; 
+    background-color: #a0d68d; 
     color: #1D3557;
 }
 
@@ -30,10 +35,8 @@
 }
 
 main section {
-    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    min-height: 250px; /* Altura base */
 }
 
 main {
@@ -45,10 +48,8 @@ main {
         "reviews"
         "similar"
         "comentarios";
-    gap: 20px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    justify-content: center;
+    max-width: 1200px;;
 }
 
 .game-content {
@@ -93,7 +94,6 @@ main {
     background-color: var(--p-500);
 }
 
-
 .btn-icon {
     margin-right: 0;
 }
@@ -102,3 +102,68 @@ main {
     box-shadow: none;
 }
 
+.game-reviews h2 {
+    text-align: center;
+    margin: 1rem;
+}
+
+#content-items-carrusel {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+}
+
+.item-carrusel {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+
+}
+
+.card-carrusel {
+    aspect-ratio: 16 / 9; 
+    width: 100%;
+}
+
+.card-carrusel img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.arrows-corrusel {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+.arrows-corrusel > a > img:hover {
+    filter: brightness(2);
+    transition: filter 0.3s ease;
+}
+
+#content-dots {
+    display: flex;
+    justify-content: center;
+}
+
+#content-dots > a {
+    padding: 0 1rem;
+    font-size: 2em;
+}
+
+#content-dots > a > img:hover {
+    filter: brightness(100);
+    transition: filter 0.3s ease;
+}
