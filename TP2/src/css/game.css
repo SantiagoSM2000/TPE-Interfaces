@@ -1,4 +1,5 @@
 /* ========================= */
+
 /* Game page (solo el cuerpo)*/
 
 /* ========================= */
@@ -14,6 +15,7 @@
 .sub-container {
     padding-left: 260px;
     padding-right: 260px;
+}
 
 
 /* Breadcrumb */
@@ -283,3 +285,25 @@ article p{ color: var(--b-100); margin-top: 8px; }
   gap: 18px;
   align-items: flex-start;
 }
+
+.comment-header{ display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+
+
+.comment-content{ display: grid; gap: 4px; }
+.comment-author{ display: flex; align-items: center; gap: 8px; }
+.comment-name{ color: var(--b-050); font-weight: 600; }
+.comment-date{ color: var(--b-300); font-size: 0.85rem; }
+
+.comment-like{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(33,41,54,.75);
+  color: var(--b-050);
+  font-weight: 600;
+}
+
+.comment-like img{ width: 18px; height: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
