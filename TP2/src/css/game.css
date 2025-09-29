@@ -52,10 +52,14 @@ main {
     max-width: 1200px;;
 }
 
+.game {
+    padding: 1rem;
+}
+
 .game-content {
     width: 100%;
     height: 85%;
-    background-color: white;
+    background-color: rgb(100, 100, 100);
 }
 
 .game-share {
@@ -64,6 +68,10 @@ main {
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
+}
+
+.game-details {
+    padding: 1rem;
 }
 
 .controls-container {
@@ -102,6 +110,10 @@ main {
     box-shadow: none;
 }
 
+.game-reviews {
+    padding: 2rem;
+}
+
 .game-reviews h2 {
     text-align: center;
     margin: 1rem;
@@ -119,7 +131,6 @@ main {
     display: inline-block;
     width: 100%;
     position: relative;
-
 }
 
 .card-carrusel {
@@ -167,3 +178,65 @@ a {
     filter: brightness(100);
     transition: filter 0.3s ease;
 }
+
+.game-comments h2 {
+    text-align: center;
+    margin: 1rem;
+}
+
+.game-comments p {
+    text-align: start;
+    margin-left: 1.25rem;
+}
+
+.container-form {
+    background-color: var(--b-800);
+    display: flex;
+    flex-direction: row;
+    border-radius: 12px;
+    margin: 0 1rem;
+    padding: 1rem;
+    padding-bottom: 2.5rem;
+}
+
+.img-form {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+.input-label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-right: 1rem;
+}
+
+.input-label input {
+    height: 3rem;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    width: 100%;
+    padding-left: 0.75rem;
+}
+
+.input-label button {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.input-label button img {
+    width: 24px;
+    height: 24px;
+}
+
+
