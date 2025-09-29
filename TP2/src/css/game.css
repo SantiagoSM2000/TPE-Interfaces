@@ -6,19 +6,19 @@
 
 .game {
     grid-area: juego;
-    background-color: #A8DADC;
+    /* background-color: #A8DADC; */
     min-height: 600px;
 }
 
 .game-details {
     grid-area: detalles;
-    background-color: #457B9D;
+    /* background-color: #457B9D; */
     color: white;
 }
 
 .game-reviews {
     grid-area: reviews;
-    background-color: #a0d68d; 
+    /* background-color: #a0d68d; */
     color: #1D3557;
 }
 
@@ -30,13 +30,8 @@
 
 .game-comments {
     grid-area: comentarios;
-    background-color: #1D3557; 
+    /* background-color: #1D3557; */
     color: white;
-}
-
-main section {
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 main {
