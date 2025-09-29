@@ -8,6 +8,10 @@
 
 .container { width: 1920px; padding: 0px;}
 
+.game-page main{
+  gap: 40px;
+}
+
 .game-page .grid.two-cols { grid-template-columns: 1fr; }
 
 .sub-container {
@@ -34,7 +38,7 @@
 
 
 
-.page-title{ margin: 34px 0 20px; }
+.page-title{ margin: 0px 0 20px; }
 
 .game-placeholder{
 
@@ -120,13 +124,13 @@
 
 /* Descripción + Controles */
 
-.section-title{ font-family: var(--font-primary); font-size: 1.5rem; color: var(--b-050); margin: 22px 0 8px; margin-bottom: 20px; }
+.section-title{ margin: 22px 0 8px; margin-bottom: 10px; }
 
 article p{ color: var(--b-100); margin-top: 8px; }
 
 .controls .controls-wrap{ display: grid; grid-template-columns: min-content min-content; gap: 140px; align-items: center; }
 
-.game-page .controls { margin-top: 32px; }
+.game-page .controls { margin-top: 40px; }
 
 .keys{ display: grid; gap: 8px; align-items: center; }
 
@@ -217,7 +221,12 @@ article p{ color: var(--b-100); margin-top: 8px; }
 
 
 /* Comments */
-.comments{ display: grid; gap: 36px; }
+.comments{ display: grid; gap: 36px; margin-top: 40px; }
+
+.comments .section-title{
+  text-align: center;
+  margin-bottom: 0px;
+}
 
 .game-page .comments { margin-inline: 180px; margin-bottom: 40px; }
 
@@ -280,7 +289,7 @@ article p{ color: var(--b-100); margin-top: 8px; }
   align-self: center;
   justify-self: end;
 }
-.comment-submit:active{ background: var(--p-800); transform: translateY(0); }
+
 
 .comment .bubble{
   border-radius: 18px;
@@ -290,11 +299,15 @@ article p{ color: var(--b-100); margin-top: 8px; }
   gap: 18px;
   align-items: flex-start;
 }
-.comment-content{ display: grid; gap: 12px; }
+
 .comment-header{ display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+
+
+.comment-content{ display: grid; gap: 4px; }
 .comment-author{ display: flex; align-items: center; gap: 8px; }
 .comment-name{ color: var(--b-050); font-weight: 600; }
 .comment-date{ color: var(--b-300); font-size: 0.85rem; }
+
 .comment-like{
   display: inline-flex;
   align-items: center;
@@ -306,14 +319,11 @@ article p{ color: var(--b-100); margin-top: 8px; }
   color: var(--b-050);
   font-weight: 600;
 }
-.comment-submit,
-.comment-like {
-  cursor: pointer;
-  transition: background 150ms ease;
-}
-.comment-like img{ width: 18px; height: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
-.comment p{ color: var(--b-100); line-height: 1.5; }
 
+.comment-like img{ width: 18px; height: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
+
+
+/*
 @media (max-width: 640px) {
   .comment-new{ grid-template-columns: 48px 1fr; grid-template-rows: auto auto; padding: 16px; }
   .comment-new .avatar{ width: 48px; height: 48px; }
@@ -322,5 +332,5 @@ article p{ color: var(--b-100); margin-top: 8px; }
   .comment .bubble{ grid-template-columns: 48px 1fr; gap: 12px; }
   .comment .avatar{ width: 48px; height: 48px; }
   .comment-like{ padding: 6px 12px; }
-}
+}*/
 
