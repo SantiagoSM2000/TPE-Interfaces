@@ -51,6 +51,18 @@
 
 .game-carousel__track::-webkit-scrollbar { display: none; }
 
+.game-carousel--short .game-carousel__track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  overflow-x: visible;
+  scroll-behavior: auto;
+}
+
+.game-carousel--short .game-carousel__nav {
+  display: none;
+}
+
 /* Cards (visual 240x130) */
 .game-card { 
   width: 240px; 

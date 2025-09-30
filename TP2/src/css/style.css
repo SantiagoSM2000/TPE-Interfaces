@@ -131,8 +131,8 @@ html, body {
 
 main {
   width: 100%;
-  margin: 0 auto;
-  padding: 1rem;
+  margin: 0 auto 30px 25px;
+  padding: 0rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;

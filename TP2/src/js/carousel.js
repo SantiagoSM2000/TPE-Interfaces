@@ -64,6 +64,7 @@
 
     renderList(list){
       const eagerCount = document.querySelector('game-carousel') === this ? 9 : 0;
+      const isShort = list.length < 8;
       const items = list.map((g, idx) => {
         const name = String(g.name || '');
         const img = String(g.background_image || '');
@@ -73,19 +74,21 @@
       }).join('');
 
       this.innerHTML = `
-        <section class="game-carousel">
+        <section class="game-carousel${isShort ? ' game-carousel--short' : ''}">
           <div class="game-carousel__head">
             <h3 class="game-carousel__title subtitle-s1">${this._title}</h3>
             <a class="game-carousel__more body-b1" href="#">Ver más</a>
           </div>
           <div class="game-carousel__viewport">
-            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior">&lt;</button>
+            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior"${isShort ? ' disabled' : ''}>&lt;</button>
             <ul class="game-carousel__track">${items}</ul>
-            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente">&gt;</button>
+            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente"${isShort ? ' disabled' : ''}>&gt;</button>
           </div>
         </section>`;
 
-      this.initNav();
+      if (!isShort) {
+        this.initNav();
+      }
     }
 
     initNav(){
