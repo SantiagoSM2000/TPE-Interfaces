@@ -155,48 +155,6 @@ article p{ color: var(--b-100); margin-top: 8px; }
 /*
 .mouse-img{ width: 72px; height: auto; display: block; }*/
 
-
-
-/*Game youtube video*/
-
-.game-page .media-video-section .section-title{
-  margin-bottom: 0px;
-}
-
-.game-page .media-video-section{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
-.game-page .media-video-section .section-title{
-  width: 100%;
-  max-width: 1036px;
-  text-align: center;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.media-video{
-  margin-top: 16px;
-  aspect-ratio: 16/9;
-  border-radius: 16px;
-  overflow: hidden;
-  background: linear-gradient(180deg, rgba(19,25,39,.85), rgba(19,25,39,.85)),
-              url('../assets/svg/Batman-video.png') center/cover no-repeat;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,.4);
-  width: 1036px;
-  max-width: 100%;
-  height: 568px;
-  margin-left: 442px;
-  margin-right: 442px;
-  aspect-ratio: 1036 / 568;
-  margin-top: 0px;
-}
-
 .media-video iframe{
   width: 100%;
   height: 100%;
@@ -307,3 +265,156 @@ article p{ color: var(--b-100); margin-top: 8px; }
 }
 
 .comment-like img{ width: 18px; height: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
+
+/* Carousel de imágenes */
+.media-images {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.carousel-container {
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  background: var(--b-800);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Botones de navegación */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--p-30t);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-btn:hover {
+  background: var(--p-70t);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.btn-prev {
+  left: 20px;
+}
+
+.btn-next {
+  right: 20px;
+}
+
+/* Indicadores */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--b-050);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator:hover {
+  background: var(--p-80t);
+  transform: scale(1.2);
+}
+
+.indicator.active {
+  background: var(--p-500);
+  width: 30px;
+  border-radius: 6px;
+}
+
+/* Contador */
+.carousel-counter {
+  display: flex;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(255,255,255,.05);
+  color: var(--b-050);
+  padding: 8px 15px;
+  border-radius: 20px;
+  z-index: 10;
+}
+
+.carousel-counter span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0 0.2rem;
+}
+
+/* Animación Ken Burns (zoom) */
+@keyframes kenBurns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.carousel-slide.active img {
+  animation: kenBurns 5s ease-in-out forwards;
+}
