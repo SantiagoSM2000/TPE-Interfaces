@@ -404,3 +404,17 @@ article p{ color: var(--b-100); margin-top: 8px; }
   font-weight: 600;
   padding: 0 0.2rem;
 }
+
+/* Animación Ken Burns (zoom) */
+@keyframes kenBurns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.carousel-slide.active img {
+  animation: kenBurns 5s ease-in-out forwards;
+}
