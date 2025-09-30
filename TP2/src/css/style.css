@@ -283,12 +283,6 @@ button {
   to { transform: rotate(360deg); }
 }
 
-.progress-text {
-  font-size: 30px;
-  font-weight: 600;
-  color: var(--b-050);
-}
-
 /* Ocultar el contenido mientras carga */
 body.loading header,
 body.loading main,
