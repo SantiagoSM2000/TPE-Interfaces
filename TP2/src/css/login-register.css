@@ -77,9 +77,13 @@ body {
 }
 
 .btn-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--b-050);
     color: var(--b-900);
     border: 1px solid var(--b-300);
+    padding: 0;
 }
 .btn-google:hover {
     cursor: pointer;
@@ -87,9 +91,13 @@ body {
 }
 
 .btn-facebook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--s-800);
     color: var(--b-050);
     border: 1px solid var(--s-900);
+    padding: 0;
 }
 .btn-facebook:hover {
     cursor: pointer;
