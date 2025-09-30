@@ -129,6 +129,10 @@ html, body {
   overflow-x: hidden;
 }
 
+a {
+  color: inherit;
+}
+
 main {
   width: 100%;
   margin: 0 auto;
@@ -216,6 +220,7 @@ button {
   background-color: inherit;
   color: var(--b-050);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .btn-giant { height: 56px; font-size: var(--font-size-button-giant); line-height: var(--line-height-button-giant); padding: 16px 36px; }
