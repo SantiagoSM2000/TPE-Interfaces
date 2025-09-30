@@ -3,7 +3,7 @@
   class GameCarousel extends HTMLElement {
     constructor(){
       super();
-      this._api = this.getAttribute('api') || 'https://vj.interfaces.jima.com.ar/api';
+      this._api = this.getAttribute('api') || 'https://vj.interfaces.jima.com.ar/api/v2';
       this._genre = (this.getAttribute('genre') || '').toLowerCase();
       this._limit = parseInt(this.getAttribute('limit') || '20', 10);
       this._title = this.getAttribute('title') || 'Juegos';
