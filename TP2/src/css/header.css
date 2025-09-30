@@ -26,6 +26,11 @@ header {
   gap: 15px;
 }
 
+.logo {
+  width: 100%;
+  max-width: 75%;
+}
+
 #searchbar {
   width: 350px;
   height: 40px;
