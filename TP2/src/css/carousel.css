@@ -21,10 +21,6 @@
   margin: 0 4px 0px 16px;
 }
 
-.game-carousel__title {
-
-}
-
 .game-carousel__more {
   color: var(--p-500);
   margin-left: 7px;
@@ -68,14 +64,13 @@
   width: 240px; 
   border-radius: 12px;
   box-shadow: 0px 0px 6px black;
-  /* default image height (used for centering overlays) */
   --img-h: 100px;
 }
 .game-card__link { display: block; color: inherit; }
 .game-card__thumb {
   position: relative;
   width: 240px;
-  height: 130px; /* 100 image + 30 title bar */
+  height: 130px;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -91,23 +86,22 @@
 .game-card__thumb img {
   position: relative;
   z-index: 1;
-  width: 240px; /* force exact width */
-  height: 100px; /* image area */
-  object-fit: contain; /* letterbox, no cropping */
+  width: 240px;
+  height: 100px;
+  object-fit: contain;
   object-position: center center;
   display: block;
   transition: opacity 160ms ease;
 }
 
-/* Bottom overlay title bar */
 .game-card__overlay {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  height: 30px; /* fixed title bar height */
+  height: 30px; 
   display: flex;
   align-items: center;
   padding: 0px 12px;
-  background: var(--b-900); /* solid background */
+  background: var(--b-900);
   z-index: 2;
 }
 .game-card__title {
@@ -127,20 +121,21 @@
 
 .game-card__link:focus-visible .game-card__thumb { outline: 3px solid var(--p-300); }
 
-/* Nav paddles (full-height overlay) */
 .game-carousel__nav {
   position: absolute;
   top: 0;
-  bottom: 0; /* full height: covers card drop shadows */
+  bottom: 0;
   width: 60px;
   background: var(--b-900);
   color: var(--b-050);
   display: grid;
   place-items: center;
   cursor: pointer;
-  z-index: 5; /* ensure above cards */
+  z-index: 5;
   box-shadow: none;
   border: 2px solid var(--b-800);
+  opacity: 1;
+  transition: opacity 0.2s ease;
 }
 
 .game-carousel__nav[disabled] { opacity: 0.0; pointer-events: none; }
@@ -159,7 +154,7 @@
 }
 
 
-/* Skeletons while loading */
+/* Skeletons cuando se cargan */
 .game-card.is-skeleton .game-card__thumb { 
   background: linear-gradient(90deg, var(--b-800), var(--b-700), var(--b-800));
   background-size: 200% 100%;
@@ -238,7 +233,6 @@
   pointer-events: none;
   z-index: 2;
 }
-/* Hide the play button on variants that have different behaviors */
 .game-card--mini .game-card__play,
 .game-card--big .game-card__play { display: none; }
 
@@ -256,7 +250,6 @@
 .game-card:not(.game-card--mini):not(.game-card--big):hover .game-card__thumb::before,
 .game-card:not(.game-card--mini):not(.game-card--big):focus-within .game-card__thumb::before { opacity: 1; }
 
-/* Use a pseudo-element as the play button for default cards so no markup change is required */
 .game-card:not(.game-card--mini):not(.game-card--big) .game-card__thumb::after {
   content: "";
   position: absolute;
