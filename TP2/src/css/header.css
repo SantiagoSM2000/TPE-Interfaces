@@ -127,8 +127,12 @@ header {
 }
 
 .btn-donation:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, var(--p-300), var(--p-100), var(--p-100), var(--p-300));
+  background-size: 300% 300%;
+  transition: all 0.3s ease;
+  animation: gradient-shift 4s ease infinite;
+  transform: scale(1.05);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
 }
 
 .btn-donation:active {
