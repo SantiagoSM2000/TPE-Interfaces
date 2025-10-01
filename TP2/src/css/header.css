@@ -27,9 +27,12 @@ header {
 }
 
 .logo {
+  max-width: 43px;
   width: 100%;
-  max-width: 75%;
+  height: auto;
 }
+
+
 
 #searchbar {
   width: 350px;
