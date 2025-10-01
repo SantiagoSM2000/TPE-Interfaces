@@ -266,7 +266,10 @@ article p{ color: var(--b-100); margin-top: 8px; }
 
 .comment-like img{ width: 18px; height: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
 
-/* Carousel de imágenes */
+/* ========================= */
+/* Carousel de imágenes - COVERFLOW STYLE */
+/* ========================= */
+
 .media-images {
   display: flex;
   flex-direction: column;
@@ -276,47 +279,89 @@ article p{ color: var(--b-100); margin-top: 8px; }
 }
 
 .carousel-container {
-  max-width: 800px;
+  max-width: 900px;
   width: 100%;
   position: relative;
-  background: var(--b-800);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 60px 20px;
+  overflow: hidden;
 }
 
 .carousel {
   position: relative;
   width: 100%;
   height: 450px;
-  overflow: hidden;
-  border-radius: 15px;
+  perspective: 1500px;
+  overflow: visible;
 }
 
 .carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
+  position: relative;
+  width: 100%;
   height: 100%;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .carousel-slide {
-  min-width: 100%;
+  position: absolute;
+  width: 60%;
   height: 100%;
-  position: relative;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  opacity: 0.3;
 }
 
-.carousel-slide.active {
-  opacity: 1;
-}
-
-.carousel-slide img {
+.carousel-slide img,
+.carousel-slide iframe {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 15px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  display: block;
+}
+
+.carousel-slide.media-video iframe {
+  border: 0;
+}
+
+/* Posiciones del Coverflow */
+.carousel-slide.active {
+  transform: translateX(0) translateZ(0) rotateY(0deg) scale(1.1);
+  opacity: 1;
+  z-index: 10;
+}
+
+.carousel-slide.left-1 {
+  transform: translateX(-40%) translateZ(-200px) rotateY(35deg) scale(0.85);
+  z-index: 5;
+  opacity: 0.6;
+}
+
+.carousel-slide.left-2 {
+  transform: translateX(-75%) translateZ(-350px) rotateY(50deg) scale(0.7);
+  z-index: 3;
+  opacity: 0.3;
+}
+
+.carousel-slide.right-1 {
+  transform: translateX(40%) translateZ(-200px) rotateY(-35deg) scale(0.85);
+  z-index: 5;
+  opacity: 0.6;
+}
+
+.carousel-slide.right-2 {
+  transform: translateX(75%) translateZ(-350px) rotateY(-50deg) scale(0.7);
+  z-index: 3;
+  opacity: 0.3;
+}
+
+.carousel-slide.hidden {
+  transform: translateX(0) translateZ(-500px) scale(0.5);
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Botones de navegación */
@@ -325,24 +370,25 @@ article p{ color: var(--b-100); margin-top: 8px; }
   top: 50%;
   transform: translateY(-50%);
   background: var(--p-30t);
-  border: none;
+  border: 1px solid rgba(255, 0, 128, 0.4);
   width: 50px;
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 24px;
+  color: var(--b-050);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  z-index: 10;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  backdrop-filter: blur(5px);
 }
 
 .carousel-btn:hover {
   background: var(--p-70t);
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 0, 128, 0.4);
 }
 
 .carousel-btn:active {
@@ -370,6 +416,7 @@ article p{ color: var(--b-100); margin-top: 8px; }
   height: 12px;
   border-radius: 50%;
   background: var(--b-050);
+  opacity: 0.3;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -378,43 +425,35 @@ article p{ color: var(--b-100); margin-top: 8px; }
 .indicator:hover {
   background: var(--p-80t);
   transform: scale(1.2);
+  opacity: 0.8;
 }
 
 .indicator.active {
   background: var(--p-500);
   width: 30px;
   border-radius: 6px;
+  opacity: 1;
 }
 
 /* Contador */
+.carousel-indicators {
+  margin-top: 3rem;
+}
+
 .carousel-counter {
-  display: flex;
   position: absolute;
-  bottom: 15px;
   right: 15px;
-  background: rgba(255,255,255,.05);
+  background: rgba(255, 0, 128, 0.2);
+  backdrop-filter: blur(10px);
   color: var(--b-050);
   padding: 8px 15px;
   border-radius: 20px;
   z-index: 10;
+  border: 1px solid rgba(255, 0, 128, 0.3);
 }
 
 .carousel-counter span {
   font-size: 0.9rem;
   font-weight: 600;
   padding: 0 0.2rem;
-}
-
-/* Animación Ken Burns (zoom) */
-@keyframes kenBurns {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.1);
-  }
-}
-
-.carousel-slide.active img {
-  animation: kenBurns 5s ease-in-out forwards;
 }
