@@ -9,10 +9,15 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- CSS login-registro -->
     <link rel="stylesheet" href="css/login-register.css">
+    <!-- CSS header -->
+    <link rel="stylesheet" href="css/header.css">
+    <!-- CSS sidebar -->
+    <link rel="stylesheet" href="css/sidebar.css">
 </head>
 
 <body>
-    <!-- componente header -->
+    <!-- Header / Navbar -->
+    <header id="header-placeholder"></header>
 
     <main>
         <!-- Sección de registro -->
@@ -37,12 +42,13 @@
 
                 <div class="input-label">
                     <label for="nickname" class="subtitle-s1">Nombre de usuario</label>
-                    <input type="text" id="nickname" name="nickname" required class="input">
+                    <input type="text" id="nickname" name="nickname" class="input">
                 </div>
 
-                <div class="input-label-number">
-                    <label for="age" class="subtitle-s1">Edad</label>
-                    <input type="text" id="age" name="age" required class="input">
+                <div class="input-label">
+                    <label for="age" class="subtitle-s1">Fecha de nacimiento</label>
+                    <!-- <input type="text" id="age" name="age" required class="input"> -->
+                    <input autocomplete="off" class="input" id="age" name="age" placeholder="DD-MM-YYYY" type="date" min="1945-01-01" max="2025-09-30" spellcheck="false" value="2025-09-30">
                 </div>
 
                 <div class="input-label">
@@ -89,6 +95,7 @@
 
 </body>
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="js/main.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </html>

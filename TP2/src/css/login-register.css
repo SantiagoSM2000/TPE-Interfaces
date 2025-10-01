@@ -43,7 +43,14 @@ a:hover {
 }
 
 /* Inputs */
+
+/* #age{
+    padding: 1px 8px;
+    width: 95%;
+} */
+
 .input {
+    padding: 0 0.5rem;
     height: 1.75rem;
     border: 1px solid var(--p-500);
     font-size: 1rem;
