@@ -1,4 +1,4 @@
-// <game-carousel> web component simplificado
+// Componente web de carrusel de juegos
 (function(){
   class GameCarousel extends HTMLElement {
     constructor(){
@@ -16,7 +16,7 @@
     }
 
     renderSkeleton(){
-      const skeletons = Array.from({length:8}, () => 
+      const skeletons = Array.from({length: 8}, () => 
         `<li><game-card skeleton${this._cardVariant ? ` variant="${this._cardVariant}"` : ''}></game-card></li>`
       ).join('');
       
@@ -27,9 +27,9 @@
             <a class="game-carousel__more" href="#">Ver más</a>
           </div>
           <div class="game-carousel__viewport">
-            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior" disabled style="display: block;">&lt;</button>
+            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior" disabled>&lt;</button>
             <ul class="game-carousel__track" style="justify-content: flex-start;">${skeletons}</ul>
-            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente" disabled style="display: block;">&gt;</button>
+            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente" disabled>&gt;</button>
           </div>
         </section>`;
     }
@@ -37,7 +37,7 @@
     async fetchAndRender(){
       let games = [];
       try {
-        const res = await fetch(this._api, {cache:'no-store'});
+        const res = await fetch(this._api, {cache: 'no-store'});
         games = await res.json();
       } catch (err) {
         console.error('Error al cargar juegos:', err);
@@ -53,7 +53,7 @@
           Array.isArray(g.genres) && 
           g.genres.some(gn => String(gn?.name || '').toLowerCase() === this._genre)
         );
-        list = filtered.length ? filtered : list.sort((a,b) => (b.rating||0) - (a.rating||0));
+        list = filtered.length ? filtered : list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
       }
 
       // Limitar cantidad
@@ -89,9 +89,9 @@
             <a class="game-carousel__more body-b1" href="#">Ver más</a>
           </div>
           <div class="game-carousel__viewport">
-            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior" style="display: block;">&lt;</button>
+            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior">&lt;</button>
             <ul class="game-carousel__track" style="justify-content: flex-start;">${items}</ul>
-            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente" style="display: block;">&gt;</button>
+            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente">&gt;</button>
           </div>
         </section>`;
 
@@ -103,18 +103,21 @@
       const prev = this.querySelector('.game-carousel__nav--prev');
       const next = this.querySelector('.game-carousel__nav--next');
 
+      // Calcular cuánto desplazar (3 tarjetas + gaps)
       const measureStep = () => {
         const card = track.querySelector('.game-card');
-        const cw = card ? card.getBoundingClientRect().width : 240;
+        const cardWidth = card ? card.getBoundingClientRect().width : 240;
         const gap = parseFloat(getComputedStyle(track).columnGap || '12');
-        return Math.max(cw * 3 + gap * 2, this.clientWidth - 140);
+        return Math.max(cardWidth * 3 + gap * 2, this.clientWidth - 140);
       };
 
+      // Actualizar estado de los botones
       const updateButtons = () => {
         prev.disabled = track.scrollLeft <= 0;
         next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
       };
 
+      // Desplazar el carrusel
       const scrollBy = dx => {
         track.scrollBy({left: dx, behavior: 'smooth'});
         setTimeout(updateButtons, 300);
