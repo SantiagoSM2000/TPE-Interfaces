@@ -22,6 +22,18 @@
 </head>
 
 <body>
+
+  <!-- Loading Screen -->
+    <div id="loading">
+        <div class="spinner-container">
+            <div class="spinner">
+                <div class="spinner-track"></div>
+                <div class="spinner-circle"></div>
+            </div>
+            <p class="progress-text h3" id="progress">0%</p>
+        </div>
+    </div>
+
   <header id="header-placeholder"></header>
     <!-- Carrusel de juegos de cartas (240x130) -->
   <main>
@@ -47,7 +59,7 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <!-- Load card component before carousel so it can render cards -->
+  <script src="js/loading.js"></script>
   <script src="js/game-card.js" defer></script>
   <script src="js/carousel.js" defer></script>
   <script src="js/sidebar.js"></script>
