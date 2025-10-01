@@ -27,9 +27,12 @@ header {
 }
 
 .logo {
+  max-width: 43px;
   width: 100%;
-  max-width: 75%;
+  height: auto;
 }
+
+
 
 #searchbar {
   width: 350px;
@@ -137,3 +140,21 @@ header {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
+header.header-simple {
+  justify-content: start;
+}
+
+header.header-simple .header-section {
+  gap: 0;
+}
+
+.header-logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.header-simple .logo{
+  margin-left: 85px;
+}
+

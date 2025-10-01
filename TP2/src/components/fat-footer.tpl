@@ -1,7 +1,9 @@
 <div class="footer-inner">
   <section class="brand">
     <div class="logo" aria-hidden="true">
-      <img src="assets/svg/Logo.svg" alt="" loading="lazy" />
+      <a href="index.html">
+        <img src="assets/svg/Logo.svg" alt="" loading="lazy" />
+      </a>
     </div>
 
     <div class="brand-text subtitle-s1">
