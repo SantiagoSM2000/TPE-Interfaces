@@ -411,3 +411,7 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
+
+.profile-menu-actions .btn-sesion .a-close-sesion {
+    color: rgb(255, 83, 83);
+}

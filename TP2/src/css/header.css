@@ -157,13 +157,6 @@ header {
   background-clip: padding-box;
 }
 
-.btn-perfil a {
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  position: relative;
-  z-index: 1;
-}
 
 /* Efecto de brillo deslizante */
 .btn-perfil::before {
@@ -216,4 +209,69 @@ header {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Botón cerrar sesión */
+.btn-sesion {
+  padding: 12px 24px;
+  background: linear-gradient(90deg, var(--p-300), var(--p-200));
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  background-clip: padding-box;
+}
+
+.a-close-sesion {
+  color: white;
+
+}
+
+/* Efecto de brillo deslizante */
+.btn-sesion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+  z-index: 0;
+}
+
+/* Borde animado */
+.btn-sesion::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--b-900), var(--b-700), var(--b-900), var(--b-700));
+  background-size: 300% 300%;
+  border-radius: 8px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  animation: border-flow 3s ease infinite;
+}
+
+.btn-sesion:hover::before {
+  left: 100%;
+}
+
+.btn-sesion:hover::after {
+  opacity: 1;
+}
+
+.btn-sesion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-sesion:active {
+  transform: translateY(0);
 }
