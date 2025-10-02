@@ -44,14 +44,22 @@ a:hover {
 
 .req{
     color: var(--p-500);
+    font-weight: 600;
 }
 
 /* Inputs */
 
-/* #age{
-    padding: 1px 8px;
-    width: 95%;
-} */
+.input-password{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-icon{
+    position: absolute;
+    right: 0.5rem;
+    cursor: pointer;
+}
 
 .input {
     padding: 0 0.5rem;
@@ -60,7 +68,7 @@ a:hover {
     font-size: 1rem;
     align-self: center;
     border-radius: 12px;
-    width: 100%;
+    width: calc(100% - 0.5rem*2 - 1px*2);
     box-shadow: 0.2rem 0.2rem 0.6rem rgba(255, 255, 255, 0.1);
 }
 

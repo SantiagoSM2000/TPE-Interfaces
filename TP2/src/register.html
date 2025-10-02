@@ -58,13 +58,19 @@
 
                 <div class="input-label">
                     <label for="Password" class="subtitle-s1">Contraseña <span class="req">*</span></label>
-                    <input type="password" id="Password" name="Password" required class="input">
+                    <div class="input-password">
+                        <img src="assets/svg/eye-open.svg" alt="Show password" class="password-icon" id="password-icon" data-open="false">
+                        <input type="password" id="Password" name="Password" required class="input" minlength="8" maxlength="25">
+                    </div>
                     <p class="body-b3">Mínimo 8 caracteres, 1 letra y 1 número</p>
                 </div>
 
                 <div class="input-label">
                     <label for="repeat-password" class="subtitle-s1">Repetir Contraseña <span class="req">*</span></label>
-                    <input type="password" id="repeat-password" name="repeat-password" required class="input">
+                    <div class="input-password">
+                        <img src="assets/svg/eye-open.svg" alt="Show password" class="password-icon" id="repeat-password-icon" data-open="false">
+                        <input type="password" id="repeat-password" name="repeat-password" required class="input" minlength="8" maxlength="25">
+                    </div>
                 </div>
 
                 <div class="g-recaptcha" data-sitekey="clave-de-la-pagina"></div>
@@ -96,6 +102,7 @@
 </body>
 
 <script src="js/main.js"></script>
+<script src="js/register.js"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </html>
