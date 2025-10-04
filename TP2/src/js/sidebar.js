@@ -140,10 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (overlay) overlay.classList.add('is-visible');
         document.body.style.overflow = 'hidden';
         const searchbar = document.querySelector(".search-input");
-        setTimeout(function() {
+        requestAnimationFrame(() => {
           searchbar.focus();
-        }, 1);
-        // searchbar.select();
+        });
       } else {
         sidebar.classList.remove('is-open');
       }
