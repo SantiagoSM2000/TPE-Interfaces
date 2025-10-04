@@ -139,9 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.classList.add('is-open');
         if (overlay) overlay.classList.add('is-visible');
         document.body.style.overflow = 'hidden';
-        const searchbar = document.querySelector(".search-input");
         requestAnimationFrame(() => {
-          searchbar.focus();
+          document.querySelector(".search-input").focus();
         });
       } else {
         sidebar.classList.remove('is-open');
