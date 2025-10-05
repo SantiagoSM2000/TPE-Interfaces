@@ -1,6 +1,4 @@
 /**
- * carousel-media-images.js
- * Controlador del carrusel de imágenes en la página del juego.
  * 
  * Track: .carousel-track (Contenedor de las imágenes)
  * Slides: .carousel-slide (Cada imagen)
@@ -9,11 +7,11 @@
  * Contadores: .current, .total (Contador de imágenes)
  * 
  * Funciones:
- * - updateCarousel(): Actualiza la vista del carrusel.
- * - nextSlide(): Muestra la siguiente imagen.
- * - prevSlide(): Muestra la imagen anterior.
- * - Event listeners para botones, indicadores y teclado.
- * - Auto-play cada 5 segundos.
+ * - updateCarousel(): Actualiza las posiciones 3D del carrusel
+ * - nextSlide(): Muestra la siguiente imagen
+ * - prevSlide(): Muestra la imagen anterior
+ * - Event listeners para botones, indicadores y teclado
+ * - Auto-play cada 5 segundos
  * 
  */
 
@@ -30,54 +28,83 @@ const totalSlides = slides.length;
 
 totalCounter.textContent = totalSlides;
 
+/**
+ * Actualiza las posiciones 3D de todas las slides
+ * Calcula la posición relativa de cada slide respecto a la activa
+ */
 function updateCarousel() {
-    // Remover clase active de todos
-    slides.forEach(slide => slide.classList.remove('active'));
-    indicators.forEach(ind => ind.classList.remove('active'));
+    slides.forEach((slide, index) => {
+        // Remover todas las clases de posición
+        slide.className = 'carousel-slide';
+        
+        // Si tiene la clase media-video, mantenerla
+        if (slide.querySelector('iframe')) {
+            slide.classList.add('media-video');
+        }
+        
+        // Calcular diferencia de posición
+        const diff = index - currentSlide;
+        
+        // Asignar clase según posición
+        if (diff === 0) {
+            slide.classList.add('active');
+        } else if (diff === -1 || diff === totalSlides - 1) {
+            slide.classList.add('left-1');
+        } else if (diff === -2 || diff === totalSlides - 2) {
+            slide.classList.add('left-2');
+        } else if (diff === 1 || diff === -(totalSlides - 1)) {
+            slide.classList.add('right-1');
+        } else if (diff === 2 || diff === -(totalSlides - 2)) {
+            slide.classList.add('right-2');
+        } else {
+            slide.classList.add('hidden');
+        }
+    });
 
-    // Agregar clase active al actual
-    slides[currentSlide].classList.add('active');
-    indicators[currentSlide].classList.add('active');
-
-    // Mover el track
-    // Cada slide ocupa el 100% del contenedor.
-    const offset = -currentSlide * 100;
-    track.style.transform = `translateX(${offset}%)`;
+    // Actualizar indicadores
+    indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentSlide);
+    });
 
     // Actualizar contador
     currentCounter.textContent = currentSlide + 1;
 }
 
 /**
- * (currentSlide + 1) % totalSlides
- * Si currentSlide es 0, pasa a 1.
- * Si currentSlide es 1, pasa a 2.
+ * Avanza a la siguiente slide
+ * Usa módulo para hacer loop infinito
  */
-
 function nextSlide() {
     currentSlide = (currentSlide + 1) % totalSlides;
     updateCarousel();
 }
 
+/**
+ * Retrocede a la slide anterior
+ * Suma totalSlides para evitar números negativos
+ */
 function prevSlide() {
     currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
     updateCarousel();
 }
 
-// Event listeners
+/**
+ * Va directamente a una slide específica
+ * @param {number} index - Índice de la slide objetivo
+ */
+function goToSlide(index) {
+    currentSlide = index;
+    updateCarousel();
+}
+
+// Event listeners para botones de navegación
 btnNext.addEventListener('click', nextSlide);
 btnPrev.addEventListener('click', prevSlide);
 
-
-/**
- * Indicadores
- * Cada indicador tiene un índice.
- * Al hacer click, se actualiza currentSlide y se llama a updateCarousel().
- */
+// Event listeners para indicadores
 indicators.forEach((indicator, index) => {
     indicator.addEventListener('click', () => {
-        currentSlide = index;
-        updateCarousel();
+        goToSlide(index);
     });
 });
 
@@ -87,5 +114,18 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') nextSlide();
 });
 
-// Auto-play
-setInterval(nextSlide, 5000);
+// Auto-play cada 5 segundos
+let autoplayInterval = setInterval(nextSlide, 5000);
+
+// Pausar autoplay cuando el usuario interactúa
+const carousel = document.querySelector('.carousel-container');
+carousel.addEventListener('mouseenter', () => {
+    clearInterval(autoplayInterval);
+});
+
+carousel.addEventListener('mouseleave', () => {
+    autoplayInterval = setInterval(nextSlide, 5000);
+});
+
+// Inicializar el carrusel
+updateCarousel();

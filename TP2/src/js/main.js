@@ -17,7 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Header
   const header = document.getElementById('header-placeholder');
-  if(header) fetch('components/header.html').then(r=>r.text()).then(html=>header.innerHTML=html).catch(console.error);
+  if(header){
+    const path = window.location.pathname;
+    const simpleHeader = /\/(login|register)\.html$/i.test(path);
+    header.classList.toggle('header-simple', simpleHeader);
+    const headerTemplate = simpleHeader ? 'components/header-simple.html' : 'components/header.html';
+    fetch(headerTemplate)
+      .then(r=>r.text())
+      .then(html=>header.innerHTML=html)
+      .catch(console.error);
+  }
 
   // Footer
   let footer = document.getElementById('footer-placeholder') || document.querySelector('footer.site-footer');
