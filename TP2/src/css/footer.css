@@ -125,11 +125,11 @@
 
 
 @media (max-width: 980px) {
-  .site-footer { padding-left: 24px; }
+  /* .site-footer { padding-left: 24px; } */
   .footer-inner {
     grid-template-columns: 1fr;
     row-gap: 32px;
-    padding: 32px 32px 0;
+    padding: 32px;
     justify-items: start;
   }
   .brand { --logo-size: 72px; }
