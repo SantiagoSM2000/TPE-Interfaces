@@ -29,6 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const tpl = document.createElement('template');
         tpl.innerHTML = html.trim();
         footer.replaceChildren(tpl.content.cloneNode(true));
-      }).catch(console.error);
+        const footerCategories = document.querySelectorAll(".footer-category");
+        footerCategories.forEach((category) => category.addEventListener('click', toggleFooterCategory));
+      }).catch(console.error); 
+    const footerCategories = document.querySelectorAll(".footer-category");
+    footerCategories.forEach((category) => category.addEventListener('click', toggleFooterCategory));
+    function toggleFooterCategory(e) {
+      const category = e.currentTarget;
+      const isOpen = category.getAttribute('data-open') === "true";
+      const newValue = !isOpen;
+      category.setAttribute('data-open', newValue);
+    }
   }
 });
