@@ -1,4 +1,5 @@
 .donation-page {
+  width: auto;
   background: var(--b-900);
   padding: 32px 90px 64px;
 }

@@ -1,13 +1,16 @@
 <div class="left-header header-section">
-    <button id="sidebar-toggle" data-open="false"><img src="assets/svg/mdi_hamburger-close.svg"
-            alt="Closed menu"></button>
-    <a href="index.html"><img src="assets/svg/Logo.svg" alt="logo"></a>
+    <button id="sidebar-toggle" data-open="false">
+        <img class="icon-open" src="assets/svg/menu-hamburguer-open.svg" alt="Open menu">
+        <img class="icon-close" src="assets/svg/menu-hamburguer-close.svg" alt="Close menu">
+        <img class="icon-search" src="assets/svg/search-menu.svg" alt="Open search menu">
+    </button>
+    <a href="index.html"><img src="assets/svg/Logo.svg" alt="logo" class="logo"></a>
 </div>
 <form id="searchbar" class="header-section" onsubmit="event.preventDefault();">
     <input class="search-input body-b1" type="search" name="search" placeholder="Buscar un juego...">
     <button type="submit" id="search-icon"><img src="assets/svg/gravity-ui_magnifier.svg" alt="search"></button>
 </form>
 <div class="right-header header-section">
-    <button class="btn-medium primary"><a href="donation.html">Donar</a></button>
+    <a href="donation.html"><button class="btn-medium primary btn-donation">Donar</button></a>
     <button id="profile-toggle" data-open="false"><img src="assets/svg/Ellipse 4.svg" alt="profile"></button>
 </div>

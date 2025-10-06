@@ -13,15 +13,12 @@
   padding: 0 16px; 
 }
 
+
 .game-carousel__head {
   display: flex;
   align-items: baseline;
   gap: 7px;
   margin: 0 4px 0px 16px;
-}
-
-.game-carousel__title {
-
 }
 
 .game-carousel__more {
