@@ -127,6 +127,14 @@
       next.addEventListener('click', () => scrollBy(measureStep()));
       track.addEventListener('scroll', updateButtons);
       window.addEventListener('resize', updateButtons);
+
+      const afterLoading = () => requestAnimationFrame(updateButtons);
+      if (document.body.classList.contains('loading')) {
+        document.addEventListener('vp-loading-complete', afterLoading, {once: true});
+      } else {
+        afterLoading();
+      }
+
       updateButtons();
     }
   }

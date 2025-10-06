@@ -29,6 +29,7 @@ const interval = setInterval(() => {
         setTimeout(() => {
             loadingEl.style.display = 'none';
             document.body.classList.remove('loading');
+            document.dispatchEvent(new Event('vp-loading-complete'));
         }, 100);
     }
 }, 100);
