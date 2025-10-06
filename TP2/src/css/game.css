@@ -30,7 +30,7 @@
 
 
 
-.page-title{ margin: 0px 0 20px; }
+.page-title{ margin: 0px 0 20px; text-align: center;}
 
 .game-placeholder{
 
@@ -264,7 +264,7 @@
 
 /* Descripción + Controles */
 
-.section-title{ margin: 22px 0 8px; margin-bottom: 10px; }
+.section-title{ margin: 22px 0 8px; margin-bottom: 10px; text-align: center; }
 
 article p{ color: var(--b-100); margin-top: 8px; }
 
