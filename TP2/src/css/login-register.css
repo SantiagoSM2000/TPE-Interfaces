@@ -64,12 +64,18 @@ a:hover {
 .input {
     padding: 0 0.5rem;
     height: 1.75rem;
-    border: 1px solid var(--p-500);
+    border: none;
     font-size: 1rem;
     align-self: center;
     border-radius: 12px;
     width: calc(100% - 0.5rem*2 - 1px*2);
     box-shadow: 0.2rem 0.2rem 0.6rem rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0.05rem 0.05rem 0.2rem var(--b-900);
+}
+
+.input:focus{
+    outline: 1px solid var(--p-500);
+    box-shadow: inset 0 0 0;
 }
 
 .input-label {
