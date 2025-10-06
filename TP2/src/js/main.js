@@ -59,7 +59,31 @@ const initLayoutFragments = () => {
   }
 };
 
+const updateCardsByScreensize = () => {
+  const mediaQuery = window.matchMedia("(min-width: 768px)");
+  function updateGamecards(e) {
+    const isWide = e.matches;
+    document.querySelectorAll('game-card').forEach(card => {
+      const variant = card.getAttribute('variant');
+      if (isWide && variant === 'square') {
+        card.setAttribute('variant', 'default');
+      } else if (!isWide && variant === 'default') {
+        card.setAttribute('variant', 'square');
+      }
+    });
+  }
+  const observer = new MutationObserver(() => {
+    if (document.querySelector('game-card')) {
+      updateGamecards(mediaQuery);
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+  updateGamecards(mediaQuery);
+  mediaQuery.addEventListener('change', updateGamecards);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initDonationWidget();
   initLayoutFragments();
+  updateCardsByScreensize();
 });
