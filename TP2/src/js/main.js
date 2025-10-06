@@ -59,31 +59,26 @@ const initLayoutFragments = () => {
   }
 };
 
-const updateCardsByScreensize = () => {
+const updateCarouselsByScreenSize = () => {
   const mediaQuery = window.matchMedia("(min-width: 768px)");
-  function updateGamecards(e) {
+  function updateCarousels(e) {
     const isWide = e.matches;
-    document.querySelectorAll('game-card').forEach(card => {
-      const variant = card.getAttribute('variant');
+    document.querySelectorAll('game-carousel').forEach(c => {
+      const variant = c.getAttribute('card-variant');
       if (isWide && variant === 'square') {
-        card.setAttribute('variant', 'default');
+        c.setAttribute('card-variant', 'default');
       } else if (!isWide && variant === 'default') {
-        card.setAttribute('variant', 'square');
+        c.setAttribute('card-variant', 'square');
       }
+      c.fetchAndRender();
     });
   }
-  const observer = new MutationObserver(() => {
-    if (document.querySelector('game-card')) {
-      updateGamecards(mediaQuery);
-    }
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
-  updateGamecards(mediaQuery);
-  mediaQuery.addEventListener('change', updateGamecards);
+  updateCarousels(mediaQuery);
+  mediaQuery.addEventListener('change', updateCarousels);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   initDonationWidget();
   initLayoutFragments();
-  updateCardsByScreensize();
+  updateCarouselsByScreenSize();
 });

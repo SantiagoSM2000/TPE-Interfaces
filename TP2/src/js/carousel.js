@@ -7,6 +7,10 @@
 // - api:   Endpoint returning an array of games (default: https://vj.interfaces.jima.com.ar/api)
 (function(){
   class GameCarousel extends HTMLElement {
+    static get observedAttributes() {
+      return ['card-variant'];
+    }
+    
     constructor(){
       super();
       // Read options from HTML attributes, with sensible defaults
@@ -23,6 +27,14 @@
     connectedCallback(){
       this.renderSkeleton();
       this.fetchAndRender();
+    }
+
+    attributeChangedCallback(name, oldVal, newVal) {
+      if (name === 'card-variant' && oldVal !== newVal) {
+        this._cardVariant = newVal || '';
+        this.renderSkeleton();
+        this.fetchAndRender();
+      }
     }
 
     // Render a lightweight placeholder while we load the real data
