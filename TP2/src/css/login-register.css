@@ -147,3 +147,14 @@ a:hover {
     align-content: center;
     margin-bottom: 0.75rem;
 }
+
+/* Mensajes de error */
+.error-message {
+    color: var(--p-500);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.input-error {
+    border: 1px solid var(--p-500);
+}
