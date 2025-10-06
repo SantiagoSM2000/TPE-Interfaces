@@ -412,6 +412,10 @@ body {
   pointer-events: auto;
 }
 
-.profile-menu-actions .btn-sesion .a-close-sesion {
+.btn-animated-profile-menu .close-session {
     color: rgb(255, 83, 83);
+}
+
+.profile-menu-actions button:hover  .close-session{
+  color: rgb(255, 83, 83);
 }

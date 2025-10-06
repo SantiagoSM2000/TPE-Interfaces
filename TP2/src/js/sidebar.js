@@ -208,17 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 250);
     });
 
-    // Update active link
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    const links = sidebar.querySelectorAll('.sidebar-nav a');
-    links.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href === currentPath || (currentPath === '' && href === 'index.html')) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
-    });
 
     // Initialize icon state
     updateToggleIcon(sidebarVisible);
