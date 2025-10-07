@@ -1,8 +1,10 @@
 <div class="footer-inner">
   <section class="brand">
     <div class="logo" aria-hidden="true">
-      <img src="assets/svg/Logo.svg" alt="" loading="lazy" />
-    </div>
+      <a href="index.html">
+        <img src="assets/svg/Logo.svg" alt="" loading="lazy" />
+      </a>
+   </div>
 
     <div class="brand-text subtitle-s1">
       <h3>PlayNow</h3>
@@ -25,7 +27,7 @@
 
   <nav class="links" aria-label="Footer links">
     <div class="col">
-      <h4>Acceso r&aacute;pido</h4>
+      <h4 class="footer-category" id="footer-acceso-rapido" data-open="false">Acceso rápido<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="#">Juegos destacados</a></li>
         <li><a href="#">Jugados recientes</a></li>
@@ -34,7 +36,7 @@
     </div>
 
     <div class="col">
-      <h4>Cuenta</h4>
+      <h4 class="footer-category" id="footer-cuenta" data-open="false">Cuenta<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="login.html">Iniciar sesi&oacute;n</a></li>
         <li><a href="register.html">Crear cuenta</a></li>
@@ -43,7 +45,7 @@
     </div>
 
     <div class="col">
-      <h4>Soporte</h4>
+      <h4 class="footer-category" id="footer-soporte" data-open="false">Soporte<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="#">Centro de ayuda</a></li>
         <li><a href="#">Reportar un error</a></li>
@@ -54,7 +56,7 @@
     </div>
 
     <div class="col">
-      <h4>Legal</h4>
+      <h4 class="footer-category" id="footer-legal" data-open="false">Legal<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="#">Pol&iacute;tica de privacidad</a></li>
         <li><a href="#">T&eacute;rminos de servicio</a></li>
@@ -64,7 +66,7 @@
     </div>
 
     <div class="col">
-      <h4>Compa&ntilde;&iacute;a</h4>
+      <h4 class="footer-category" id="footer-compania" data-open="false">Compañía<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="#">Acerca de</a></li>
         <li><a href="#">Blog</a></li>
@@ -73,7 +75,7 @@
     </div>
 
     <div class="col">
-      <h4>Donaci&oacute;n</h4>
+      <h4 class="footer-category" id="footer-donacion" data-open="false">Donación<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="donation.html">Donar</a></li>
       </ul>
@@ -82,5 +84,5 @@
 </div>
 
 <div class="footer-bottom subtitle-s1">
-  <p>&copy; 2025 PlayNow. Todos los derechos reservados.</p>
+  <p>© 2025 PlayNow. Todos los derechos reservados.</p>
 </div>

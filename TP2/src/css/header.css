@@ -1,4 +1,4 @@
-/*         */
+﻿/*         */
 /* HEADER  */
 /*         */
 
@@ -36,7 +36,6 @@ header {
   width: 350px;
   height: 40px;
   position: relative;
-  /* transition: all 200ms ease; */
 }
 
 .search-input {
@@ -225,7 +224,6 @@ header {
 
 .a-close-sesion {
   color: white;
-
 }
 
 /* Efecto de brillo deslizante */
@@ -275,36 +273,47 @@ header {
   transform: translateY(0);
 }
 
-@media (max-width: 768px) {
-  /* header{
-    justify-content: flex-start;
-  } */
+.sidebar-open .right-header{
+  display: none;
+}
+#searchbar{
+  display: none;
+}
+.search-input{
+  display: none;
+}
+.sidebar-open .search-input{
+  display: inline-block;
+}
+.sidebar-open #searchbar{
+  display: flex;
+  width: calc(100% - 5rem);
+}
+.sidebar-open .logo{
+  display: none;
+}
+
+@media (min-width: 768px) {
 
   .sidebar-open .right-header{
-    display: none;
+    display: flex;
   }
 
-  #searchbar{
-    display: none;
-    /* width: 3.5rem; */
-    /* background-color: blueviolet; */
+  #header-placeholder #searchbar{
+    display: flex;
+    width: 350px;
   }
 
-  .search-input{
-    display: none;
-  }
-
-  .sidebar-open .search-input{
+  #header-placeholder .search-input{
     display: inline-block;
   }
 
   .sidebar-open #searchbar{
     display: flex;
     width: calc(100% - 5rem);
-    /* width: 50px; */
   }
 
-  .sidebar-open .logo{
-    display: none;
+  #header-placeholder .logo{
+    display: inline;
   }
 }
