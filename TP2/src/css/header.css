@@ -289,7 +289,7 @@ header {
   display: flex;
   width: calc(100% - 5rem);
 }
-.sidebar-open .logo{
+.sidebar-open .left-header .logo{
   display: none;
 }
 
