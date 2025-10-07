@@ -68,6 +68,43 @@ document.addEventListener('DOMContentLoaded', () => {
         input.classList.remove('input-error');
     }
 
+    // Función para mostrar animación de éxito
+    function showSuccessAnimation(message) {
+        // Crear overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'success-overlay';
+        
+        // Crear mensaje de éxito
+        const successBox = document.createElement('div');
+        successBox.className = 'success-message';
+        
+        // Crear checkmark
+        const checkmark = document.createElement('div');
+        checkmark.className = 'success-checkmark';
+        
+        // Crear texto
+        const text = document.createElement('p');
+        text.className = 'success-text subtitle-s1';
+        text.textContent = message;
+        
+        // Ensamblar
+        successBox.appendChild(checkmark);
+        successBox.appendChild(text);
+        overlay.appendChild(successBox);
+        document.body.appendChild(overlay);
+        
+        // Animar formulario
+        const form = registerForm || loginForm;
+        if(form) {
+            form.classList.add('form-success-exit');
+        }
+        
+        // Redirigir después de la animación
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1500);
+    }
+
     // Limpiar errores cuando el usuario empiece a escribir - SOLO EN REGISTER
     if(registerForm) {
         const allInputs = registerForm.querySelectorAll('input');
@@ -144,9 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 isValid = false;
             }
 
-            // Si todo está correcto, redirigir al index
+            // Si todo está correcto, mostrar animación y redirigir
             if(isValid) {
-                window.location.href = "index.html";
+                showSuccessAnimation('¡Cuenta creada exitosamente!');
             }
         });
     }
@@ -159,24 +196,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailInput = document.querySelector("#Email");
             const passwordInput = document.querySelector("#Password");
             
+            // Validación básica y mostrar animación
             if(emailInput.value && passwordInput.value) {
-                window.location.href = "index.html";
+                showSuccessAnimation('¡Bienvenido de nuevo!');
             }
         });
     }
 
-    // Botones de redes sociales (funcionan en ambas páginas)
+    // Botones de redes sociales con animación de éxito
     if(googleBtn) {
         googleBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            window.location.href = "index.html";
+            showSuccessAnimation('¡Bienvenido!');
         });
     }
 
     if(facebookBtn) {
         facebookBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            window.location.href = "index.html";
+            showSuccessAnimation('¡Bienvenido!');
         });
     }
 });
