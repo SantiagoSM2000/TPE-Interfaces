@@ -5,7 +5,7 @@
   - Full-height nav paddles overlay the viewport
 */
 :root{
-  --gamecard-big--width: calc(100vw - 24px);
+  --gamecard-big--width: 380px;
   --gamecard-big--height: 200px; 
 }
 
@@ -88,6 +88,15 @@
   .page-index .game-carousel__nav {
     display: grid;
     width: 60px;
+  }
+  .game-card--big .game-card__overlay {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  .game-card--big:hover .game-card__overlay,
+  .game-card--big:focus-within .game-card__overlay {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -254,15 +263,8 @@
   background: rgba(0,0,0,0.28);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
-  opacity: 0;
-  transform: translateY(6px);
   transition: opacity 180ms ease, transform 180ms ease;
   pointer-events: none;
-}
-.game-card--big:hover .game-card__overlay,
-.game-card--big:focus-within .game-card__overlay {
-  opacity: 1;
-  transform: translateY(0);
 }
 .game-card--big .game-card__title {
   font-size: 1.375rem;
