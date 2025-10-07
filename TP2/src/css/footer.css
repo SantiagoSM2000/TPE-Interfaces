@@ -52,10 +52,11 @@
 .site-footer .brand .desc { margin-top: 30px; } 
 
 .links {
-    display: grid;
+  display: grid;
   padding-right: 24px;
   grid-template-columns: repeat(1, minmax(140px, 1fr));
   gap: 20px;
+  justify-self: center;
 }
 
 .links h4 {
