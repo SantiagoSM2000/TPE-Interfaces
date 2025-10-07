@@ -6,7 +6,7 @@
       genre: 'platformer',
       id: '__manual_platformer_Batman-Peg-Solitaire__',
       name: 'Batman Peg Solitaire',
-      background_image: '../src/assets/img/Batman_peg_soliataire-bg.png',
+      background_image: 'assets/img/Batman_peg_soliataire-bg.png',
       genres: [{ name: 'Platformer' }],
       rating: 5,
       href: 'game.html'
