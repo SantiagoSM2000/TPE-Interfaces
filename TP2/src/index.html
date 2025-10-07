@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto Base</title>
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- CSS header -->
+  <link rel="stylesheet" href="css/header.css">
+  <!-- Carousel component CSS -->
+  <link rel="stylesheet" href="css/carousel.css">
+  <!-- CSS footer -->
+  <link rel="stylesheet" href="css/footer.css">
+  <!-- CSS sidebar -->
+  <link rel="stylesheet" href="css/sidebar.css">
+
+  <!-- Fuente de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="page-index">
+
+  <!-- Loading Screen -->
+    <div id="loading">
+        <div class="spinner-container">
+            <div class="spinner">
+                <div class="spinner-track"></div>
+                <div class="spinner-circle"></div>
+            </div>
+            <p class="progress-text h3" id="progress">0%</p>
+        </div>
+    </div>
+
+  <header id="header-placeholder"></header>
+  <main>
+    <game-carousel title="Continuar jugando" genre="platformer" limit="20" card-variant="mini" ></game-carousel>
+    <game-carousel title="Destacados" genre="" limit="20" card-variant="big" ></game-carousel>
+    <game-carousel title="Acción" genre="action" limit="9" card-variant="square"></game-carousel>
+    <game-carousel title="Arcade" genre="arcade" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Aventura" genre="adventure" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Carreras" genre="racing" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Casual" genre="casual" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Puzzle" genre="puzzle" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Deportes" genre="sports" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Disparos" genre="shooter" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Estrategia" genre="strategy" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Indie" genre="indie" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="RPG" genre="rpg" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Simulación" genre="simulation" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Multijugador" genre="massively multiplayer" limit="20" card-variant="square"></game-carousel>
+    <game-carousel title="Miscelaneo" misc limit="20" card-variant="square"></game-carousel>
+  </main>
+
+  <footer class="site-footer" role="contentinfo" id="footer-placeholder">
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/game-card.js" defer></script>
+  <script src="js/carousel.js" defer></script>
+  <script src="js/sidebar.js"></script>
+</body>
+
+</html>

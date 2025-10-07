@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesi&oacute;n | PlayNow</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login-register.css">
+    <!-- CSS header -->
+    <link rel="stylesheet" href="css/header.css">
+    <!-- CSS sidebar -->
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+
+<body>
+    <header id="header-placeholder"></header>
+
+    <main>
+        <section class="form-section">
+            <form id="login-form" class="container-form">
+                <div class="form-title">
+                    <h2 class="h2">Iniciar sesi&oacute;n</h2>
+                </div>
+
+                <div class="input-label">
+                    <label for="Email" class="subtitle-s1">Email</label>
+                    <input type="email" id="Email" name="Email" required class="input">
+                </div>
+
+                <div class="input-label">
+                    <label for="Password" class="subtitle-s1">Contrase&ntilde;a</label>
+                    <input type="password" id="Password" name="Password" required class="input">
+                    <p class="body-b3"><a href="" class="clickable">¿Olvidaste tu contraseña?</a></p>
+                </div>
+
+                <button type="submit" class="btn-form btn-medium">Iniciar sesi&oacute;n</button>
+
+                <div class="links-lgn-reg">
+                    <p class="body-b3">¿No tienes una cuenta?
+                        <a href="register.html" class="body-b2 clickable">Regístrate</a>
+                    </p>
+                </div>
+
+                <div class="continue-links">
+                    <button type="button" class="btn-medium subtitle-s1 btn-google">
+                        <img src="assets/svg/google-logo.svg" alt="Google" class="btn-icon">
+                        Continuar con Google
+                    </button>
+                    <button type="button" class="btn-medium subtitle-s1 btn-facebook">
+                        <img src="assets/svg/facebook-logo.svg" alt="Facebook" class="btn-icon">
+                        Continuar con Facebook
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/register-login.js"></script>
+
+</body>
+
+</html>

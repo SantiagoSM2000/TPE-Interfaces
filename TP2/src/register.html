@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear cuenta | PlayNow</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login-register.css">
+    <!-- CSS header -->
+    <link rel="stylesheet" href="css/header.css">
+    <!-- CSS sidebar -->
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+
+<body>
+    <header id="header-placeholder"></header>
+
+    <main>
+        <section class="form-section">
+            <form id="register-form" class="container-form">
+                <div class="form-title">
+                    <h2 class="h2">Crear cuenta</h2>
+                </div>
+
+                <div class="input-label">
+                    <label for="name" class="subtitle-s1">Nombre <span class="req">*</span></label>
+                    <input type="text" id="name" name="name" required class="input">
+                </div>
+
+                <div class="input-label">
+                    <label for="last-name" class="subtitle-s1">Apellido <span class="req">*</span></label>
+                    <input type="text" id="last-name" name="last-name" required class="input">
+                </div>
+
+                <div class="input-label">
+                    <label for="nickname" class="subtitle-s1">Nombre de usuario</label>
+                    <input type="text" id="nickname" name="nickname" class="input">
+                </div>
+
+                <div class="input-label">
+                    <label for="age" class="subtitle-s1">Fecha de nacimiento <span class="req">*</span></label>
+                    <!-- <input type="text" id="age" name="age" required class="input"> -->
+                    <input autocomplete="off" class="input" id="age" name="age" placeholder="DD-MM-YYYY" type="date" min="1945-01-01" max="2025-09-30" spellcheck="false" value="2025-09-30">
+                </div>
+
+                <div class="input-label">
+                    <label for="Email" class="subtitle-s1">Email <span class="req">*</span></label>
+                    <input type="email" id="Email" name="Email" required class="input">
+                </div>
+
+                <div class="input-label">
+                    <label for="Password" class="subtitle-s1">Contraseña <span class="req">*</span></label>
+                    <div class="input-password">
+                        <img src="assets/svg/eye-open.svg" alt="Show password" class="password-icon" id="password-icon" data-open="false">
+                        <input type="password" id="Password" name="Password" required class="input" minlength="8" maxlength="25">
+                    </div>
+                    <p class="body-b3">Mínimo 8 caracteres, 1 letra y 1 número</p>
+                </div>
+
+                <div class="input-label">
+                    <label for="repeat-password" class="subtitle-s1">Repetir Contraseña <span class="req">*</span></label>
+                    <div class="input-password">
+                        <img src="assets/svg/eye-open.svg" alt="Show password" class="password-icon" id="repeat-password-icon" data-open="false">
+                        <input type="password" id="repeat-password" name="repeat-password" required class="input" minlength="8" maxlength="25">
+                    </div>
+                </div>
+
+                <div class="g-recaptcha" data-sitekey="6LfVheArAAAAADuuM3qoxri9cZVnNJ8P_4D65mjj"></div>
+
+                <button type="submit" class="btn-form btn-medium">Crear cuenta</button>
+
+                <div class="links-lgn-reg">
+                    <p class="body-b3">¿Ya tienes una cuenta?
+                        <a href="login.html" class="body-b2 clickable">Inicia sesión</a>
+                    </p>
+                </div>
+
+                <div class="continue-links">
+                    <button type="button" class="btn-medium subtitle-s1 btn-google">
+                        <img src="assets/svg/google-logo.svg" alt="Google" class="btn-icon">
+                        Continuar con Google
+                    </button>
+                    <button type="button" class="btn-medium subtitle-s1 btn-facebook">
+                        <img src="assets/svg/facebook-logo.svg" alt="Facebook" class="btn-icon">
+                        Continuar con Facebook
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/register-login.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</body>
+</html>
