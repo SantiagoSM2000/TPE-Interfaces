@@ -157,6 +157,8 @@ main {
 .body-b2 { font-size: var(--font-size-b2); line-height: var(--line-height-b2); font-weight: 400; }
 .body-b3 { font-size: var(--font-size-b3); line-height: var(--line-height-b3); font-weight: 400; }
 
+.clickable:hover { color: var(--p-500); }
+
 /* HEADER */
 header {
   background-color: var(--b-700);
