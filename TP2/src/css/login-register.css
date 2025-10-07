@@ -1,6 +1,20 @@
 /* Global */
 body {
-    background-color: var(--b-900);
+    margin: 0;
+    height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url('../assets/img/background.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(8px);
+    z-index: -1;
 }
 
 /* Login section wrapper */
@@ -9,6 +23,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    position: relative;
 }
 
 /* Sign-in form */
