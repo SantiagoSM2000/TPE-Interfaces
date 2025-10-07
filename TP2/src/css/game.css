@@ -20,7 +20,7 @@
 
 /* Breadcrumb */
 
-.breadcrumb{ display: inline-flex; gap: 8px; align-items: center; color: var(--b-300); margin: 18px 0px 0px 45px; }
+.breadcrumb{ display: inline-flex; gap: 8px; align-items: center; color: var(--b-300); margin: 8px; }
 
 .breadcrumb a{ color: var(--b-300); }
 
@@ -28,7 +28,7 @@
 
 .breadcrumb .active{ color: var(--p-500); font-weight: 600; }
 
-
+.sidebar-open .breadcrumb{ margin-left: 65px;}
 
 .page-title{ margin: 0px 0 20px; text-align: center;}
 

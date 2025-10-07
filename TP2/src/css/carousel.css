@@ -4,13 +4,17 @@
   - Horizontal scroll track with CSS grid columns
   - Full-height nav paddles overlay the viewport
 */
+:root{
+  --gamecard-big--width: 380px;
+  --gamecard-big--height: 200px; 
+}
 
 .game-carousel { 
   /* Responsive container: take nearly full width and center */
   margin: 0 auto; 
   width: 100%;
-  max-width: min(96vw, 1840px);
-  padding: 0 16px; 
+  max-width: min(98vw, 1840px);
+  padding: 0 4px; 
   box-sizing: border-box;
 }
 
@@ -31,12 +35,12 @@
 }
 
 .page-index .game-carousel {
-  margin: 12px 0 20px;
-  padding: 0 8px;
+  margin: 4px 0;
+  padding: 0;
 }
 
 .page-index .game-carousel__head {
-  margin: 0 2px 8px 2px;
+  margin: 0 2px;
   gap: 8px;
 }
 
@@ -65,13 +69,20 @@
 }
 
 @media (min-width: 768px) {
+  :root{
+    --gamecard-big--width: 405px;
+    --gamecard-big--height: 220px;
+  }
   .page-index .game-carousel {
-    margin: 24px auto;
-    padding: 0 16px;
+    margin: 4px 16px;
+    padding: 0;
+  }
+  body.sidebar-open .game-carousel {
+    padding: 0 8px 0 48px;
   }
   .page-index .game-carousel__track {
-    gap: 20px;
-    padding: 5px 0;
+    gap: 13px;
+    padding: 2px;
   }
   .page-index .game-carousel__nav {
     display: grid;
@@ -85,7 +96,7 @@
 
 .game-carousel__track {
   list-style: none;
-  padding: 5px 0;
+  padding: 2px;
   display: grid;
   grid-auto-flow: column;
   gap: 12px;
@@ -230,10 +241,10 @@
 
 /* Big variant: 405x220, image only (no title bar) */
 .game-card--big { 
-  width: 405px;
+  width: var(--gamecard-big--width);
 }
-.game-card--big .game-card__thumb { width: 405px; height: 220px; }
-.game-card--big .game-card__thumb img { width: 405px; height: 220px; object-fit: cover; }
+.game-card--big .game-card__thumb { width: var(--gamecard-big--width); height: var(--gamecard-big--height); }
+.game-card--big .game-card__thumb img { width: var(--gamecard-big--width); height: var(--gamecard-big--height); object-fit: cover; }
 .game-card--big .game-card__overlay {
   display: flex;
   align-items: center;
