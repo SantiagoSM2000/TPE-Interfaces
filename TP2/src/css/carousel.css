@@ -139,7 +139,7 @@
   z-index: 1;
   width: 240px; /* force exact width */
   height: 100px; /* image area */
-  object-fit: contain; /* letterbox, no cropping */
+  object-fit: cover;
   object-position: center center;
   display: block;
   transition: opacity 160ms ease;
