@@ -57,27 +57,20 @@ const initLayoutFragments = () => {
   }
 
   if (footerPlaceholder) {
-    try { footerPlaceholder.innerHTML = ''; } catch (e) { /* noop */ }
     injectFragment(footerPlaceholder, 'components/fat-footer.tpl')
+      .then(() => {
+        const footerCategories = document.querySelectorAll(".footer-category");
+        footerCategories.forEach(category => {
+          category.addEventListener('click', toggleFooterCategory);
+        });
+      })
       .catch((err) => console.error('Error loading footer:', err));
   }
 
-  // Footer
-  let footer = document.getElementById('footer-placeholder') || document.querySelector('footer.site-footer');
-  if(footer){
-    footer.id = 'footer-placeholder';
-    try { footerPlaceholder.innerHTML = ''; } catch (e) { /* noop */ }
-    injectFragment(footerPlaceholder, 'components/fat-footer.tpl')
-      .then(()=>{
-        const footerCategories = document.querySelectorAll(".footer-category");
-        footerCategories.forEach((category) => category.addEventListener('click', toggleFooterCategory));
-      }).catch((err) => console.error('Error loading footer:', err));
-    function toggleFooterCategory(e) {
-      const category = e.currentTarget;
-      const isOpen = category.getAttribute('data-open') === "true";
-      const newValue = !isOpen;
-      category.setAttribute('data-open', newValue);
-    }
+  function toggleFooterCategory(e) {
+    const category = e.currentTarget;
+    const isOpen = category.getAttribute('data-open') === "true";
+    category.setAttribute('data-open', (!isOpen).toString());
   }
 };
 
