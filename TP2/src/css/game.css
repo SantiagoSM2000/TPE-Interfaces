@@ -9,7 +9,7 @@
 .container { width: 1920px; padding: 0px;}
 
 .game-page main{
-  gap: 40px;
+  gap: 0px;
 }
 
 .sub-container {
@@ -20,7 +20,7 @@
 
 /* Breadcrumb */
 
-.breadcrumb{ display: inline-flex; gap: 8px; align-items: center; color: var(--b-300); margin: 8px; }
+.breadcrumb{ display: inline-flex; gap: 8px; align-items: center; color: var(--b-300); }
 
 .breadcrumb a{ color: var(--b-300); }
 
@@ -30,7 +30,7 @@
 
 .sidebar-open .breadcrumb{ margin-left: 65px;}
 
-.page-title{ margin: 0px 0 20px; text-align: center;}
+.page-title{ margin: 0px 0 0px; text-align: center;}
 
 .game-placeholder{
 
