@@ -20,6 +20,12 @@ header {
   justify-content: space-between;
 }
 
+#header-placeholder.header-simple #searchbar,
+#header-placeholder.header-simple .right-header,
+#header-placeholder.header-simple #sidebar-toggle{
+  display: none;
+}
+
 .header-section {
   display: flex;
   align-items: center;
