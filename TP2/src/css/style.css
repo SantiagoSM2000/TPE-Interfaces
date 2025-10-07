@@ -130,7 +130,12 @@ html, body {
 }
 
 a {
+  text-decoration: none;
   color: inherit;
+}
+a:hover {
+    text-decoration: underline;
+    color: var(--p-500);
 }
 
 main {

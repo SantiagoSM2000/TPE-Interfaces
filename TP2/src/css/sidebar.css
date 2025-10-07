@@ -328,6 +328,7 @@ body {
   
   .sidebar.is-open {
     left: 0;
+    width: 100vw;
   }
   
   .sidebar.is-closed {
@@ -377,6 +378,18 @@ body {
     opacity: 1;
     pointer-events: auto;
   }
+
+  #sidebar-toggle[data-open="true"] .icon-search {
+    opacity: 1;
+  }
+
+  #sidebar-toggle[data-open="true"] .icon-open {
+    display: none;
+  }
+}
+
+.icon-search{
+  fill: blue;
 }
 
 /* Animation for hamburger icon */
@@ -387,7 +400,8 @@ body {
 }
 
 #sidebar-toggle .icon-open,
-#sidebar-toggle .icon-close {
+#sidebar-toggle .icon-close,
+#sidebar-toggle .icon-search {
   transition: opacity 0.2s ease, transform 0.2s ease;
   position: absolute;
   top: 0;
@@ -396,7 +410,7 @@ body {
   height: 100%;
   display: block;
 }
-
+/* 
 #sidebar-toggle .icon-close {
   opacity: 0;
   pointer-events: none;
@@ -410,6 +424,12 @@ body {
 #sidebar-toggle[data-open="true"] .icon-close {
   opacity: 1;
   pointer-events: auto;
+} */
+
+#sidebar-toggle .icon-open,
+#sidebar-toggle .icon-search {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .btn-animated-profile-menu .close-session {
@@ -418,4 +438,11 @@ body {
 
 .profile-menu-actions button:hover  .close-session{
   color: rgb(255, 83, 83);
+}
+#sidebar-toggle[data-open="true"] .icon-open {
+  opacity: 1;
+}
+
+#sidebar-toggle[data-open="true"] .icon-close {
+  opacity: 0;
 }

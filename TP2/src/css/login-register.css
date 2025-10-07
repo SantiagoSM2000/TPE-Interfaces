@@ -3,7 +3,7 @@ body {
     background-color: var(--b-900);
 }
 
-/* Sección de login */
+/* Login section wrapper */
 .form-section {
     display: flex;
     justify-content: center;
@@ -11,7 +11,7 @@ body {
     min-height: 100vh;
 }
 
-/* Formulario de inicio de sesión */
+/* Sign-in form */
 .container-form {
     display: flex;
     justify-content: center;
@@ -77,20 +77,12 @@ body {
 }
 
 
-.input-label-number {
-    display: flex;
-    flex-direction: column;
-    width: 65%;  
-    margin-bottom: 1rem;
-}
-
-
-.input-label-number input {
+.input-label--number .input {
     width: 35%;
     align-self: flex-start;
 }
 
-/* Botones */
+/* Buttons */
 .btn-form {
     background-color: var(--p-200);
     color: var(--b-900);

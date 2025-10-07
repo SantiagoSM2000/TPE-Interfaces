@@ -42,6 +42,10 @@
   }
 
   class GameCarousel extends HTMLElement {
+    static get observedAttributes() {
+      return ['card-variant'];
+    }
+    
     constructor(){
       super();
       this._api = this.getAttribute('api') || 'https://vj.interfaces.jima.com.ar/api';
@@ -68,10 +72,21 @@
       this.fetchAndRender();
     }
 
-    disconnectedCallback(){
-      if (this._handleMiscAdd) {
-        document.removeEventListener('game-carousel:misc-add', this._handleMiscAdd);
-        this._handleMiscAdd = null;
+    attributeChangedCallback(name, oldVal, newVal) {
+      if (name === 'card-variant' && oldVal !== newVal) {
+        this._cardVariant = newVal || '';
+        this.renderSkeleton();
+        this.fetchAndRender();
+      }
+    }
+
+    // Render a lightweight placeholder while we load the real data
+    renderSkeleton(){
+      // Build 8 placeholder items using <game-card skeleton>
+      let skeletons = '';
+      for (let i = 0; i < 8; i++) {
+        const v = this._cardVariant ? ` variant=\"${this.escape(this._cardVariant)}\"` : '';
+        skeletons += `<li><game-card skeleton${v}></game-card></li>`;
       }
     }
 
@@ -98,7 +113,7 @@
         <section class="game-carousel">
           <div class="game-carousel__head">
             <h3 class="game-carousel__title">${this._title}</h3>
-            <a class="game-carousel__more" href="#">Ver más</a>
+            <a class="game-carousel__more" href="#">Ver m&aacute;s</a>
           </div>
           <div class="game-carousel__viewport">
             <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior" disabled>&lt;</button>
@@ -216,7 +231,7 @@
         <section class="game-carousel">
           <div class="game-carousel__head">
             <h3 class="game-carousel__title subtitle-s1">${this._title}</h3>
-            <a class="game-carousel__more body-b1" href="#">Ver más</a>
+            <a class="game-carousel__more body-b1" href="#">Ver m&aacute;s</a>
           </div>
           <div class="game-carousel__viewport">
             <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior">&lt;</button>

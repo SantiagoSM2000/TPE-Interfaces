@@ -10,7 +10,7 @@
       <h3>PlayNow</h3>
       <p class="tagline body-b1">Juegos de navegador, sin descargas - solo juega.</p>
       <p class="desc body-b1">
-        Descubre miles de juegos seleccionados a mano. Optimizamos para cargas rápidas, baja latencia y
+        Descubre miles de juegos seleccionados a mano. Optimizamos para cargas r&aacute;pidas, baja latencia y
         contenido seguro para que solo te concentres en jugar.
       </p>
     </div>
@@ -27,7 +27,7 @@
 
   <nav class="links" aria-label="Footer links">
     <div class="col">
-      <h4>Acceso rápido</h4>
+      <h4 class="footer-category" id="footer-acceso-rapido" data-open="false">Acceso rápido<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="#">Juegos destacados</a></li>
         <li><a href="#">Jugados recientes</a></li>
@@ -36,37 +36,37 @@
     </div>
 
     <div class="col">
-      <h4>Cuenta</h4>
+      <h4 class="footer-category" id="footer-cuenta" data-open="false">Cuenta<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
-        <li><a href="login.html">Iniciar sesión</a></li>
+        <li><a href="login.html">Iniciar sesi&oacute;n</a></li>
         <li><a href="register.html">Crear cuenta</a></li>
         <li><a href="#">Perfil</a></li>
       </ul>
     </div>
 
     <div class="col">
-      <h4>Soporte</h4>
+      <h4 class="footer-category" id="footer-soporte" data-open="false">Soporte<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="#">Centro de ayuda</a></li>
         <li><a href="#">Reportar un error</a></li>
         <li><a href="#">Sugerir un juego</a></li>
         <li><a href="#">Desarrolladores</a></li>
-        <li><a href="#">Contáctenos</a></li>
+        <li><a href="#">Cont&aacute;ctenos</a></li>
       </ul>
     </div>
 
     <div class="col">
-      <h4>Legal</h4>
+      <h4 class="footer-category" id="footer-legal" data-open="false">Legal<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
-        <li><a href="#">Política de privacidad</a></li>
-        <li><a href="#">Términos de servicio</a></li>
-        <li><a href="#">Configuración de cookies</a></li>
+        <li><a href="#">Pol&iacute;tica de privacidad</a></li>
+        <li><a href="#">T&eacute;rminos de servicio</a></li>
+        <li><a href="#">Configuraci&oacute;n de cookies</a></li>
         <li><a href="#">DMCA</a></li>
       </ul>
     </div>
 
     <div class="col">
-      <h4>Compañía</h4>
+      <h4 class="footer-category" id="footer-compania" data-open="false">Compañía<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="#">Acerca de</a></li>
         <li><a href="#">Blog</a></li>
@@ -75,7 +75,7 @@
     </div>
 
     <div class="col">
-      <h4>Donación</h4>
+      <h4 class="footer-category" id="footer-donacion" data-open="false">Donación<img src="assets/svg/up-arrow.svg" class="deploy-icon deploy-icon-open"/><img src="assets/svg/down-arrow.svg" class="deploy-icon deploy-icon-close"/></h4>
       <ul>
         <li><a href="donation.html">Donar</a></li>
       </ul>
