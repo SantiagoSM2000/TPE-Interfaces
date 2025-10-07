@@ -38,7 +38,11 @@ const injectFragment = (placeholder, url) => {
 const initLayoutFragments = () => {
   const headerPlaceholder = document.getElementById('header-placeholder');
   if (headerPlaceholder) {
-    injectFragment(headerPlaceholder, 'components/header.html')
+    const path = window.location.pathname;
+    const simpleHeader = /\/(login|register)\.html$/i.test(path);
+    headerPlaceholder.classList.toggle('header-simple', simpleHeader);
+    const headerTemplate = simpleHeader ? 'components/header-simple.html' : 'components/header.html';
+    injectFragment(headerPlaceholder, headerTemplate)
       .catch((err) => console.error('Error loading header:', err));
   }
 
