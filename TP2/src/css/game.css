@@ -220,28 +220,6 @@
 
 }
 
-
-
-
-/*
-.media-actions{ position: absolute; right: 10px; bottom: 10px; display: flex; gap: 8px; }*/
-
-/*
-.icon-btn{
-
-  width: 40px; height: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,.08);
-
-  background: rgba(33,41,54,.7); color: var(--b-050); display: inline-grid; place-items: center; cursor: pointer; backdrop-filter: blur(4px);
-
-}*/
-
-/*
-.icon-btn svg{ width: 22px; height: 22px; fill: currentColor; }
-
-.icon-btn img{ width: 22px; height: 22px; display: block; }*/
-
-
-
 .share{
   display: flex;
   justify-content: flex-end;
@@ -252,14 +230,9 @@
   margin: 16px 0 0;
 }
 
-/*.share .share-label{ height: 18px; width: auto; display: block; }*/
-
 .share .share-icons{ display: inline-flex; align-items: center; gap: 6px; }
 
 .share .share-icons img{ width: 18px; height: 18px; opacity: .9; }
-
-/*.dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--b-300); display: inline-block; opacity: .8; }*/
-
 
 
 /* Descripción + Controles */
@@ -268,7 +241,7 @@
 
 article p{ color: var(--b-100); margin-top: 8px; }
 
-.controls .controls-wrap{ display: grid; grid-template-columns: min-content min-content; gap: 140px; align-items: center; }
+.controls .controls-wrap{ display: grid; grid-template-columns: min-content min-content; gap: 140px; align-items: center; justify-content: center;}
 
 
 .game-page .controls { margin-top: 40px; }
@@ -277,20 +250,6 @@ article p{ color: var(--b-100); margin-top: 8px; }
 .key-row{ display: flex; gap: 10px; justify-content: center; }
 
 
-/*
-.keys{ display: grid; gap: 8px; align-items: center; }
-
-
-.key{
-
-  display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 12px; border: 2px solid rgba(255,255,255,.08);
-
-  color: var(--b-050); font-weight: 700; background: linear-gradient(180deg, #1a2740, #152237);
-
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 6px 14px rgba(0,0,0,.35);
-
-}*/
-
 .key-img{ width: 52px; height: 52px; object-fit: contain; display: block; }
 
 .keys .label, .mouse .label{ text-align: center; margin-top: 8px; color: var(--b-300); }
@@ -298,9 +257,6 @@ article p{ color: var(--b-100); margin-top: 8px; }
 
 
 .mouse{display: grid; place-items: center; gap: 8px; }
-
-/*
-.mouse-img{ width: 72px; height: auto; display: block; }*/
 
 .media-video iframe{
   width: 100%;
