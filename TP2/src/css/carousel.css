@@ -55,6 +55,18 @@
 
 .page-index .game-carousel__nav {
   display: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.page-index .game-carousel:hover .game-carousel__nav{
+  opacity: 0.95;
+}
+.page-index .game-carousel:hover .game-carousel__nav[disabled]{
+  opacity: 0;
+}
+.page-index .game-carousel:hover .game-carousel__nav:hover{
+  opacity: 1;
 }
 
 @media (min-width: 480px) and (max-width: 767.98px) {
