@@ -116,9 +116,9 @@
             <a class="game-carousel__more" href="#">Ver m&aacute;s</a>
           </div>
           <div class="game-carousel__viewport">
-            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior" disabled>&lt;</button>
+            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior" disabled>◄</button>
             <ul class="game-carousel__track" style="justify-content: flex-start;">${skeletons}</ul>
-            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente" disabled>&gt;</button>
+            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente" disabled>►</button>
           </div>
         </section>`;
       this._hasSkeleton = true;
@@ -234,9 +234,9 @@
             <a class="game-carousel__more body-b1" href="#">Ver m&aacute;s</a>
           </div>
           <div class="game-carousel__viewport">
-            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior">&lt;</button>
+            <button class="game-carousel__nav game-carousel__nav--prev" aria-label="Anterior">◄</button>
             <ul class="game-carousel__track" style="justify-content: flex-start;">${items}</ul>
-            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente">&gt;</button>
+            <button class="game-carousel__nav game-carousel__nav--next" aria-label="Siguiente">►</button>
           </div>
         </section>`;
 
