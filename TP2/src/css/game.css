@@ -367,6 +367,10 @@ article p{ color: var(--b-100); margin-top: 8px; }
   font-weight: 600;
 }
 
+.comment-like:hover{
+  filter: invert(0%) sepia(100%) saturate(1000%) hue-rotate(282deg) brightness(100%) contrast(100%);
+}
+
 .comment-like img{ width: 18px; height: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
 
 /* ========================= */
