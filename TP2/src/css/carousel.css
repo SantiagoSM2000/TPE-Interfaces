@@ -60,7 +60,7 @@
 }
 
 .page-index .game-carousel:hover .game-carousel__nav{
-  opacity: 0.95;
+  opacity: 0.9;
 }
 .page-index .game-carousel:hover .game-carousel__nav[disabled]{
   opacity: 0;
@@ -208,17 +208,18 @@
   z-index: 5; /* ensure above cards */
   box-shadow: none;
   border: 2px solid var(--b-800);
+  border-radius: 0;
 }
 
 .game-carousel__nav[disabled] { opacity: 0.0; pointer-events: none; }
 
 .game-carousel__nav--prev { 
   left: -5px;
-  border-radius: 12px 0px 0px 12px;
+  /* border-radius: 12px 0px 0px 12px; */
 }
 .game-carousel__nav--next { 
   right: -5px;
-  border-radius: 0px 12px 12px 0px;
+  /* border-radius: 0px 12px 12px 0px; */
 }
 
 .game-card::after {
