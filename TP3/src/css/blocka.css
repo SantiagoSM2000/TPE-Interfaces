@@ -1,0 +1,80 @@
+/* Blocka Game Styles */
+
+#blocka-game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: var(--b-800);
+}
+
+#blocka-start-screen, #blocka-win-screen {
+    text-align: center;
+}
+
+#blocka-start-screen h2, #blocka-win-screen h2 {
+    margin-bottom: 1rem;
+}
+
+#blocka-start-screen p, #blocka-win-screen p {
+    margin-bottom: 2rem;
+}
+
+.win-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+#blocka-game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+#blocka-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    width: 80%;
+    max-width: 500px;
+    border: 3px solid var(--p-500);
+    background-color: var(--p-900);
+}
+
+#blocka-grid canvas {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+#blocka-grid canvas:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px var(--p-300);
+    z-index: 10;
+}
+
+#blocka-hud {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0 2rem;
+}
+
+.hud-item {
+    text-align: center;
+    background-color: var(--b-700);
+    padding: 0.5rem 1.5rem;
+    border-radius: 12px;
+}
+
+.hud-item span {
+    display: block;
+}
+
+.hidden {
+    display: none !important;
+}
