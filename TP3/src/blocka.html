@@ -30,9 +30,65 @@
 
       <div id="blocka-game-container" class="game-placeholder">
         <div id="blocka-start-screen">
-          <h2 class="h2">BLOCKA</h2>
-          <p class="body-b1">Pon a prueba tu agudeza visual y arma el rompecabezas.</p>
-          <button id="blocka-start-button" class="btn-large primary">Comenzar</button>
+          <div class="start-card">
+            <div class="start-hero">
+              <div class="hero-media">
+                <span class="badge-new subtitle-s1">Puzzle destacado</span>
+                <img src="assets/img/blocka-img-1.jpg" alt="Vista previa de Blocka" class="hero-image">
+              </div>
+              <div class="hero-copy">
+                <h2 class="h2">BLOCKA</h2>
+                <p class="body-b1">Pon a prueba tu agudeza visual, enfrentate a filtros que distorsionan la imagen y resolvé cada nivel antes de que el tiempo se agote.</p>
+                <ul class="hero-highlights body-b3">
+                  <li>3 niveles con filtros crecientes</li>
+                  <li>Banco de imágenes aleatorias</li>
+                  <li>Temporizador y récord por nivel</li>
+                </ul>
+              </div>
+            </div>
+            <section class="start-options">
+              <div class="piece-selector start-pane">
+                <h3 class="subtitle-s1">Elegí la dificultad</h3>
+                <p class="body-b3">Cada modo cambia la cantidad de piezas y el tamaño del tablero.</p>
+                <label class="body-b2">
+                  <input type="radio" name="blocka-piece-count" value="4" checked>
+                  4 piezas · Fácil
+                </label>
+                <label class="body-b2">
+                  <input type="radio" name="blocka-piece-count" value="6">
+                  6 piezas · Intermedio
+                </label>
+                <label class="body-b2">
+                  <input type="radio" name="blocka-piece-count" value="8">
+                  8 piezas · Experto
+                </label>
+              </div>
+              <div class="preview-gallery start-pane">
+                <h3 class="subtitle-s1">Imágenes disponibles</h3>
+                <p class="body-b3">Al comenzar giramos esta ruleta y descubrimos la imagen al azar.</p>
+                <div class="thumbnail-grid" id="blocka-thumbnail-grid">
+                  <img src="assets/img/blocka-img-1.jpg" alt="Imagen 1" class="thumbnail">
+                  <img src="assets/img/blocka-img-2.jpg" alt="Imagen 2" class="thumbnail">
+                  <img src="assets/img/blocka-img-3.jpg" alt="Imagen 3" class="thumbnail">
+                  <img src="assets/img/blocka-img-4.jpg" alt="Imagen 4" class="thumbnail">
+                  <img src="assets/img/blocka-img-5.jpg" alt="Imagen 5" class="thumbnail">
+                  <img src="assets/img/blocka-img-6.jpg" alt="Imagen 6" class="thumbnail">
+                </div>
+              </div>
+              <div class="start-pane start-meta">
+                <h3 class="subtitle-s1">Tips rápidos</h3>
+                <ul class="body-b3">
+                  <li>Con clic izquierdo rotás a la izquierda, con el derecho hacia la derecha.</li>
+                  <li>Usá la ayudita si te trabaste (suma 5 segundos al tiempo).</li>
+                  <li>La victoria quita los filtros para mostrar la imagen original.</li>
+                </ul>
+              </div>
+            </section>
+            <div class="start-actions">
+              <button id="blocka-start-button" class="btn-large primary">Comenzar partida</button>
+              <a class="start-link body-b3" href="#blocka-game-container">Ver controles del juego</a>
+            </div>
+          </div>
         </div>
         <div id="blocka-game-area" class="hidden">
           <div id="blocka-grid"></div>
@@ -45,15 +101,50 @@
               <span class="subtitle-s1">Tiempo</span>
               <span id="blocka-timer" class="h3">00:00</span>
             </div>
+            <div class="hud-item">
+              <span class="subtitle-s1">Tiempo Máx.</span>
+              <span id="blocka-time-limit" class="h3">--</span>
+            </div>
+            <div class="hud-item">
+              <span class="subtitle-s1">Récord</span>
+              <span id="blocka-record" class="h3">--</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button id="blocka-help-button" class="btn-medium secondary">Pedir Ayudita (+5s)</button>
           </div>
         </div>
         <div id="blocka-win-screen" class="hidden">
             <h2 class="h2">¡Nivel Superado!</h2>
-            <p class="body-b1">Tu tiempo récord: <span id="blocka-final-time"></span></p>
+            <p class="body-b1">Tiempo de esta partida: <span id="blocka-final-time"></span></p>
+            <p class="body-b2">Mejor tiempo del nivel: <span id="blocka-best-time">--</span></p>
+            <p id="blocka-record-message" class="body-b2 hidden">¡Nuevo récord guardado!</p>
             <div class="win-buttons">
                 <button id="blocka-next-level-button" class="btn-medium primary">Siguiente Nivel</button>
-                <button id="blocka-next-level-button" class="btn-medium secondary"><a href="blocka.html">Menú Principal</a></button>
+                <button id="blocka-main-menu-button" class="btn-medium secondary">Menú Principal</button>
             </div>
+        </div>
+        <div id="blocka-lose-screen" class="hidden">
+            <h2 class="h2">Se acabó el tiempo</h2>
+            <p class="body-b1">No te preocupes, podés intentarlo de nuevo.</p>
+            <div class="win-buttons">
+                <button id="blocka-retry-button" class="btn-medium primary">Reintentar Nivel</button>
+                <button id="blocka-lose-menu-button" class="btn-medium secondary">Menú Principal</button>
+            </div>
+        </div>
+        <div id="blocka-thumbnail-overlay" class="hidden" aria-hidden="true">
+          <div class="overlay-content">
+            <h3 class="subtitle-s1">Girando la ruleta…</h3>
+            <p class="body-b3 overlay-hint">Elegimos al azar la imagen para este nivel.</p>
+            <div class="thumbnail-grid overlay-grid">
+              <img src="assets/img/blocka-img-1.jpg" alt="Imagen 1" class="thumbnail">
+              <img src="assets/img/blocka-img-2.jpg" alt="Imagen 2" class="thumbnail">
+              <img src="assets/img/blocka-img-3.jpg" alt="Imagen 3" class="thumbnail">
+              <img src="assets/img/blocka-img-4.jpg" alt="Imagen 4" class="thumbnail">
+              <img src="assets/img/blocka-img-5.jpg" alt="Imagen 5" class="thumbnail">
+              <img src="assets/img/blocka-img-6.jpg" alt="Imagen 6" class="thumbnail">
+            </div>
+          </div>
         </div>
       </div>
 
@@ -93,7 +184,6 @@
       </section>
     </div>
   </main>
-blocka-next-level-button
   <footer class="site-footer" role="contentinfo" id="footer-placeholder"></footer>
   <script src="js/main.js"></script>
   <script src="js/carousel-media-images.js" defer></script>
