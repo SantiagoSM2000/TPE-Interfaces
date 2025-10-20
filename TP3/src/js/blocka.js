@@ -69,15 +69,39 @@ document.addEventListener('DOMContentLoaded', () => {
             this.rotation = randomRotation();
             this.isLocked = false;
 
-            this.canvasSize = Math.ceil(Math.sqrt(width * width + height * height));
+            // Usar mayor resolución para mejor calidad (2x)
+            const scale = 2;
+            this.scale = scale;
+            
+            // Calcular la diagonal para que quepa en cualquier rotación
+            const diagonal = Math.ceil(Math.sqrt(width * width + height * height));
+            
+            // El contenedor debe ser cuadrado del tamaño de la diagonal
             this.container = document.createElement('div');
             this.container.className = 'blocka-piece';
-            this.container.style.aspectRatio = `${width} / ${height}`;
+            this.container.style.aspectRatio = '1 / 1';
 
+            // Canvas cuadrado del tamaño de la diagonal
+            this.canvasSize = diagonal * scale;
+            
             this.canvas = document.createElement('canvas');
             this.canvas.width = this.canvasSize;
             this.canvas.height = this.canvasSize;
-            this.ctx = this.canvas.getContext('2d');
+            
+            // El canvas ocupa todo el contenedor
+            this.canvas.style.width = '100%';
+            this.canvas.style.height = '100%';
+            this.canvas.style.display = 'block';
+            
+            // Configurar contexto con opciones de calidad
+            this.ctx = this.canvas.getContext('2d', { 
+                alpha: true,
+                desynchronized: false 
+            });
+            
+            // Activar suavizado de alta calidad
+            this.ctx.imageSmoothingEnabled = true;
+            this.ctx.imageSmoothingQuality = 'high';
 
             this.container.appendChild(this.canvas);
             this.bindEvents();
@@ -101,23 +125,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
         draw(applyFilter = true) {
             const ctx = this.ctx;
+            const scale = this.scale;
+            
+            // Resetear transformaciones
             ctx.save();
             ctx.setTransform(1, 0, 0, 1, 0, 0);
+            
+            // Limpiar canvas
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            
+            // Centrar
             ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
+            ctx.scale(scale, scale);
             ctx.rotate(this.rotation * Math.PI / 180);
+            
+            // Aplicar filtro si corresponde
             ctx.filter = applyFilter ? this.getFilter() : 'none';
+            
+            // Calcular el factor de escala para cubrir todo el área (como object-fit: cover)
+            const canvasLogicalSize = this.canvas.width / scale;
+            const scaleX = canvasLogicalSize / this.sourceWidth;
+            const scaleY = canvasLogicalSize / this.sourceHeight;
+            const coverScale = Math.max(scaleX, scaleY);
+            
+            const drawWidth = this.sourceWidth * coverScale;
+            const drawHeight = this.sourceHeight * coverScale;
+            
+            // Dibujar la porción de imagen escalada para cubrir todo
             ctx.drawImage(
                 this.img,
                 this.sx,
                 this.sy,
                 this.sourceWidth,
                 this.sourceHeight,
-                -this.sourceWidth / 2,
-                -this.sourceHeight / 2,
-                this.sourceWidth,
-                this.sourceHeight
+                -drawWidth / 2,
+                -drawHeight / 2,
+                drawWidth,
+                drawHeight
             );
+            
             ctx.restore();
         }
 
