@@ -6,10 +6,14 @@
     align-items: center;
     flex-direction: column;
     background: var(--b-800);
+    min-height: fit-content;
+    padding: 3rem 1rem;
+    height: auto;
 }
 
 #blocka-start-screen, #blocka-win-screen {
     text-align: center;
+    padding: 2rem 1rem;
 }
 
 #blocka-start-screen h2, #blocka-win-screen h2 {
@@ -26,22 +30,68 @@
     justify-content: center;
 }
 
+/* Selector de dificultad */
+.difficulty-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.difficulty-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--b-700);
+    color: var(--b-050);
+    border: 2px solid var(--p-500);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.difficulty-btn:hover {
+    background: var(--p-700);
+    transform: translateY(-2px);
+}
+
+.difficulty-btn.selected {
+    background: var(--p-500);
+    border-color: var(--p-300);
+    box-shadow: 0 0 15px var(--p-300);
+}
+
 #blocka-game-area {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
     width: 100%;
+    padding: 2rem 0;
 }
 
 #blocka-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: 5px;
-    width: 80%;
-    max-width: 500px;
+    width: 90%;
+    max-width: 450px;
     border: 3px solid var(--p-500);
     background-color: var(--p-900);
+    margin: 0 auto;
+}
+
+/* Diferentes configuraciones de grilla */
+#blocka-grid.grid-2x2 {
+    grid-template-columns: repeat(2, 1fr);
+    aspect-ratio: 1 / 1;
+}
+
+#blocka-grid.grid-2x3 {
+    grid-template-columns: repeat(2, 1fr);
+    aspect-ratio: 2 / 3;
+}
+
+#blocka-grid.grid-3x3 {
+    grid-template-columns: repeat(3, 1fr);
+    aspect-ratio: 1 / 1;
 }
 
 #blocka-grid canvas {
@@ -61,7 +111,9 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
+    max-width: 500px;
     padding: 0 2rem;
+    margin-top: 1rem;
 }
 
 .hud-item {

@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let timerInterval;
     let seconds = 0;
     let usedImages = [];
+    let gridSize = 4; // Nueva variable para el tamaño de la grilla (4, 6 u 8 piezas)
 
     function formatTime(sec) {
         const minutes = Math.floor(sec / 60);
@@ -46,21 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkWinCondition() {
-        // La condición de victoria es simplemente que todas las piezas estén en su rotación original (0 grados).
         const isWin = pieces.every(p => p.rotation === 0);
         if (isWin) {
             stopTimer();
             finalTimeDisplay.textContent = formatTime(seconds);
 
-            // Quita los filtros para mostrar la imagen original.
             pieces.forEach(p => p.draw(false));
 
-            // Muestra la pantalla de victoria.
             setTimeout(() => {
                 gameArea.classList.add('hidden');
                 winScreen.classList.remove('hidden');
-            }, 500); // Pequeña demora para que el jugador vea la imagen completa.
-
+            }, 500);
 
             if (currentLevel >= 3) {
                 nextLevelButton.textContent = 'Jugar de Nuevo';
@@ -73,14 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
     class Piece {
         constructor(img, x, y, size, index) {
             this.img = img;
-            this.x = x; // Coordenada X en la imagen original
-            this.y = y; // Coordenada Y en la imagen original
+            this.x = x;
+            this.y = y;
             this.size = size;
             this.index = index;
             
-            // La rotación inicial es aleatoria (0, 90, 180, o 270 grados).
             this.rotation = Math.floor(Math.random() * 4) * 90;
-            // Si por casualidad todas empiezan en 0, rotamos la primera.
             if (this.index === 0 && this.rotation === 0) {
                  this.rotation = 90;
             }
@@ -90,9 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.element.height = size;
             this.ctx = this.element.getContext('2d');
 
-            // Evento para rotar a la izquierda (clic izquierdo)
             this.element.addEventListener('click', () => this.rotate(-90));
-            // Evento para rotar a la derecha (clic derecho)
             this.element.addEventListener('contextmenu', (e) => {
                 e.preventDefault();
                 this.rotate(90);
@@ -116,15 +109,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 ctx.filter = 'none';
             }
-            // Dibuja la porción correcta de la imagen original en el canvas.
             ctx.drawImage(this.img, this.x, this.y, this.size, this.size, -this.size / 2, -this.size / 2, this.size, this.size);
             ctx.restore();
         }
         
         getFilter() {
-             if (currentLevel === 1) return FILTERS[0]; // Escala de grises
-             if (currentLevel === 2) return FILTERS[1]; // Brillo
-             if (currentLevel >= 3) return FILTERS[this.index % FILTERS.length]; // Mezcla de filtros
+             if (currentLevel === 1) return FILTERS[0];
+             if (currentLevel === 2) return FILTERS[1];
+             if (currentLevel >= 3) return FILTERS[this.index % FILTERS.length];
              return 'none';
         }
     }
@@ -133,6 +125,16 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.innerHTML = '';
         pieces = [];
         levelDisplay.textContent = currentLevel;
+
+        // Configura la clase CSS según el tamaño de la grilla
+        grid.className = '';
+        if (gridSize === 4) {
+            grid.classList.add('grid-2x2');
+        } else if (gridSize === 6) {
+            grid.classList.add('grid-2x3');
+        } else if (gridSize === 8) {
+            grid.classList.add('grid-3x3'); // 8 piezas no caben perfectamente, usamos 3x3
+        }
 
         let availableImages = IMAGE_BANK.filter(img => !usedImages.includes(img));
         if (availableImages.length === 0) {
@@ -144,28 +146,65 @@ document.addEventListener('DOMContentLoaded', () => {
         usedImages.push(imgSrc);
 
         const img = new Image();
-        img.crossOrigin = "Anonymous"; // Permite que el canvas no tenga problemas de seguridad con las imágenes.
+        img.crossOrigin = "Anonymous";
         img.src = imgSrc;
         img.onload = () => {
             const size = Math.min(img.width, img.height);
-            const pieceSize = size / 2;
+            
+            // Calcula las dimensiones de la grilla según el número de piezas
+            let cols, rows;
+            if (gridSize === 4) {
+                cols = 2; rows = 2;
+            } else if (gridSize === 6) {
+                cols = 2; rows = 3;
+            } else if (gridSize === 8) {
+                cols = 3; rows = 3; // Usamos 9 espacios pero solo mostramos 8
+            }
+            
+            const pieceSize = size / Math.max(cols, rows);
 
-            // Crea las 4 piezas en el orden correcto, sin desordenarlas.
-            for (let i = 0; i < 4; i++) {
-                const x = (i % 2) * pieceSize;
-                const y = Math.floor(i / 2) * pieceSize;
+            // Crea las piezas
+            for (let i = 0; i < gridSize; i++) {
+                const col = i % cols;
+                const row = Math.floor(i / cols);
+                const x = col * pieceSize;
+                const y = row * pieceSize;
                 const piece = new Piece(img, x, y, pieceSize, i);
                 pieces.push(piece);
                 grid.appendChild(piece.element);
                 piece.draw();
             }
             
-            // Si el juego comienza resuelto por azar, se vuelve a barajar una pieza.
-             if (pieces.every(p => p.rotation === 0)) {
+            if (pieces.every(p => p.rotation === 0)) {
                 pieces[0].rotate(90);
-             }
+            }
         };
     }
+
+    // Agrega los botones de selección de dificultad al inicio
+    function createDifficultySelector() {
+        const selector = document.createElement('div');
+        selector.className = 'difficulty-selector';
+        selector.innerHTML = `
+            <button class="difficulty-btn selected subtitle-s1" data-size="4">Fácil (2x2)</button>
+            <button class="difficulty-btn subtitle-s1" data-size="6">Medio (2x3)</button>
+            <button class="difficulty-btn subtitle-s1" data-size="8">Difícil (3x3)</button>
+        `;
+        
+        const buttons = selector.querySelectorAll('.difficulty-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                gridSize = parseInt(btn.dataset.size);
+            });
+        });
+        
+        const startScreenP = startScreen.querySelector('p');
+        startScreenP.after(selector);
+    }
+
+    createDifficultySelector();
 
     startButton.addEventListener('click', () => {
         startScreen.classList.add('hidden');
