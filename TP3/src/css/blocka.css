@@ -7,11 +7,14 @@
     flex-direction: column;
     background:
         linear-gradient(160deg, rgba(255, 0, 127, 0.25), rgba(0, 191, 255, 0.18)),
-        linear-gradient(180deg, rgba(19, 25, 39, 0.9), rgba(19, 25, 39, 0.9)),
-        url('../assets/img/Pantalla juego.png') center/cover no-repeat;
+        linear-gradient(180deg, rgba(19, 25, 39, 0.9), rgba(19, 25, 39, 0.9)), center/cover no-repeat;
     position: relative;
     box-sizing: border-box;
     overflow: hidden;
+}
+
+.game-placeholder{
+    background: var(--b-900);
 }
 
 #blocka-start-screen,
