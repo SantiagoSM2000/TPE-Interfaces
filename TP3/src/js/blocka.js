@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const startThumbnails = document.querySelectorAll('#blocka-thumbnail-grid .thumbnail');
     const overlay = document.getElementById('blocka-thumbnail-overlay');
     const overlayThumbnails = overlay ? overlay.querySelectorAll('.thumbnail') : [];
+    const gameContainer = document.getElementById('blocka-game-container');
+    const fullscreenIcon = document.getElementById('fullscreen');
 
     const IMAGE_BANK = [
         'assets/img/blocka-img-1.jpg',
@@ -632,6 +634,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function wait(ms) {
         return new Promise((resolve) => {
             setTimeout(resolve, ms);
+        });
+    }
+
+    if (fullscreenIcon && gameContainer) {
+        fullscreenIcon.addEventListener('click', async () => {
+            try {
+              if (!document.fullscreenElement) {
+                // Entrar en fullscreen
+                await gameContainer.requestFullscreen();
+              } else {
+                // Salir de fullscreen
+                await document.exitFullscreen();
+              }
+            } catch (err) {
+              console.error(`Error al cambiar a fullscreen: ${err}`);
+            }
         });
     }
 });
