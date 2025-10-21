@@ -125,7 +125,7 @@
     background: rgba(19, 25, 39, 0.65);
     border: 1px solid rgba(255, 255, 255, 0.06);
     padding: 1.5rem;
-    border-radius: 16px;
+    border-radius: 12px;
 }
 
 .start-pane h3 {
@@ -166,7 +166,7 @@
 
 .thumbnail {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 12px;
     border: 2px solid transparent;
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -227,7 +227,7 @@
     padding: 2rem 2.5rem;
     box-sizing: border-box;
     background: rgba(19, 25, 39, 0.72);
-    border-radius: 24px;
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
     overflow: hidden;
@@ -247,7 +247,7 @@
     border: 2px solid var(--p-500);
     background: rgba(19, 25, 39, 0.88);
     padding: 6px;
-    border-radius: 16px;
+    border-radius: 12px;
     box-sizing: border-box;
 }
 
@@ -333,7 +333,7 @@
 #blocka-thumbnail-overlay .overlay-content {
     background: linear-gradient(160deg, rgba(255, 0, 127, 0.22), rgba(0, 191, 255, 0.18));
     padding: clamp(1.75rem, 4vw, 2.75rem);
-    border-radius: 22px;
+    border-radius: 12px;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
     max-width: min(90%, 620px);
     width: 100%;
@@ -353,7 +353,7 @@
 }
 
 #blocka-thumbnail-overlay .thumbnail {
-    border-radius: 14px;
+    border-radius: 12px;
     transform: scale(1);
 }
 
