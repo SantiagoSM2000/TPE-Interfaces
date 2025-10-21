@@ -437,16 +437,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createPieces(img, cols, rows) {
+        // Tomamos la parte central cuadrada de la imagen
         const usableSize = Math.min(img.width, img.height);
-        const pieceWidth = usableSize / cols;
-        const pieceHeight = usableSize / rows;
+        const offsetX = (img.width - usableSize) / 2;
+        const offsetY = (img.height - usableSize) / 2;
+
+        // Todas las piezas serán cuadradas
+        const pieceSize = usableSize / Math.max(cols, rows);
 
         for (let row = 0; row < rows; row += 1) {
             for (let col = 0; col < cols; col += 1) {
                 const index = row * cols + col;
-                const sx = col * pieceWidth;
-                const sy = row * pieceHeight;
-                const piece = new Piece(img, sx, sy, pieceWidth, pieceHeight, index);
+                const sx = offsetX + col * pieceSize;
+                const sy = offsetY + row * pieceSize;
+                const piece = new Piece(img, sx, sy, pieceSize, pieceSize, index);
                 pieces.push(piece);
                 grid.appendChild(piece.container);
             }
