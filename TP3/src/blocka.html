@@ -181,6 +181,171 @@
           </div>
         </article>
       </section>
+
+      <section class="media-images">
+        <h2 class="section-title h2">Galería del juego</h2>
+        <div class="carousel-container">
+          <div class="carousel">
+            <div class="carousel-track">
+              <div class="carousel-slide active">
+                <img src="assets/img/blocka-carousel-1.jpg" alt="Game Screenshot 1">
+              </div>
+              <div class="carousel-slide">
+                <img src="assets/img/blocka-carousel-2.jpg" alt="Game Screenshot 2">
+              </div>
+              <div class="carousel-slide">
+                <img src="assets/img/blocka-carousel-3.jpg" alt="Game Screenshot 3">
+              </div>
+              <div class="carousel-slide media-video">
+                <iframe src="https://www.youtube.com/embed/ZdQ5-K5QG4c?si=YQbZrN2SQC0EPs3T"
+                  title="Blocka video" loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+              <div class="carousel-slide">
+                <img src="assets/img/blocka-carousel-4.jpg" alt="Game Screenshot 4">
+              </div>
+            </div>
+            <!-- Botones de navegación -->
+            <button class="carousel-btn btn-prev" aria-label="Anterior">‹</button>
+            <button class="carousel-btn btn-next" aria-label="Siguiente">›</button>
+
+
+          </div>
+
+          <!-- Contador -->
+          <div class="carousel-counter">
+            <span class="current subtitle-s1">1</span> <span class="subtitle-s1">/</span> <span
+              class="total subtitle-s1">5</span>
+          </div>
+
+          <!-- Indicadores -->
+          <div class="carousel-indicators">
+            <button class="indicator active" data-slide="0"></button>
+            <button class="indicator" data-slide="1"></button>
+            <button class="indicator" data-slide="2"></button>
+            <button class="indicator" data-slide="3"></button>
+            <button class="indicator" data-slide="4"></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Juegos similares -->
+      <section class="push-xxl">
+        <game-carousel title="Juegos similares" genre="action" limit="9"></game-carousel>
+      </section>
+
+      <!-- Comentarios -->
+      <section class="comments push-xxl" aria-labelledby="comments-title">
+        <h2 class="section-title h2" id="comments-title">Comentarios</h2>
+        <div class="comment-new" role="form" aria-label="Agregar un comentario">
+          <div class="avatar" aria-hidden="true"></div>
+          <div class="comment-field">
+            <label class="comment-label body-b2" for="comment-text">Tú</label>
+            <input id="comment-text" type="text" placeholder="Agrega tu comentario"
+              aria-label="Escribe tu comentario" />
+          </div>
+          <button class="comment-submit" type="button">Enviar</button>
+        </div>
+
+        <article class="comment">
+          <div class="bubble">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <strong class="comment-name subtitle-s1">Lagartija97</strong>
+                  <span class="comment-date body-b1">Hace 1 semana</span>
+                </div>
+                <button class="comment-like" type="button" aria-label="Me gusta">
+                  <span>52</span>
+                  <img src="assets/svg/corazon-like.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+              <p class="body-b1">Me encantó el juego, me pareció muy relajante. Ideal para
+                partidas cortas y cebarte con "una más".</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="comment">
+          <div class="bubble">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <strong class="comment-name subtitle-s1">GalietitaSalada</strong>
+                  <span class="comment-date body-b1">Hace 6 meses</span>
+                </div>
+                <button class="comment-like" type="button" aria-label="Me gusta">
+                  <span>80</span>
+                  <img src="assets/svg/corazon-like.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+              <p class="body-b1">Funciona perfecto en el navegador y en el celu. Animaciones suaves, sin lag, incluso
+                en apuros de tiempo. Le pondría modo experto para meterle presión.</p>
+            </div>
+          </div>
+        </article>
+        <article class="comment">
+          <div class="bubble">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <strong class="comment-name subtitle-s1">xXProGamerXx</strong>
+                  <span class="comment-date body-b1">Hace 2 semanas</span>
+                </div>
+                <button class="comment-like" type="button" aria-label="Me gusta">
+                  <span>140</span>
+                  <img src="assets/svg/corazon-like.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+              <p class="body-b1">Buena rejugabilidad: intentás mejorar tu tiempo y siempre sentís que podés mejorar. Sumaría
+                más ayudas opcionales y modo apto para daltonismo.</p>
+            </div>
+          </div>
+        </article>
+        <article class="comment">
+          <div class="bubble">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <strong class="comment-name subtitle-s1">MasterMind995</strong>
+                  <span class="comment-date body-b1">Hace 3 horas</span>
+                </div>
+                <button class="comment-like" type="button" aria-label="Me gusta">
+                  <span>32</span>
+                  <img src="assets/svg/corazon-like.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+              <p class="body-b1">Vine por un juego rápido y terminé intentando mejorar mi tiempo como si fuera un rompecabezas
+                serio. Me gustó que las imágenes y filtros sean aleatorios. Recomendado para despejar
+                la cabeza, pero ojo... engancha.</p>
+            </div>
+          </div>
+        </article>
+        <article class="comment">
+          <div class="bubble">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <strong class="comment-name subtitle-s1">SoyMarcela</strong>
+                  <span class="comment-date body-b1">Hace 5 días</span>
+                </div>
+                <button class="comment-like" type="button" aria-label="Me gusta">
+                  <span>6</span>
+                  <img src="assets/svg/corazon-like.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+              <p class="body-b1">Al principio parece fácil, pero con algunas imágenes me llevó varios segundos. La
+                temática ambiental y la paleta oscura quedan de diez. Muy satisfactorio cuando completás finalmente la imagen.</p>
+            </div>
+          </div>
+        </article>
+      </section>
     </div>
   </main>
   <footer class="site-footer" role="contentinfo" id="footer-placeholder"></footer>
