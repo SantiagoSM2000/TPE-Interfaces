@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'assets/img/blocka-img-6.jpg'
     ];
 
-    const FILTERS = ['grayscale(1)', 'brightness(0.3)', 'invert(1)'];
     const LEVEL_TIME_LIMIT = {
         1: null,
         2: 120,
@@ -171,47 +170,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        getFilter() {
-            if (currentLevel === 1) return FILTERS[0];
-            if (currentLevel === 2) return FILTERS[1];
-            if (currentLevel >= 3) return FILTERS[this.index % FILTERS.length];
-            return 'none';
-        }
-
         applyManualFilter() {
-            const filter = this.getFilter();
-            const descriptor = this.parseFilterDescriptor(filter);
-            if (!descriptor) return;
-
             const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
             const data = imageData.data;
 
-            switch (descriptor.type) {
-                case 'grayscale':
-                    this.applyGrayscale(data);
-                    break;
-                case 'brightness':
-                    this.applyBrightness(data, descriptor.value);
-                    break;
-                case 'invert':
-                    this.applyInvert(data);
-                    break;
-                default:
-                    return;
+            if (currentLevel === 1){
+                this.applyBrightness(data, 0.3);
+                
             }
-
+            if (currentLevel === 2){
+                this.applyGrayscale(data);
+            }
+            if (currentLevel >= 3){
+                this.applyInvert(data);
+            }
             this.ctx.putImageData(imageData, 0, 0);
-        }
-
-        parseFilterDescriptor(filter) {
-            if (!filter || filter === 'none') return null;
-            const match = /^([a-z-]+)(?:\(([^)]+)\))?$/.exec(filter);
-            if (!match) return null;
-            const type = match[1];
-            const numericValue = match[2] !== undefined ? parseFloat(match[2]) : undefined;
-            const value = Number.isFinite(numericValue) ? numericValue : undefined;
-            if (type === 'brightness' && (value === undefined || value < 0)) return null;
-            return { type, value };
         }
 
         applyGrayscale(data) {
@@ -219,10 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const r = data[i];
                 const g = data[i + 1];
                 const b = data[i + 2];
-                const gray = r * 0.2126 + g * 0.7152 + b * 0.0722;
-                data[i] = gray;
-                data[i + 1] = gray;
-                data[i + 2] = gray;
+                let gris = r * 0.299 + g * 0.587 + b * 0.114;
+                data[i] = gris;
+                data[i + 1] = gris;
+                data[i + 2] = gris;
             }
         }
 
@@ -557,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameArea.classList.add('hidden');
             winScreen.classList.remove('hidden');
             nextLevelButton.textContent = currentLevel >= 3 ? 'Jugar de Nuevo' : 'Siguiente Nivel';
-        }, 400);
+        }, 2000);
     }
 
     function useHelp() {
