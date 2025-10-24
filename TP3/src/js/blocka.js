@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const startThumbnails = document.querySelectorAll('#blocka-thumbnail-grid .thumbnail');
     const overlay = document.getElementById('blocka-thumbnail-overlay');
     const overlayThumbnails = overlay ? overlay.querySelectorAll('.thumbnail') : [];
+    const heroPreview = document.getElementById('blocka-hero-preview');
+    const defaultHeroPreviewImage = heroPreview ? heroPreview.dataset.image || null : null;
     const gameContainer = document.getElementById('blocka-game-container');
     const fullscreenIcon = document.getElementById('fullscreen');
 
@@ -51,13 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let hasTimeExpired = false;
     let currentRecord = null;
 
-    const storage = (() => {
-        try {
-            return window.localStorage;
-        } catch (err) {
-            return null;
-        }
-    })();
+    const storage = window.localStorage || null;
 
     class Piece {
         constructor(img, x, y, width, height, index) {
@@ -233,9 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
         radio.addEventListener('change', () => {
             if (radio.checked) {
                 selectedPieceCount = parseInt(radio.value, 10);
+                renderHeroPreviewPieces(selectedPieceCount);
             }
         });
     });
+
+    renderHeroPreviewPieces(selectedPieceCount);
 
     startButton.addEventListener('click', async () => {
         await beginNewRun();
@@ -418,6 +417,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updateBestTimeDisplay(null);
         setRecordMessage(false);
         currentRecord = null;
+        if (heroPreview && defaultHeroPreviewImage) {
+            heroPreview.dataset.image = defaultHeroPreviewImage;
+            renderHeroPreviewPieces(selectedPieceCount, defaultHeroPreviewImage);
+        }
         clearThumbnailHighlights();
     }
 
@@ -470,6 +473,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 return { cols: 4, rows: 2 };
             default:
                 return { cols: 2, rows: 2 };
+        }
+    }
+
+    function renderHeroPreviewPieces(count, imageSrc) {
+        if (!heroPreview) return;
+
+        if (imageSrc) {
+            heroPreview.dataset.image = imageSrc;
+        }
+
+        const source = heroPreview.dataset.image;
+        if (!source) return;
+
+        const { cols, rows } = getGridDimensions(count);
+        heroPreview.innerHTML = '';
+        heroPreview.style.gridTemplate = `repeat(${rows}, 1fr) / repeat(${cols}, 1fr)`;
+
+        const bgWidth = `${cols * 100}%`;
+        const bgHeight = `${rows * 100}%`;
+
+        for (let row = 0; row < rows; row += 1) {
+            for (let col = 0; col < cols; col += 1) {
+                const tile = document.createElement('div');
+                tile.className = 'hero-preview-piece';
+                tile.style.backgroundImage = `url(${source})`;
+                const xPercent = cols === 1 ? 50 : (col / (cols - 1)) * 100;
+                const yPercent = rows === 1 ? 50 : (row / (rows - 1)) * 100;
+                tile.style.backgroundSize = `${bgWidth} ${bgHeight}`;
+                tile.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
+                heroPreview.appendChild(tile);
+            }
         }
     }
 
@@ -561,8 +595,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function animateThumbnailSelection(targetSrc) {
-        if (!overlay) return;
-
         const targetIndex = IMAGE_BANK.indexOf(targetSrc);
         overlay.classList.remove('hidden');
         overlay.setAttribute('aria-hidden', 'false');
@@ -592,6 +624,8 @@ document.addEventListener('DOMContentLoaded', () => {
         startThumbnails.forEach((thumb, idx) => {
             thumb.classList.toggle('is-selected', idx === targetIndex);
         });
+
+        renderHeroPreviewPieces(selectedPieceCount, targetSrc);
 
         await wait(700);
         overlay.classList.add('hidden');
