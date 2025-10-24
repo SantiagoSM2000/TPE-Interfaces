@@ -15,7 +15,7 @@
       genre: 'platformer',
       id: '__manual_platformer_Blocka__',
       name: 'Blocka',
-      background_image: 'assets/img/Batman_peg_soliataire-bg.png',
+      background_image: 'assets/img/logo-blocka.png',
       genres: [{ name: 'Platformer' }],
       rating: 5,
       href: 'blocka.html'

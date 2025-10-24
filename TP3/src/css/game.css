@@ -220,6 +220,24 @@
 
 }
 
+#fullscreen{
+  opacity: 0;
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 24px;
+  transition: all 150ms ease;
+  cursor: pointer;
+}
+
+#fullscreen:hover{
+  width: 28px;;
+}
+
+.game-placeholder:hover #fullscreen{
+  opacity: 1;
+}
+
 .share{
   display: flex;
   justify-content: flex-end;
