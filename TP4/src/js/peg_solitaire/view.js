@@ -129,7 +129,7 @@ class View {
         const ctx = this.ctx;
         ctx.save();
 
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+        ctx.fillStyle = 'rgba(33, 41, 54, 1)';
         ctx.fillRect(0, 0, this.canvas.width, this.HUD_HEIGHT);
 
         const paddingX = 36;
@@ -199,7 +199,7 @@ class View {
 
         ctx.beginPath();
         this._roundedRect(ctx, modalX, modalY, modalWidth, modalHeight, 18);
-        ctx.fillStyle = 'rgba(25, 25, 25, 0.95)';
+        ctx.fillStyle = 'rgba(19, 25, 39, 0.95)';
         ctx.fill();
 
         ctx.strokeStyle = '#464646';
