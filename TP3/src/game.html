@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/footer.css" />
   <link rel="stylesheet" href="css/carousel.css" />
   <link rel="stylesheet" href="css/sidebar.css" />
+  <link rel="stylesheet" href="css/peg-solitaire.css" />
 </head>
 
 <body class="game-page">
@@ -27,9 +28,77 @@
     <div class="sub-container">
       <h1 class="page-title h1">Batman Peg Solitaire - Escapa del Joker.</h1>
 
-      <figure class="game-placeholder" aria-label="Juego Batman Peg Solitaire">
-        <button class="play-btn" aria-label="Reproducir"></button>
+      <!-- Placeholder inicial con botón de play -->
+      <figure class="game-placeholder" id="gamePlaceholder" aria-label="Juego Batman Peg Solitaire">
+        <button class="play-btn" id="playButton" aria-label="Reproducir"></button>
       </figure>
+
+      <!-- Canvas del juego (inicialmente oculto) -->
+      <div class="game-container" id="gameContainer" style="display: none;">
+        <canvas id="batmanCanvas" width="550" height="550"></canvas>
+        
+        <!-- Controles del juego -->
+        <div class="game-controls">
+          <button id="restartBtn" class="game-btn subtitle-s1">Reiniciar</button>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="game-stats">
+          <div class="stat-card">
+            <div class="stat-label body-b2">Villanos Restantes</div>
+            <div class="stat-value h3" id="villainsCount">32</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label body-b2">Movimientos</div>
+            <div class="stat-value h3" id="movesCount">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label body-b2">Tiempo Restante</div>
+            <div class="stat-value timer h3" id="timerDisplay">10:00</div>
+          </div>
+        </div>
+
+        <!-- Instrucciones del juego -->
+        <div class="game-instructions">
+          <h3 class="h3">🦇 Cómo Jugar</h3>
+          <ul>
+            <li class="body-b1"><strong>Click:</strong> Selecciona un villano para moverlo</li>
+            <li class="body-b1"><strong>Arrastra:</strong> Mueve el villano sobre otro hacia un espacio vacío</li>
+            <li class="body-b1"><strong>Hints dorados:</strong> Las flechas animadas muestran movimientos válidos</li>
+            <li class="body-b1"><strong>Objetivo:</strong> Elimina todos los villanos saltando sobre ellos. ¡Deja solo un batarang en el centro!</li>
+            <li class="body-b1"><strong>Reglas:</strong> Solo puedes saltar horizontal o verticalmente (no diagonal). El villano sobre el que saltas es eliminado.</li>
+            <li class="body-b1"><strong>Tiempo límite:</strong> 10 minutos para completar el desafío</li>
+          </ul>
+        </div>
+
+        <!-- Leyenda de villanos -->
+        <div class="villains-legend">
+          <h3 class="h3">🎭 Villanos de Gotham</h3>
+          <div class="legend-grid">
+            <div class="legend-item">
+              <div class="legend-color legend-joker"></div>
+              <div class="legend-name body-b2">Joker - El Payaso del Crimen</div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color legend-harley"></div>
+              <div class="legend-name body-b2">Harley Quinn - La Reina del Caos</div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color legend-riddler"></div>
+              <div class="legend-name body-b2">Riddler - El Acertijo</div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color legend-pinguin"></div>
+              <div class="legend-name body-b2">Penguin - El Pingüino</div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color legend-twoface"></div>
+              <div class="legend-name body-b2">Two-Face - Dos Caras</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="share" role="group" aria-label="Opciones para compartir">
         <img class="share-label" src="assets/svg/Compartir.svg" alt="Compartir" />
         <div class="share-icons" aria-hidden="true">
@@ -44,32 +113,33 @@
       <section class="description">
         <article>
           <h2 class="section-title h2">Descripción</h2>
-          <p class="body-b1">
+          <p class="body-b1 description">
             El clásico Peg Solitaire reinventado con temática de Batman. En lugar de fichas tradicionales,
             usás batarangs y piezas de villanos de Gotham. El objetivo es ayudar a Batman a limpiar el tablero atrapando
-            a los villanos y dejando solo un batarang al final.
+            a los villanos y dejando solo un batarang al final. Con gráficos estilo comic noir, efectos visuales
+            inspirados en Gotham City y hints animados que te guían en cada movimiento, este juego combina estrategia
+            clásica con la atmósfera única del Caballero de la Noche.
+          </p>
+          <p class="body-b1 description">
+            Cada villano tiene su propio diseño visual: desde el caótico Joker hasta la calculadora Harley Quinn.
+            Las animaciones fluidas y los efectos de partículas te sumergen en la batalla por Gotham mientras
+            planeas cada movimiento estratégico. ¿Podrás derrotar a todos los villanos antes de que se acabe el tiempo?
           </p>
         </article>
       </section>
+
       <!-- Controles -->
       <section class="controls">
         <article>
           <h2 class="section-title h2">Controles</h2>
           <div class="controls-wrap">
-            <div class="keys">
-              <div class="key-row">
-                <img class="key-img" src="assets/svg/Letra=W.svg" alt="Tecla W" />
-              </div>
-              <div class="key-row">
-                <img class="key-img" src="assets/svg/Letra=A.svg" alt="Tecla A" />
-                <img class="key-img" src="assets/svg/Letra=S.svg" alt="Tecla S" />
-                <img class="key-img" src="assets/svg/Letra=D.svg" alt="Tecla D" />
-              </div>
-              <div class="label subtitle-s1">Moverte</div>
-            </div>
             <div class="mouse">
               <img class="mouse-img" src="assets/svg/control-mouse-leftclick.svg" alt="Clic izquierdo" />
-              <div class="label subtitle-s1">Seleccionar</div>
+              <div class="label body-b1">Click para Seleccionar</div>
+            </div>
+            <div class="mouse">
+              <img class="mouse-img" src="assets/svg/control-mouse-leftclick.svg" alt="Arrastrar" />
+              <div class="label body-b1">Arrastra y suelta</div>
             </div>
           </div>
         </article>
@@ -103,8 +173,6 @@
             <!-- Botones de navegación -->
             <button class="carousel-btn btn-prev" aria-label="Anterior">‹</button>
             <button class="carousel-btn btn-next" aria-label="Siguiente">›</button>
-
-
           </div>
 
           <!-- Contador -->
@@ -243,14 +311,24 @@
       </section>
     </div>
   </main>
+
+  <!-- Modal de Game Over -->
+  <div id="gameOverModal" class="game-over-modal">
+    <div class="modal-content">
+      <h2 id="gameOverTitle" class="modal-title">¡Fin del Juego!</h2>
+      <p id="gameOverMessage" class="modal-message"></p>
+      <p id="gameOverStats" class="modal-stats"></p>
+      <button class="game-btn" onclick="if(window.game) game.restart()">🔄 Jugar de Nuevo</button>
+    </div>
+  </div>
+
   <footer class="site-footer" role="contentinfo" id="footer-placeholder"></footer>
   <script src="js/main.js"></script>
   <script src="js/carousel-media-images.js" defer></script>
   <script src="js/game-card.js" defer></script>
   <script src="js/carousel.js" defer></script>
   <script src="js/sidebar.js" defer></script>
-
-
+  <script src="js/peg-solitaire.js"></script>
 </body>
 
 </html>

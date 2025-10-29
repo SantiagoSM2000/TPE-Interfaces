@@ -586,3 +586,7 @@ article p{ color: var(--b-100); margin-top: 8px; }
 .game-card__thumb {
   padding-left: 10px;
 }
+
+.description {
+  margin-bottom: 15px;
+}
