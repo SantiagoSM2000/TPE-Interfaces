@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/footer.css" />
   <link rel="stylesheet" href="css/carousel.css" />
   <link rel="stylesheet" href="css/sidebar.css" />
+  <link rel="stylesheet" href="css/peg_solitaire_styles.css" />
 </head>
 
 <body class="game-page">
@@ -25,51 +26,48 @@
       <a href="#" class="active">Batman Peg Solitaire - Escapa del Joker</a>
     </nav>
     <div class="sub-container">
-      <h1 class="page-title h1">Batman Peg Solitaire - Escapa del Joker.</h1>
+      <h1 class="page-title h1">Batman Peg Solitaire - Escapa del Joker</h1>
 
-      <figure class="game-placeholder" aria-label="Juego Batman Peg Solitaire">
-        <button class="play-btn" aria-label="Reproducir"></button>
-      </figure>
+      <div id="peg-solitaire-container" class="game-container">
+          <!-- Canvas del juego -->
+          <canvas id="game-canvas" width="1400" height="787">Tu navegador no soporta Canvas.</canvas>
+      </div>
+
       <div class="share" role="group" aria-label="Opciones para compartir">
         <img class="share-label" src="assets/svg/Compartir.svg" alt="Compartir" />
         <div class="share-icons" aria-hidden="true">
-          <img src="assets/svg/share-facebook.svg" alt="" />
-          <img src="assets/svg/share-x.svg" alt="" />
-          <img src="assets/svg/share-mail.svg" alt="" />
-          <img src="assets/svg/share-whatsapp.svg" alt="" />
+           <a href="#" aria-label="Compartir en Facebook"><img src="assets/svg/share-facebook.svg" alt="" /></a>
+           <a href="#" aria-label="Compartir en X"><img src="assets/svg/share-x.svg" alt="" /></a>
+           <a href="#" aria-label="Compartir por Mail"><img src="assets/svg/share-mail.svg" alt="" /></a>
+           <a href="#" aria-label="Compartir en Whatsapp"><img src="assets/svg/share-whatsapp.svg" alt="" /></a>
         </div>
       </div>
 
-      <!-- Descripción -->
       <section class="description">
         <article>
           <h2 class="section-title h2">Descripción</h2>
           <p class="body-b1">
-            El clásico Peg Solitaire reinventado con temática de Batman. En lugar de fichas tradicionales,
-            usás batarangs y piezas de villanos de Gotham. El objetivo es ayudar a Batman a limpiar el tablero atrapando
-            a los villanos y dejando solo un batarang al final.
+            ¡Ayuda a Batman a escapar de la trampa del Joker! En esta versión temática del clásico Peg Solitaire,
+            debes mover los batarangs para capturar a los secuaces del Joker. Salta un batarang sobre un secuaz hacia un espacio vacío para eliminarlo.
+            El objetivo es dejar solo un batarang en el tablero central. ¡Piensa bien tus movimientos antes de que se acabe el tiempo!
           </p>
         </article>
       </section>
-      <!-- Controles -->
+
       <section class="controls">
         <article>
-          <h2 class="section-title h2">Controles</h2>
-          <div class="controls-wrap">
-            <div class="keys">
-              <div class="key-row">
-                <img class="key-img" src="assets/svg/Letra=W.svg" alt="Tecla W" />
-              </div>
-              <div class="key-row">
-                <img class="key-img" src="assets/svg/Letra=A.svg" alt="Tecla A" />
-                <img class="key-img" src="assets/svg/Letra=S.svg" alt="Tecla S" />
-                <img class="key-img" src="assets/svg/Letra=D.svg" alt="Tecla D" />
-              </div>
-              <div class="label subtitle-s1">Moverte</div>
-            </div>
-            <div class="mouse">
-              <img class="mouse-img" src="assets/svg/control-mouse-leftclick.svg" alt="Clic izquierdo" />
-              <div class="label subtitle-s1">Seleccionar</div>
+          <h2 class="section-title h2">Cómo Jugar</h2>
+          <div class="controls-wrap peg-controls">
+             <div class="mouse-control">
+                <img class="mouse-img" src="assets/svg/Mouse-Left click.svg" alt="Clic izquierdo" />
+                <div class="label subtitle-s1">Arrastrar y Soltar</div>
+                <p class="body-b2">Haz clic y mantén presionado un batarang, arrástralo sobre un secuaz a un espacio vacío y suéltalo.</p>
+             </div>
+             <div class="mouse-control">
+                <img class="mouse-img" src="assets/svg/Mouse-Move.svg" alt="Movimiento del mouse" />
+                <div class="label subtitle-s1">Ver Pistas</div>
+                <p class="body-b2">Mientras arrastras un batarang, aparecerán flechas animadas indicando dónde puedes soltarlo.</p>
+>>>>>>> Stashed changes
             </div>
           </div>
         </article>
@@ -82,44 +80,34 @@
             <div class="carousel-track">
               <div class="carousel-slide media-video">
                 <iframe src="https://www.youtube.com/embed/UaBh7ACFKWA"
-                  title="Batman Peg Solitaire" loading="lazy"
+                  title="Batman Peg Solitaire Gameplay Trailer" loading="lazy"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowfullscreen></iframe>
               </div>
               <div class="carousel-slide active">
-                <img src="assets/img/review1.png" alt="Game Screenshot 1">
+                <img src="assets/img/review1.png" alt="Batman pensando sobre el tablero">
               </div>
               <div class="carousel-slide">
-                <img src="assets/img/review2.png" alt="Game Screenshot 2">
+                <img src="assets/img/review2.png" alt="Joker jugando Peg Solitaire con Batman atado">
               </div>
               <div class="carousel-slide">
-                <img src="assets/img/review3.png" alt="Game Screenshot 3">
-              </div>
-              <div class="carousel-slide">
-                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=450&fit=crop"
-                  alt="Game Screenshot 4">
+                <img src="assets/img/review3.png" alt="Batman lanzando un batarang">
               </div>
             </div>
-            <!-- Botones de navegación -->
             <button class="carousel-btn btn-prev" aria-label="Anterior">‹</button>
             <button class="carousel-btn btn-next" aria-label="Siguiente">›</button>
 
 
           </div>
-
-          <!-- Contador -->
           <div class="carousel-counter">
             <span class="current subtitle-s1">1</span> <span class="subtitle-s1">/</span> <span
-              class="total subtitle-s1">5</span>
+              class="total subtitle-s1">4</span>
           </div>
-
-          <!-- Indicadores -->
           <div class="carousel-indicators">
-            <button class="indicator active" data-slide="0"></button>
-            <button class="indicator" data-slide="1"></button>
+            <button class="indicator" data-slide="0"></button>
+            <button class="indicator active" data-slide="1"></button>
             <button class="indicator" data-slide="2"></button>
             <button class="indicator" data-slide="3"></button>
-            <button class="indicator" data-slide="4"></button>
           </div>
         </div>
       </section>
@@ -244,13 +232,15 @@
     </div>
   </main>
   <footer class="site-footer" role="contentinfo" id="footer-placeholder"></footer>
+
   <script src="js/main.js"></script>
   <script src="js/carousel-media-images.js" defer></script>
   <script src="js/game-card.js" defer></script>
   <script src="js/carousel.js" defer></script>
   <script src="js/sidebar.js" defer></script>
-
-
+  <script src="js/peg_solitaire/model.js"></script>
+  <script src="js/peg_solitaire/view.js"></script>
+  <script src="js/peg_solitaire/controller.js"></script>
+  <script src="js/peg_solitaire/main.js"></script>
 </body>
-
 </html>
