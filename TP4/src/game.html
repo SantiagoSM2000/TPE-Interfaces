@@ -28,9 +28,63 @@
     <div class="sub-container">
       <h1 class="page-title h1">Batman Peg Solitaire - Escapa del Joker</h1>
 
-      <div id="peg-solitaire-container" class="game-container">
-          <!-- Canvas del juego -->
-          <canvas id="game-canvas" width="1400" height="787">Tu navegador no soporta Canvas.</canvas>
+      <div id="game-container" class="game-container">
+        <div id="game-start-screen">
+          <div class="start-card">
+            <div class="start-hero">
+              <div class="hero-media">
+                <img src="assets/img/review1.png" alt="Imagen promocional del juego">
+              </div>
+              <div class="hero-copy">
+                <p class="body-b1">¡Ayuda a Batman a atrapar a los villanos de Gotham City antes de que el tiempo se agote! Este juego que combina estrategia clásica con la atmósfera única del Caballero de la Noche.</p>
+                <ul class="hero-highlights body-b3">
+                  <li>Enfrenta 3 villanos diferentes</li>
+                  <li>Hints animados y estética comic noir</li>
+                  <li>Temporizador y récord de movimientos</li>
+                </ul>
+              </div>
+            </div>
+            <section class="start-options">
+              <div class="piece-selector start-pane">
+                <h3 class="subtitle-s1">Elige tu villano</h3>
+                <p class="body-b3">Cambia el diseño de las fichas con las que jugarás.</p>
+                <label class="body-b2">
+                  <input type="radio" name="peg-piece" value="joker" checked>
+                  Joker
+                </label>
+                <label class="body-b2">
+                  <input type="radio" name="peg-piece" value="riddler">
+                  Riddler
+                </label>
+                <label class="body-b2">
+                  <input type="radio" name="peg-piece" value="penguin">
+                  Penguin
+                </label>
+              </div>
+              <div class="preview-gallery start-pane">
+                <h3 class="subtitle-s1">🎭 Villanos de Gotham</h3>
+                <div class="thumbnail-grid" id="game-thumbnail-grid">
+                  <img src="assets/img/peg-joker.png" alt="Imagen 1" class="thumbnail">
+                  <img src="assets/img/peg-riddler.png" alt="Imagen 2" class="thumbnail">
+                  <img src="assets/img/peg-penguin.png" alt="Imagen 3" class="thumbnail">
+                </div>
+              </div>
+              <div class="start-pane start-meta">
+                <h3 class="subtitle-s1">Cómo jugar</h3>
+                <ul class="body-b2">
+                  <li>Selecciona y arrastra un villano a un espacio vacío para moverlo.</li>
+                  <li>Salta horizontal o verticalmente sobre un villano para eliminarlo.</li>
+                  <li>Elimina a todos los villanos que puedas antes de que se agote el tiempo ¡Deja solo uno en el centro!.</li>
+                </ul>
+              </div>
+            </section>
+            <div class="start-actions">
+              <button id="game-start-button" class="btn-large primary">Comenzar partida</button>
+            </div>
+          </div>
+        </div>
+        <!-- Canvas del juego -->
+        <canvas id="game-canvas" class="hidden" width="1400" height="787">Tu navegador no soporta Canvas.</canvas>
       </div>
 
       <div class="share" role="group" aria-label="Opciones para compartir">

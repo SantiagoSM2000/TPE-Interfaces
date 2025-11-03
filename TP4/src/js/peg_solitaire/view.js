@@ -17,8 +17,8 @@ class View {
         // Rutas de imagenes usadas por el tablero
         this.imageSources = {
             background: 'assets/img/tablero-fondo.png',
-            tipo1: 'assets/img/peg-batman.png',
-            tipo2: 'assets/img/peg-joker.png',
+            tipo1: 'assets/img/peg-riddler.png',
+            tipo2: 'assets/img/peg-penguin.png',
             hint: 'assets/img/hint.png'
         };
 
