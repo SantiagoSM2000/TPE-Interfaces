@@ -185,7 +185,7 @@ class View {
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         const modalWidth = 420;
-        const modalHeight = 200;
+        const modalHeight = 240;
         const modalX = (this.canvas.width - modalWidth) / 2;
         const modalY = (this.canvas.height - modalHeight) / 2;
 
@@ -202,11 +202,15 @@ class View {
         ctx.font = '30px "Segoe UI Semibold", Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(endBanner.title, modalX + modalWidth / 2, modalY + modalHeight / 2 - 25);
+        ctx.fillText(endBanner.title, modalX + modalWidth / 2, modalY + modalHeight / 2 - 50);
 
         ctx.fillStyle = '#b5b5b5';
         ctx.font = '20px "Segoe UI", Arial, sans-serif';
-        ctx.fillText(endBanner.subtitle, modalX + modalWidth / 2, modalY + modalHeight / 2 + 25);
+        ctx.fillText(endBanner.stats, modalX + modalWidth / 2, modalY + modalHeight / 2 + 20);
+
+        ctx.fillStyle = '#b5b5b5';
+        ctx.font = '20px "Segoe UI", Arial, sans-serif';
+        ctx.fillText(endBanner.subtitle, modalX + modalWidth / 2, modalY + modalHeight / 2 + 50);
 
         ctx.restore();
     }

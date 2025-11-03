@@ -222,10 +222,12 @@ class Controller {
         this.timeUpNotified = true;
         this.model.detenerTimer();
         this.cancelDrag();
+        const moves = this.model.obtenerCantidadMovimientos();
         // Banner especifico para el caso en que el temporizador llega a cero
         this.endBanner = {
             visible: true,
             title: 'Tiempo agotado',
+            stats: `Movimientos: ${moves} | ¡Los villanos escaparon!`,
             subtitle: 'Haz click para reiniciar'
         };
     }
@@ -247,9 +249,16 @@ class Controller {
     _mostrarFinDeJuego(esVictoria) {
         this.cancelDrag();
         const title = esVictoria ? 'Ganaste!' : 'Sin movimientos';
+        const moves = this.model.obtenerCantidadMovimientos();
+        const timeRemaining = this.model.obtenerTiempoRestante();
+        const timeLimit = this.model.obtenerTiempoDeJuego();
+        const minutes = Math.floor((timeLimit - timeRemaining) / 60);
+        const seconds = (timeLimit - timeRemaining) % 60;
+        const stats = `Movimientos: ${moves} | Tiempo: ${minutes}:${seconds.toString().padStart(2, '0')}`;
         this.endBanner = {
             visible: true,
             title,
+            stats,
             subtitle: 'Haz click para reiniciar'
         };
     }

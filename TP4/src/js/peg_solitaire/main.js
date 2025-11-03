@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Duracion del reloj en segundos
+    const tiempoDeJuego = 100;
+
     const gameStartBtn = document.getElementById('game-start-button');
     if (!gameStartBtn) {
       console.error("No se encontró el botón 'Comenzar partida'.");
@@ -23,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        const model = new PegSolitaireGame();
+        const model = new PegSolitaireGame(tiempoDeJuego);
         const view = new View(canvas,selectedPiece);
         const controller = new Controller(model, view);
         
