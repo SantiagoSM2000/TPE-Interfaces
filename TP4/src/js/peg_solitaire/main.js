@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const gameStartBtn = document.getElementById('game-start-button');
+    if (!gameStartBtn) {
+      console.error("No se encontró el botón 'Comenzar partida'.");
+      return;
+    }
     gameStartBtn.addEventListener('click', ejecutarJuego);
 
     function ejecutarJuego() {        
@@ -11,14 +15,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const startScreen = document.getElementById('game-start-screen');
         canvas.classList.toggle('hidden');
         startScreen.classList.toggle('hidden');
+        let selectedPiece = 'assets/img/peg-joker.png';
+        const pieceRadios = document.querySelectorAll('input[name="peg-piece"]');
+        pieceRadios.forEach((radio) => {
+            if (radio.checked) {
+                selectedPiece = `assets/img/peg-${radio.value}.png`;
+            }
+        });
 
         const model = new PegSolitaireGame();
-        const view = new View(canvas);
+        const view = new View(canvas,selectedPiece);
         const controller = new Controller(model, view);
         
         controller.init();
-        // Iniciamos el temporizador apenas carga la pagina
-        model.iniciarTimer();
         
         function gameLoop() {
             if (view.imageLoaded) {
@@ -36,6 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         function checkImagesLoaded() {
             if (view.imageLoaded) {
                 console.log('Iniciando game loop...');
+                // Iniciamos el temporizador apenas inicia el gameLoop
+                model.iniciarTimer();
                 requestAnimationFrame(gameLoop);
             } else {
                 // Esperamos a que las imagenes del tablero esten listas antes de dibujar

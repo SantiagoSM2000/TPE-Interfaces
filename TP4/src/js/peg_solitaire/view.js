@@ -1,5 +1,5 @@
 class View {
-    constructor(canvas) {
+    constructor(canvas, selectedPiece) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
 
@@ -13,12 +13,13 @@ class View {
         this.images = {};
         this.imageLoaded = false;
         this.hintAnimationTime = 0;
+        this.selectedPiece = selectedPiece;
 
         // Rutas de imagenes usadas por el tablero
         this.imageSources = {
             background: 'assets/img/tablero-fondo.png',
-            tipo1: 'assets/img/peg-riddler.png',
-            tipo2: 'assets/img/peg-penguin.png',
+            tipo1: 'assets/img/peg-batman.png',
+            tipo2: selectedPiece,
             hint: 'assets/img/hint.png'
         };
 
