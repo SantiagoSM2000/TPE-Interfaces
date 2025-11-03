@@ -1,6 +1,6 @@
 
 // Duracion del reloj en segundos (2 minutos y medio)
-const TIEMPODEJUEGO = 1000;
+const TIEMPODEJUEGO = 100;
 
 /* Clases de datos */
 

@@ -132,26 +132,17 @@ class View {
 
         ctx.fillStyle = 'rgba(33, 41, 54, 1)';
         ctx.fillRect(0, 0, this.canvas.width, this.HUD_HEIGHT);
-
-        const paddingX = 36;
-        const paddingY = 30;
-
-        ctx.fillStyle = '#f0f0f0';
-        ctx.font = '28px "Segoe UI", Arial, sans-serif';
-        ctx.textAlign = 'left';
-        ctx.textBaseline = 'top';
-        ctx.fillText('Batman Peg Solitaire', paddingX, paddingY);
-
+        
         const buttonState = hudState.button;
         this._drawHudButton(buttonState);
-
+        
+        const paddingX = 30;
         ctx.font = '24px "Segoe UI", Arial, sans-serif';
         ctx.textBaseline = 'middle';
-        ctx.textAlign = 'right';
-        const timerText = `Tiempo: ${hudState.tiempoRestante}s`;
-        const timerX = buttonState.x - 24;
+        ctx.textAlign = 'left';
+        const timerText = `Tiempo: ${hudState.tiempoRestante}s`;;
         ctx.fillStyle = hudState.timeWarning ? '#ff7070' : '#ffffff';
-        ctx.fillText(timerText, timerX, this.HUD_HEIGHT / 2);
+        ctx.fillText(timerText, paddingX, this.HUD_HEIGHT / 2);
 
         ctx.restore();
     }
