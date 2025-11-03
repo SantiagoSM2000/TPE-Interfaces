@@ -152,25 +152,86 @@ class View {
         const { x, y, width, height, isHovered, isPressed } = buttonState;
 
         const baseColor = '#FF007F';
+        const topGradient = '#FF55AA';
         const hoverColor = '#FF3399';
+        const topGradientHover = '#FF77B2';
         const pressedColor = '#CC0066';
+        
+        const textColor = '#FFFFFF';
+        const textShadowColor = 'rgba(0, 0, 0, 0.3)';
+        const borderColor = 'rgba(255, 255, 255, 0.3)';
 
         ctx.save();
+
+        // Sombra del Botón
+        // La sombra cambia según el estado para dar efecto de "lift" y "press"
+        if (isPressed) {
+            ctx.shadowColor = 'transparent';
+        } else if (isHovered) {
+            // Sombra más grande en hover
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 4;
+        } else {
+            // Sombra base sutil
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+            ctx.shadowBlur = 5;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 2;
+        }
+
+        // Relleno (Gradiente)
         ctx.beginPath();
         this._roundedRect(ctx, x, y, width, height, 12);
-        ctx.fillStyle = isPressed ? pressedColor : (isHovered ? hoverColor : baseColor);
+
+        let fillStyle;
+        if (isPressed) {
+            // Color sólido y más oscuro al presionar
+            fillStyle = pressedColor;
+        } else if (isHovered) {
+            // Gradiente más brillante al hacer hover
+            const gradient = ctx.createLinearGradient(x, y, x, y + height);
+            gradient.addColorStop(0, topGradientHover);
+            gradient.addColorStop(1, hoverColor);
+            fillStyle = gradient;
+        } else {
+            // Gradiente base
+            const gradient = ctx.createLinearGradient(x, y, x, y + height);
+            gradient.addColorStop(0, topGradient);
+            gradient.addColorStop(1, baseColor);
+            fillStyle = gradient;
+        }
+        
+        ctx.fillStyle = fillStyle;
         ctx.fill();
 
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = '#FFD6EB';
-        ctx.stroke();
+        // Borde sutil
+        // Quitamos la sombra del botón para dibujar el borde
+        ctx.shadowColor = 'transparent'; 
 
-        ctx.fillStyle = '#f5f5f5';
+        ctx.strokeStyle = borderColor;
+        ctx.lineWidth = 1;
+        ctx.stroke(); // Dibuja el borde dentro del roundedRect
+
+        // Texto con sombra
+        ctx.fillStyle = textColor;
         ctx.font = '22px "Segoe UI", Arial, sans-serif';
-        ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
-        ctx.fillText('Reiniciar juego', x + width / 2, y + height / 2);
-        ctx.restore();
+        ctx.textBaseline = 'middle';
+
+        // Sombra del texto para legibilidad
+        ctx.shadowColor = textShadowColor;
+        ctx.shadowBlur = 2;
+        ctx.shadowOffsetY = 1;
+        ctx.shadowOffsetX = 0;
+
+        // Posición del texto: si está presionado, se mueve 1px para abajo
+        const textY = isPressed ? (y + height / 2 + 1) : (y + height / 2);
+        
+        ctx.fillText('Reiniciar juego', x + width / 2, textY);
+        
+        ctx.restore(); // Restaura el contexto (quita todas las sombras)
     }
 
     _drawEndBanner(endBanner) {
