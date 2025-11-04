@@ -1,14 +1,22 @@
 class View {
-    constructor(canvas, selectedPiece) {
+    constructor(canvas, selectedPiece, options = {}) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
 
-        this.TAMANO_CELDA = 90;
+        this.showHud = options.showHud !== false;
+        this.enableHints = options.enableHints !== false;
+        const hudHeight = this.showHud ? (options.hudHeight ?? 100) : 0;
+        const autoCellSize = options.autoScale ? this._computeAutoCellSize(hudHeight) : null;
+        this.TAMANO_CELDA = options.cellSize ?? autoCellSize ?? 90;
+        this.HUD_HEIGHT = hudHeight;
         this._boardSize = this.TAMANO_CELDA * 7;
-        this.HUD_HEIGHT = 100;
         this.OFFSET_X = (this.canvas.width - this._boardSize) / 2;
-        const espacioDisponible = this.canvas.height - this.HUD_HEIGHT - this._boardSize;
-        this.OFFSET_Y = this.HUD_HEIGHT + Math.max(0, espacioDisponible / 2);
+        if (this.showHud) {
+            const espacioDisponible = this.canvas.height - this.HUD_HEIGHT - this._boardSize;
+            this.OFFSET_Y = this.HUD_HEIGHT + Math.max(0, espacioDisponible / 2);
+        } else {
+            this.OFFSET_Y = Math.max(0, (this.canvas.height - this._boardSize) / 2);
+        }
 
         this.images = {};
         this.imageLoaded = false;
@@ -17,13 +25,22 @@ class View {
 
         // Rutas de imagenes usadas por el tablero
         this.imageSources = {
-            background: 'assets/img/tablero-fondo.png',
+            background: 'assets/img/batman-peg-background.jpg',
             tipo1: 'assets/img/peg-batman.png',
             tipo2: selectedPiece,
             hint: 'assets/img/hint.png'
         };
 
         this.preloadImages();
+    }
+
+    _computeAutoCellSize(hudHeight) {
+        const usableHeight = this.canvas.height - (this.showHud ? hudHeight : 0);
+        const maxSize = Math.min(this.canvas.width, usableHeight);
+        if (maxSize <= 0) {
+            return 90;
+        }
+        return Math.max(20, Math.floor(maxSize / 7));
     }
 
     async preloadImages() {
@@ -46,6 +63,25 @@ class View {
         } catch (error) {
             console.error('Error cargando imagenes:', error);
         }
+    }
+
+    updateSecondaryPiece(newSrc) {
+        return new Promise((resolve, reject) => {
+            if (!newSrc || this.imageSources.tipo2 === newSrc) {
+                resolve();
+                return;
+            }
+
+            const img = new Image();
+            img.onload = () => {
+                this.images.tipo2 = img;
+                this.imageSources.tipo2 = newSrc;
+                this.selectedPiece = newSrc;
+                resolve();
+            };
+            img.onerror = reject;
+            img.src = newSrc;
+        });
     }
 
     draw(model, renderState) {
@@ -80,14 +116,15 @@ class View {
                 const img = this.images[imgKey];
 
                 if (img) {
+                    const offsetY = estado.tipoVisual === 1 ? 0 : 5
                     const drawX = x - PIEZA_SIZE / 2;
                     const drawY = y - PIEZA_SIZE / 2;
-                    ctx.drawImage(img, drawX, drawY, PIEZA_SIZE, PIEZA_SIZE);
+                    ctx.drawImage(img, drawX, drawY - offsetY, PIEZA_SIZE, PIEZA_SIZE);
                 }
             }
         });
 
-        if (isDragging && posiblesMovimientos.length > 0 && this.images.hint) {
+        if (this.enableHints && isDragging && posiblesMovimientos.length > 0 && this.images.hint) {
             this.hintAnimationTime += 0.1;
             const pulse = Math.sin(this.hintAnimationTime);
             const baseHintSize = this.TAMANO_CELDA * 0.55;
@@ -127,15 +164,18 @@ class View {
     }
 
     _drawHud(hudState) {
+        if (!this.showHud || !hudState) {
+            return;
+        }
+
         const ctx = this.ctx;
         ctx.save();
 
         ctx.fillStyle = 'rgba(33, 41, 54, 1)';
         ctx.fillRect(0, 0, this.canvas.width, this.HUD_HEIGHT);
-        
-        const restartButtonState = hudState.restartButton;
-        const menuButtonState = hudState.menuButton;
-        this._drawHudButton(restartButtonState,menuButtonState);
+
+        const buttons = hudState.buttons ?? [];
+        buttons.forEach(button => this._drawHudButton(button));
         
         const paddingX = 30;
         ctx.font = '24px "Segoe UI", Arial, sans-serif';
@@ -148,9 +188,9 @@ class View {
         ctx.restore();
     }
 
-    _drawHudButton(restartButtonState,menuButtonState) {
+    _drawHudButton(buttonState) {
         const ctx = this.ctx;
-        const { x, y, width, height, isHovered, isPressed } = restartButtonState;
+        const { x, y, width, height, isHovered, isPressed, label } = buttonState;
 
         const baseColor = '#FF007F';
         const topGradient = '#FF55AA';
@@ -203,30 +243,9 @@ class View {
             gradient.addColorStop(1, baseColor);
             fillStyle = gradient;
         }
-        ctx.fillStyle = fillStyle;
-        ctx.fill();
         
-        ctx.beginPath();
-        this._roundedRect(ctx, menuButtonState.x, y, width, height, 12);
-        if (menuButtonState.isPressed) {
-            // Color sólido y más oscuro al presionar
-            fillStyle = pressedColor;
-        } else if (menuButtonState.isHovered) {
-            // Gradiente más brillante al hacer hover
-            const gradient = ctx.createLinearGradient(x, y, x, y + height);
-            gradient.addColorStop(0, topGradientHover);
-            gradient.addColorStop(1, hoverColor);
-            fillStyle = gradient;
-        } else {
-            // Gradiente base
-            const gradient = ctx.createLinearGradient(x, y, x, y + height);
-            gradient.addColorStop(0, topGradient);
-            gradient.addColorStop(1, baseColor);
-            fillStyle = gradient;
-        }
         ctx.fillStyle = fillStyle;
         ctx.fill();
-        this.canvas.style.cursor = isHovered || menuButtonState.isHovered ? 'pointer' : 'default';
 
         // Borde sutil
         // Quitamos la sombra del botón para dibujar el borde
@@ -249,11 +268,8 @@ class View {
         ctx.shadowOffsetX = 0;
 
         // Posición del texto: si está presionado, se mueve 1px para abajo
-        const restartTextY = isPressed ? (y + height / 2 + 1) : (y + height / 2);
-        const menuTextY = menuButtonState.isPressed ? (y + height / 2 + 1) : (y + height / 2);
-        
-        ctx.fillText('Reiniciar juego', x + width / 2, restartTextY);
-        ctx.fillText('Menú de inicio', menuButtonState.x + width / 2, menuTextY);
+        const textY = isPressed ? (y + height / 2 + 1) : (y + height / 2);
+        ctx.fillText(label ?? 'Reiniciar juego', x + width / 2, textY);
         
         ctx.restore(); // Restaura el contexto (quita todas las sombras)
     }
@@ -270,7 +286,7 @@ class View {
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         const modalWidth = 420;
-        const modalHeight = 240;
+        const modalHeight = 200;
         const modalX = (this.canvas.width - modalWidth) / 2;
         const modalY = (this.canvas.height - modalHeight) / 2;
 
@@ -287,15 +303,11 @@ class View {
         ctx.font = '30px "Segoe UI Semibold", Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(endBanner.title, modalX + modalWidth / 2, modalY + modalHeight / 2 - 50);
+        ctx.fillText(endBanner.title, modalX + modalWidth / 2, modalY + modalHeight / 2 - 25);
 
         ctx.fillStyle = '#b5b5b5';
         ctx.font = '20px "Segoe UI", Arial, sans-serif';
-        ctx.fillText(endBanner.stats, modalX + modalWidth / 2, modalY + modalHeight / 2 + 20);
-
-        ctx.fillStyle = '#b5b5b5';
-        ctx.font = '20px "Segoe UI", Arial, sans-serif';
-        ctx.fillText(endBanner.subtitle, modalX + modalWidth / 2, modalY + modalHeight / 2 + 50);
+        ctx.fillText(endBanner.subtitle, modalX + modalWidth / 2, modalY + modalHeight / 2 + 25);
 
         ctx.restore();
     }
@@ -312,9 +324,5 @@ class View {
         ctx.lineTo(x, y + r);
         ctx.quadraticCurveTo(x, y, x + r, y);
         ctx.closePath();
-    }
-
-    getImageLoaded() {
-        return this.imageLoaded;
     }
 }

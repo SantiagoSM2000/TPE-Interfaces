@@ -1,3 +1,7 @@
+
+// Duracion del reloj en segundos (2 minutos y medio)
+const TIEMPODEJUEGO = 100;
+
 /* Clases de datos */
 
 class Ficha {
@@ -50,14 +54,12 @@ class Casillero {
 /* Clase principal del modelo */
 
 class PegSolitaireGame {
-    constructor(tiempoDeJuego = 100) {
+    constructor() {
         // Estado principal del tablero y del reloj
-        this.tiempoDeJuego = tiempoDeJuego;
         this._tamano = 7;
         this._tablero = [];
         this._cantidadFichas = 0;
-        this._cantidadMovimientos = 0;
-        this._tiempoRestante = this.tiempoDeJuego;
+        this._tiempoRestante = TIEMPODEJUEGO;
         this._timerID = null;
         this._enJuego = false;
         this.iniciarTablero();
@@ -71,16 +73,8 @@ class PegSolitaireGame {
         return this._enJuego;
     }
 
-    obtenerCantidadMovimientos(){
-        return this._cantidadMovimientos;
-    }
-
     obtenerTiempoRestante() {
         return this._tiempoRestante;
-    }
-
-    obtenerTiempoDeJuego(){
-        return this.tiempoDeJuego;
     }
 
     haExpiradoElTiempo() {
@@ -117,7 +111,6 @@ class PegSolitaireGame {
     iniciarTablero() {
         this._tablero = [];
         this._cantidadFichas = 0;
-        this._cantidadMovimientos = 0;
         this._enJuego = true;
 
         const limiteInferior = 2;
@@ -210,7 +203,6 @@ class PegSolitaireGame {
         this._tablero[fMedio][cMedio].quitarFicha();
 
         this._cantidadFichas--;
-        this._cantidadMovimientos++;
     }
 
     quitarFicha(f, c) {
@@ -279,7 +271,7 @@ class PegSolitaireGame {
 
     reiniciarTimer(){
         // Se restablece el tiempo pero no se reinicia automaticamente el intervalo
-        this._tiempoRestante = this.tiempoDeJuego;
+        this._tiempoRestante = TIEMPODEJUEGO;
     }
 
     reiniciarJuego() {

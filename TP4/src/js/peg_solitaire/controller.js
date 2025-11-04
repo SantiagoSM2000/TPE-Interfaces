@@ -1,11 +1,7 @@
 class Controller {
-    constructor(selectedPiece) {
-        this.tiempoDeJuego = 100;
-        this.canvas = document.getElementById('game-canvas');
-        this.gameStartScreen = document.getElementById('game-start-screen');
-
-        this.model = new PegSolitaireGame(this.tiempoDeJuego);
-        this.view = new View(this.canvas,selectedPiece);
+    constructor(model, view) {
+        this.model = model;
+        this.view = view;
 
         // Estado de arrastre de fichas (drag and drop)
         this.isDragging = false;
@@ -28,51 +24,39 @@ class Controller {
         };
         this.timeUpNotified = false;
 
-        // Precalculamos el rectangulo de los botones para reutilizarlos
-        this.restartButtonBounds = this._createRestartButtonBounds();
-        this.menuButtonBounds = this._createMenuButtonBounds();
+        // Precalculamos los rectangulos de los botones para reutilizarlos
+        const { restart, menu } = this._createHudButtonBounds();
+        this.restartButtonBounds = restart;
+        this.menuButtonBounds = menu;
+
+        // Callback opcional para notificar vuelta al menu principal
+        this.onRequestMenu = null;
+
+        // Referencias a handlers para poder remover eventos
+        this._handlersBound = false;
+        this._mouseDownHandler = null;
+        this._mouseMoveHandler = null;
+        this._mouseUpHandler = null;
+        this._mouseOutHandler = null;
     }
 
     init() {
-        this.view.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
-        this.view.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
-        this.view.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
-        this.view.canvas.addEventListener('mouseout', this.handleMouseOut.bind(this));
-        this.canvas.classList.remove('hidden');
-        this.gameStartScreen.classList.add('hidden');
-        this.checkImagesLoaded();
-    }
-        
-    gameLoop() {
-        const imageLoaded = this.view.getImageLoaded();
-        if (imageLoaded) {
-            this.view.draw(this.model, this.getRenderState());
+        if (this._handlersBound) {
+            return;
         }
-        
-        // Si el tiempo llega a cero delegamos la transicion al controlador
-        if (!this.model.estaEnJuego() && this.model.obtenerTiempoRestante() === 0) {
-            this.showTiempoAgotado();
-        }
-        
-        requestAnimationFrame(() => this.gameLoop());
-    }
-    
-    checkImagesLoaded() {
-        if (this.view.getImageLoaded) {
-            console.log('Iniciando game loop...');
-            // Iniciamos el temporizador apenas inicia el gameLoop
-            this.model.iniciarTimer();
-            requestAnimationFrame(() => this.gameLoop());
-        } else {
-            // Esperamos a que las imagenes del tablero esten listas antes de dibujar
-            console.log('Esperando imagenes...');
-            setTimeout(this.checkImagesLoaded, 100);
-        }
-    }
 
-    mostrarMenu() {
-        this.gameStartScreen.classList.remove('hidden');
-        this.canvas.classList.add('hidden');
+        this._mouseDownHandler = this.handleMouseDown.bind(this);
+        this._mouseMoveHandler = this.handleMouseMove.bind(this);
+        this._mouseUpHandler = this.handleMouseUp.bind(this);
+        this._mouseOutHandler = this.handleMouseOut.bind(this);
+
+        const canvas = this.view.canvas;
+        canvas.addEventListener('mousedown', this._mouseDownHandler);
+        canvas.addEventListener('mousemove', this._mouseMoveHandler);
+        canvas.addEventListener('mouseup', this._mouseUpHandler);
+        canvas.addEventListener('mouseout', this._mouseOutHandler);
+
+        this._handlersBound = true;
     }
 
     handleMouseDown(e) {
@@ -85,13 +69,13 @@ class Controller {
             return;
         }
 
-        if (this._isInsideRestartButton(this.mouseX, this.mouseY)) {
+        if (this._isInsideButton(this.restartButtonBounds, this.mouseX, this.mouseY)) {
             this.isRestartButtonPressed = true;
             this.isRestartButtonHovered = true;
             return;
         }
 
-        if (this._isInsideMenuButton(this.mouseX, this.mouseY)) {
+        if (this._isInsideButton(this.menuButtonBounds, this.mouseX, this.mouseY)) {
             this.isMenuButtonPressed = true;
             this.isMenuButtonHovered = true;
             return;
@@ -134,30 +118,31 @@ class Controller {
         this.mouseX = e.offsetX;
         this.mouseY = e.offsetY;
 
-        this.isRestartButtonHovered = this._isInsideRestartButton(this.mouseX, this.mouseY);
-        this.isMenuButtonHovered = this._isInsideMenuButton(this.mouseX, this.mouseY);
+        this.isRestartButtonHovered = this._isInsideButton(this.restartButtonBounds, this.mouseX, this.mouseY);
+        this.isMenuButtonHovered = this._isInsideButton(this.menuButtonBounds, this.mouseX, this.mouseY);
     }
 
     handleMouseUp(e) {
         this.mouseX = e.offsetX;
         this.mouseY = e.offsetY;
 
-        if (this.isRestartButtonPressed) {
-            const isClickRestart = this._isInsideRestartButton(this.mouseX, this.mouseY);
+        const estabaReiniciar = this.isRestartButtonPressed;
+        const estabaMenu = this.isMenuButtonPressed;
+
+        if (estabaReiniciar || estabaMenu) {
+            const sobreReiniciar = this._isInsideButton(this.restartButtonBounds, this.mouseX, this.mouseY);
+            const sobreMenu = this._isInsideButton(this.menuButtonBounds, this.mouseX, this.mouseY);
+
             this.isRestartButtonPressed = false;
-            if (isClickRestart) {
+            this.isMenuButtonPressed = false;
+
+            if (estabaReiniciar && sobreReiniciar) {
                 // Clic valido sobre el boton de reinicio
                 this.restartGame();
             }
-            return;
-        }
 
-        if (this.isMenuButtonPressed) {
-            const isClickMenu = this._isInsideMenuButton(this.mouseX, this.mouseY);
-            this.isMenuButtonPressed = false;
-            if (isClickMenu) {
-                // Clic valido sobre el boton de reinicio
-                this.mostrarMenu();
+            if (estabaMenu && sobreMenu) {
+                this.returnToMenu();
             }
             return;
         }
@@ -240,16 +225,20 @@ class Controller {
             hud: {
                 tiempoRestante,
                 timeWarning: this.model.estaEnJuego() && tiempoRestante <= 10,
-                restartButton: {
-                    ...this.restartButtonBounds,
-                    isHovered: this.isRestartButtonHovered,
-                    isPressed: this.isRestartButtonPressed
-                },
-                menuButton: {
-                    ...this.menuButtonBounds,
-                    isHovered: this.isMenuButtonHovered,
-                    isPressed: this.isMenuButtonPressed
-                }
+                buttons: [
+                    {
+                        ...this.restartButtonBounds,
+                        isHovered: this.isRestartButtonHovered,
+                        isPressed: this.isRestartButtonPressed,
+                        label: 'Reiniciar juego'
+                    },
+                    {
+                        ...this.menuButtonBounds,
+                        isHovered: this.isMenuButtonHovered,
+                        isPressed: this.isMenuButtonPressed,
+                        label: 'Ir al menu principal'
+                    }
+                ]
             },
             endBanner: this.endBanner
         };
@@ -278,7 +267,29 @@ class Controller {
         };
         this.isRestartButtonPressed = false;
         this.isRestartButtonHovered = false;
+        this.isMenuButtonPressed = false;
+        this.isMenuButtonHovered = false;
         this.timeUpNotified = false;
+    }
+
+    returnToMenu() {
+        this.model.detenerTimer();
+        this.cancelDrag();
+        this.view.resetHintAnimation();
+        this.endBanner = {
+            visible: false,
+            title: '',
+            subtitle: ''
+        };
+        this.isRestartButtonPressed = false;
+        this.isRestartButtonHovered = false;
+        this.isMenuButtonPressed = false;
+        this.isMenuButtonHovered = false;
+        this.timeUpNotified = false;
+
+        if (typeof this.onRequestMenu === 'function') {
+            this.onRequestMenu();
+        }
     }
 
     showTiempoAgotado() {
@@ -288,57 +299,57 @@ class Controller {
         this.timeUpNotified = true;
         this.model.detenerTimer();
         this.cancelDrag();
-        const moves = this.model.obtenerCantidadMovimientos();
         // Banner especifico para el caso en que el temporizador llega a cero
         this.endBanner = {
             visible: true,
             title: 'Tiempo agotado',
-            stats: `Movimientos: ${moves} | ¡Los villanos escaparon!`,
             subtitle: 'Haz click para reiniciar'
         };
     }
 
-    _isInsideRestartButton(x, y) {
-        const { x: bx, y: by, width, height } = this.restartButtonBounds;
+    destroy() {
+        if (!this._handlersBound) {
+            return;
+        }
+
+        const canvas = this.view.canvas;
+        canvas.removeEventListener('mousedown', this._mouseDownHandler);
+        canvas.removeEventListener('mousemove', this._mouseMoveHandler);
+        canvas.removeEventListener('mouseup', this._mouseUpHandler);
+        canvas.removeEventListener('mouseout', this._mouseOutHandler);
+
+        this._handlersBound = false;
+        this._mouseDownHandler = null;
+        this._mouseMoveHandler = null;
+        this._mouseUpHandler = null;
+        this._mouseOutHandler = null;
+    }
+
+    _isInsideButton(bounds, x, y) {
+        const { x: bx, y: by, width, height } = bounds;
         return x >= bx && x <= bx + width && y >= by && y <= by + height;
     }
 
-    _isInsideMenuButton(x, y) {
-        const { x: bx, y: by, width, height } = this.menuButtonBounds;
-        return x >= bx && x <= bx + width && y >= by && y <= by + height;
-    }
-
-    _createRestartButtonBounds() {
+    _createHudButtonBounds() {
         const paddingX = 36;
         const buttonWidth = 220;
         const buttonHeight = 52;
-        const x = this.view.canvas.width - paddingX - buttonWidth;
+        const spacing = 16;
+        const xMenu = this.view.canvas.width - paddingX - buttonWidth;
+        const xRestart = xMenu - spacing - buttonWidth;
         const y = (this.view.HUD_HEIGHT - buttonHeight) / 2;
-        return { x, y, width: buttonWidth, height: buttonHeight };
-    }
-
-    _createMenuButtonBounds() {
-        const paddingX = 36;
-        const buttonWidth = 220;
-        const buttonHeight = 52;
-        const x = this.view.canvas.width - paddingX * 2 - buttonWidth * 2;
-        const y = (this.view.HUD_HEIGHT - buttonHeight) / 2;
-        return { x, y, width: buttonWidth, height: buttonHeight };
+        return {
+            restart: { x: xRestart, y, width: buttonWidth, height: buttonHeight },
+            menu: { x: xMenu, y, width: buttonWidth, height: buttonHeight }
+        };
     }
 
     _mostrarFinDeJuego(esVictoria) {
         this.cancelDrag();
         const title = esVictoria ? 'Ganaste!' : 'Sin movimientos';
-        const moves = this.model.obtenerCantidadMovimientos();
-        const timeRemaining = this.model.obtenerTiempoRestante();
-        const timeLimit = this.model.obtenerTiempoDeJuego();
-        const minutes = Math.floor((timeLimit - timeRemaining) / 60);
-        const seconds = (timeLimit - timeRemaining) % 60;
-        const stats = `Movimientos: ${moves} | Tiempo: ${minutes}:${seconds.toString().padStart(2, '0')}`;
         this.endBanner = {
             visible: true,
             title,
-            stats,
             subtitle: 'Haz click para reiniciar'
         };
     }
