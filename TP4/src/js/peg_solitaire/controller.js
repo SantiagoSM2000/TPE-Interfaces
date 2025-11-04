@@ -13,8 +13,10 @@ class Controller {
 
         this.posiblesMovimientos = [];
         // Estado de la UI del HUD
-        this.isHudButtonHovered = false;
-        this.isHudButtonPressed = false;
+        this.isRestartButtonHovered = false;
+        this.isRestartButtonPressed = false;
+        this.isMenuButtonHovered = false;
+        this.isMenuButtonPressed = false;
         this.endBanner = {
             visible: false,
             title: '',
@@ -22,8 +24,9 @@ class Controller {
         };
         this.timeUpNotified = false;
 
-        // Precalculamos el rectangulo del boton para reutilizarlo
-        this.hudButtonBounds = this._createHudButtonBounds();
+        // Precalculamos el rectangulo de los botones para reutilizarlos
+        this.restartButtonBounds = this._createRestartButtonBounds();
+        this.menuButtonBounds = this._createMenuButtonBounds();
     }
 
     init() {
@@ -43,9 +46,15 @@ class Controller {
             return;
         }
 
-        if (this._isInsideHudButton(this.mouseX, this.mouseY)) {
-            this.isHudButtonPressed = true;
-            this.isHudButtonHovered = true;
+        if (this._isInsideRestartButton(this.mouseX, this.mouseY)) {
+            this.isRestartButtonPressed = true;
+            this.isRestartButtonHovered = true;
+            return;
+        }
+
+        if (this._isInsideMenuButton(this.mouseX, this.mouseY)) {
+            this.isMenuButtonPressed = true;
+            this.isMenuButtonHovered = true;
             return;
         }
 
@@ -86,19 +95,30 @@ class Controller {
         this.mouseX = e.offsetX;
         this.mouseY = e.offsetY;
 
-        this.isHudButtonHovered = this._isInsideHudButton(this.mouseX, this.mouseY);
+        this.isRestartButtonHovered = this._isInsideRestartButton(this.mouseX, this.mouseY);
+        this.isMenuButtonHovered = this._isInsideMenuButton(this.mouseX, this.mouseY);
     }
 
     handleMouseUp(e) {
         this.mouseX = e.offsetX;
         this.mouseY = e.offsetY;
 
-        if (this.isHudButtonPressed) {
-            const isClick = this._isInsideHudButton(this.mouseX, this.mouseY);
-            this.isHudButtonPressed = false;
-            if (isClick) {
+        if (this.isRestartButtonPressed) {
+            const isClickRestart = this._isInsideRestartButton(this.mouseX, this.mouseY);
+            this.isRestartButtonPressed = false;
+            if (isClickRestart) {
                 // Clic valido sobre el boton de reinicio
                 this.restartGame();
+            }
+            return;
+        }
+
+        if (this.isMenuButtonPressed) {
+            const isClickMenu = this._isInsideMenuButton(this.mouseX, this.mouseY);
+            this.isMenuButtonPressed = false;
+            if (isClickMenu) {
+                // Clic valido sobre el boton de reinicio
+                ejecutarJuego();
             }
             return;
         }
@@ -137,8 +157,10 @@ class Controller {
     }
 
     handleMouseOut() {
-        this.isHudButtonPressed = false;
-        this.isHudButtonHovered = false;
+        this.isRestartButtonPressed = false;
+        this.isRestartButtonHovered = false;
+        this.isMenuButtonPressed = false;
+        this.isMenuButtonHovered = false;
         this.cancelDrag();
     }
 
@@ -179,10 +201,15 @@ class Controller {
             hud: {
                 tiempoRestante,
                 timeWarning: this.model.estaEnJuego() && tiempoRestante <= 10,
-                button: {
-                    ...this.hudButtonBounds,
-                    isHovered: this.isHudButtonHovered,
-                    isPressed: this.isHudButtonPressed
+                restartButton: {
+                    ...this.restartButtonBounds,
+                    isHovered: this.isRestartButtonHovered,
+                    isPressed: this.isRestartButtonPressed
+                },
+                menuButton: {
+                    ...this.menuButtonBounds,
+                    isHovered: this.isMenuButtonHovered,
+                    isPressed: this.isMenuButtonPressed
                 }
             },
             endBanner: this.endBanner
@@ -210,8 +237,8 @@ class Controller {
             title: '',
             subtitle: ''
         };
-        this.isHudButtonPressed = false;
-        this.isHudButtonHovered = false;
+        this.isRestartButtonPressed = false;
+        this.isRestartButtonHovered = false;
         this.timeUpNotified = false;
     }
 
@@ -232,16 +259,30 @@ class Controller {
         };
     }
 
-    _isInsideHudButton(x, y) {
-        const { x: bx, y: by, width, height } = this.hudButtonBounds;
+    _isInsideRestartButton(x, y) {
+        const { x: bx, y: by, width, height } = this.restartButtonBounds;
         return x >= bx && x <= bx + width && y >= by && y <= by + height;
     }
 
-    _createHudButtonBounds() {
+    _isInsideMenuButton(x, y) {
+        const { x: bx, y: by, width, height } = this.menuButtonBounds;
+        return x >= bx && x <= bx + width && y >= by && y <= by + height;
+    }
+
+    _createRestartButtonBounds() {
         const paddingX = 36;
         const buttonWidth = 220;
         const buttonHeight = 52;
         const x = this.view.canvas.width - paddingX - buttonWidth;
+        const y = (this.view.HUD_HEIGHT - buttonHeight) / 2;
+        return { x, y, width: buttonWidth, height: buttonHeight };
+    }
+
+    _createMenuButtonBounds() {
+        const paddingX = 36;
+        const buttonWidth = 220;
+        const buttonHeight = 52;
+        const x = this.view.canvas.width - paddingX * 2 - buttonWidth * 2;
         const y = (this.view.HUD_HEIGHT - buttonHeight) / 2;
         return { x, y, width: buttonWidth, height: buttonHeight };
     }

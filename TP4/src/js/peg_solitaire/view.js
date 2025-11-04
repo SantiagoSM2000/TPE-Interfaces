@@ -133,8 +133,9 @@ class View {
         ctx.fillStyle = 'rgba(33, 41, 54, 1)';
         ctx.fillRect(0, 0, this.canvas.width, this.HUD_HEIGHT);
         
-        const buttonState = hudState.button;
-        this._drawHudButton(buttonState);
+        const restartButtonState = hudState.restartButton;
+        const menuButtonState = hudState.menuButton;
+        this._drawHudButton(restartButtonState,menuButtonState);
         
         const paddingX = 30;
         ctx.font = '24px "Segoe UI", Arial, sans-serif';
@@ -147,9 +148,9 @@ class View {
         ctx.restore();
     }
 
-    _drawHudButton(buttonState) {
+    _drawHudButton(restartButtonState,menuButtonState) {
         const ctx = this.ctx;
-        const { x, y, width, height, isHovered, isPressed } = buttonState;
+        const { x, y, width, height, isHovered, isPressed } = restartButtonState;
 
         const baseColor = '#FF007F';
         const hoverColor = '#FF3399';
@@ -160,16 +161,21 @@ class View {
         this._roundedRect(ctx, x, y, width, height, 12);
         ctx.fillStyle = isPressed ? pressedColor : (isHovered ? hoverColor : baseColor);
         ctx.fill();
-
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = '#FFD6EB';
-        ctx.stroke();
+        ctx.beginPath();
+        this._roundedRect(ctx, menuButtonState.x, y, width, height, 12);
+        ctx.fillStyle = menuButtonState.isPressed ? pressedColor : (menuButtonState.isHovered ? hoverColor : baseColor);
+        ctx.fill();
+        this.canvas.style.cursor = isHovered || menuButtonState.isHovered ? 'pointer' : 'default';
+        // ctx.lineWidth = 2;
+        // ctx.strokeStyle = '#FFD6EB';
+        // ctx.stroke();
 
         ctx.fillStyle = '#f5f5f5';
         ctx.font = '22px "Segoe UI", Arial, sans-serif';
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
         ctx.fillText('Reiniciar juego', x + width / 2, y + height / 2);
+        ctx.fillText('Menú de inicio', menuButtonState.x + width / 2, y + height / 2);
         ctx.restore();
     }
 
