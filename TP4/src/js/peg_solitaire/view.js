@@ -70,7 +70,7 @@ class View {
                 return;
             }
 
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillStyle = 'rgba(233, 247, 42, 0.8)';
             ctx.beginPath();
             ctx.arc(x, y, HUECO_SIZE / 2, 0, 2 * Math.PI);
             ctx.fill();
