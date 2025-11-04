@@ -259,8 +259,13 @@
 
 article p{ color: var(--b-100); margin-top: 8px; }
 
-.controls .controls-wrap{ display: grid; grid-template-columns: min-content min-content; gap: 140px; align-items: center; justify-content: center;}
-
+.controls .controls-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, 280px);
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+}
 
 .game-page .controls { margin-top: 40px; }
 
@@ -272,9 +277,13 @@ article p{ color: var(--b-100); margin-top: 8px; }
 
 .keys .label, .mouse .label{ text-align: center; margin-top: 8px; color: var(--b-300); }
 
-
-
-.mouse{display: grid; place-items: center; gap: 8px; }
+.mouse-control {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
 
 .media-video iframe{
   width: 100%;
