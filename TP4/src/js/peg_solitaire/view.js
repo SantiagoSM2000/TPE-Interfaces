@@ -70,7 +70,7 @@ class View {
                 return;
             }
 
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillStyle = 'rgba(233, 247, 42, 0.8)';
             ctx.beginPath();
             ctx.arc(x, y, HUECO_SIZE / 2, 0, 2 * Math.PI);
             ctx.fill();
@@ -166,9 +166,6 @@ class View {
         ctx.fillStyle = menuButtonState.isPressed ? pressedColor : (menuButtonState.isHovered ? hoverColor : baseColor);
         ctx.fill();
         this.canvas.style.cursor = isHovered || menuButtonState.isHovered ? 'pointer' : 'default';
-        // ctx.lineWidth = 2;
-        // ctx.strokeStyle = '#FFD6EB';
-        // ctx.stroke();
 
         ctx.fillStyle = '#f5f5f5';
         ctx.font = '22px "Segoe UI", Arial, sans-serif';
@@ -233,5 +230,9 @@ class View {
         ctx.lineTo(x, y + r);
         ctx.quadraticCurveTo(x, y, x + r, y);
         ctx.closePath();
+    }
+
+    getImageLoaded() {
+        return this.imageLoaded;
     }
 }

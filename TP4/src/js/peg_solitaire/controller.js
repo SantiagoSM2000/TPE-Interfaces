@@ -1,7 +1,11 @@
 class Controller {
-    constructor(model, view) {
-        this.model = model;
-        this.view = view;
+    constructor(selectedPiece) {
+        this.tiempoDeJuego = 100;
+        this.canvas = document.getElementById('game-canvas');
+        this.gameStartScreen = document.getElementById('game-start-screen');
+
+        this.model = new PegSolitaireGame(this.tiempoDeJuego);
+        this.view = new View(this.canvas,selectedPiece);
 
         // Estado de arrastre de fichas (drag and drop)
         this.isDragging = false;
@@ -34,6 +38,41 @@ class Controller {
         this.view.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
         this.view.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
         this.view.canvas.addEventListener('mouseout', this.handleMouseOut.bind(this));
+        this.canvas.classList.remove('hidden');
+        this.gameStartScreen.classList.add('hidden');
+        this.checkImagesLoaded();
+    }
+        
+    gameLoop() {
+        const imageLoaded = this.view.getImageLoaded();
+        if (imageLoaded) {
+            this.view.draw(this.model, this.getRenderState());
+        }
+        
+        // Si el tiempo llega a cero delegamos la transicion al controlador
+        if (!this.model.estaEnJuego() && this.model.obtenerTiempoRestante() === 0) {
+            this.showTiempoAgotado();
+        }
+        
+        requestAnimationFrame(() => this.gameLoop());
+    }
+    
+    checkImagesLoaded() {
+        if (this.view.getImageLoaded) {
+            console.log('Iniciando game loop...');
+            // Iniciamos el temporizador apenas inicia el gameLoop
+            this.model.iniciarTimer();
+            requestAnimationFrame(() => this.gameLoop());
+        } else {
+            // Esperamos a que las imagenes del tablero esten listas antes de dibujar
+            console.log('Esperando imagenes...');
+            setTimeout(this.checkImagesLoaded, 100);
+        }
+    }
+
+    mostrarMenu() {
+        this.gameStartScreen.classList.remove('hidden');
+        this.canvas.classList.add('hidden');
     }
 
     handleMouseDown(e) {
@@ -118,7 +157,7 @@ class Controller {
             this.isMenuButtonPressed = false;
             if (isClickMenu) {
                 // Clic valido sobre el boton de reinicio
-                ejecutarJuego();
+                this.mostrarMenu();
             }
             return;
         }
