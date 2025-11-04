@@ -156,7 +156,8 @@ class View {
             }
         }
 
-        this._drawEndBanner(renderState.endBanner);
+        this._drawEndBanner(renderState.endBanner,renderState.hud.buttons);
+        this._drawEndBanner(renderState.endBanner,renderState.hud.buttons);
     }
 
     resetHintAnimation() {
@@ -275,7 +276,7 @@ class View {
         ctx.restore(); // Restaura el contexto (quita todas las sombras)
     }
 
-    _drawEndBanner(endBanner) {
+    _drawEndBanner(endBanner,buttons) {
         if (!endBanner.visible) {
             return;
         }
@@ -283,11 +284,14 @@ class View {
         const ctx = this.ctx;
         ctx.save();
 
+        ctx.fillStyle = 'rgba(33, 41, 54, 1)';
+        ctx.fillRect(0, 0, this.canvas.width, this.HUD_HEIGHT);
+
         ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
         ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        const modalWidth = 420;
-        const modalHeight = 200;
+        const modalWidth = 520;
+        const modalHeight = 220;
         const modalX = (this.canvas.width - modalWidth) / 2;
         const modalY = (this.canvas.height - modalHeight) / 2;
 
@@ -304,15 +308,15 @@ class View {
         ctx.font = '30px "Segoe UI Semibold", Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(endBanner.title, modalX + modalWidth / 2, modalY + modalHeight / 2 - 25);
+        ctx.fillText(endBanner.title, modalX + modalWidth / 2, modalY + modalHeight / 2 - 50);
 
         ctx.fillStyle = '#b5b5b5';
         ctx.font = '20px "Segoe UI", Arial, sans-serif';
-        ctx.fillText(endBanner.stats, modalX + modalWidth / 2, modalY + modalHeight / 2 + 25);
+        ctx.fillText(endBanner.stats, modalX + modalWidth / 2, modalY + modalHeight / 2 + 0);
 
-        ctx.fillStyle = '#b5b5b5';
-        ctx.font = '20px "Segoe UI", Arial, sans-serif';
-        ctx.fillText(endBanner.subtitle, modalX + modalWidth / 2, modalY + modalHeight / 2 + 50);
+        buttons.forEach(button => this._drawHudButton(button));
+        this.canvas.style.cursor = buttons.some(b => b.isHovered) ? 'pointer' : 'default';
+
 
         ctx.restore();
     }

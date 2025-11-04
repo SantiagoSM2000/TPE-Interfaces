@@ -63,12 +63,6 @@ class Controller {
         this.mouseX = e.offsetX;
         this.mouseY = e.offsetY;
 
-        if (this.endBanner.visible) {
-            // Cualquier clic sobre el banner reinicia la partida
-            this.restartGame();
-            return;
-        }
-
         if (this._isInsideButton(this.restartButtonBounds, this.mouseX, this.mouseY)) {
             this.isRestartButtonPressed = true;
             this.isRestartButtonHovered = true;
@@ -144,11 +138,6 @@ class Controller {
             if (estabaMenu && sobreMenu) {
                 this.returnToMenu();
             }
-            return;
-        }
-
-        if (this.endBanner.visible) {
-            this.restartGame();
             return;
         }
 
@@ -265,6 +254,9 @@ class Controller {
             title: '',
             subtitle: ''
         };
+        const { restart, menu } = this._createHudButtonBounds();
+        this.restartButtonBounds = restart;
+        this.menuButtonBounds = menu;
         this.isRestartButtonPressed = false;
         this.isRestartButtonHovered = false;
         this.isMenuButtonPressed = false;
@@ -304,9 +296,12 @@ class Controller {
         this.endBanner = {
             visible: true,
             title: 'Tiempo agotado',
-            stats: `Movimientos: ${moves} | ¡Los villanos escaparon!`,
+            stats: `Movimientos jugados: ${moves} | ¡Los villanos escaparon!`,
             subtitle: 'Haz click para reiniciar'
         };
+        const { restart, menu } = this._createHudButtonBounds();
+        this.restartButtonBounds = restart;
+        this.menuButtonBounds = menu;
     }
 
     destroy() {
@@ -333,13 +328,28 @@ class Controller {
     }
 
     _createHudButtonBounds() {
-        const paddingX = 36;
-        const buttonWidth = 220;
-        const buttonHeight = 52;
-        const spacing = 16;
-        const xMenu = this.view.canvas.width - paddingX - buttonWidth;
+        let paddingX;
+        let buttonWidth;
+        let buttonHeight;
+        let spacing;
+        let xMenu;
+        let y;
+        if(this.endBanner.visible){
+            paddingX = 8;
+            buttonWidth = 200;
+            buttonHeight = 48;
+            spacing = 16;
+            xMenu = this.view.canvas.width / 2 + paddingX;
+            y = this.view.canvas.height / 2 + 25;
+        }else{
+            paddingX = 36;
+            buttonWidth = 220;
+            buttonHeight = 52;
+            spacing = 16;
+            xMenu = this.view.canvas.width - paddingX - buttonWidth;
+            y = (this.view.HUD_HEIGHT - buttonHeight) / 2;
+        }
         const xRestart = xMenu - spacing - buttonWidth;
-        const y = (this.view.HUD_HEIGHT - buttonHeight) / 2;
         return {
             restart: { x: xRestart, y, width: buttonWidth, height: buttonHeight },
             menu: { x: xMenu, y, width: buttonWidth, height: buttonHeight }
@@ -354,12 +364,15 @@ class Controller {
         const timeLimit = this.model.obtenerTiempoDeJuego();
         const minutes = Math.floor((timeLimit - timeRemaining) / 60);
         const seconds = (timeLimit - timeRemaining) % 60;
-        const stats = `Movimientos: ${moves} | Tiempo: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        const stats = `Movimientos jugados: ${moves} | Tiempo consumido: ${minutes}:${seconds.toString().padStart(2, '0')}`;
         this.endBanner = {
             visible: true,
             title,
             stats,
             subtitle: 'Haz click para reiniciar'
         };
+        const { restart, menu } = this._createHudButtonBounds();
+        this.restartButtonBounds = restart;
+        this.menuButtonBounds = menu;
     }
 }
