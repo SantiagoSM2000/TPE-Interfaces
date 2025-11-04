@@ -106,7 +106,7 @@ class View {
                 return;
             }
 
-            ctx.fillStyle = 'rgba(233, 247, 42, 0.8)';
+            ctx.fillStyle = 'rgba(233, 247, 42, 1)';
             ctx.beginPath();
             ctx.arc(x, y, HUECO_SIZE / 2, 0, 2 * Math.PI);
             ctx.fill();
