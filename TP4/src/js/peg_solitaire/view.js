@@ -176,6 +176,7 @@ class View {
 
         const buttons = hudState.buttons ?? [];
         buttons.forEach(button => this._drawHudButton(button));
+        this.canvas.style.cursor = buttons.some(b => b.isHovered) ? 'pointer' : 'default';
         
         const paddingX = 30;
         ctx.font = '24px "Segoe UI", Arial, sans-serif';
