@@ -308,7 +308,11 @@ class View {
 
         ctx.fillStyle = '#b5b5b5';
         ctx.font = '20px "Segoe UI", Arial, sans-serif';
-        ctx.fillText(endBanner.subtitle, modalX + modalWidth / 2, modalY + modalHeight / 2 + 25);
+        ctx.fillText(endBanner.stats, modalX + modalWidth / 2, modalY + modalHeight / 2 + 25);
+
+        ctx.fillStyle = '#b5b5b5';
+        ctx.font = '20px "Segoe UI", Arial, sans-serif';
+        ctx.fillText(endBanner.subtitle, modalX + modalWidth / 2, modalY + modalHeight / 2 + 50);
 
         ctx.restore();
     }

@@ -59,6 +59,7 @@ class PegSolitaireGame {
         this._tamano = 7;
         this._tablero = [];
         this._cantidadFichas = 0;
+        this._cantidadMovimientos = 0;
         this._tiempoRestante = TIEMPODEJUEGO;
         this._timerID = null;
         this._enJuego = false;
@@ -73,8 +74,16 @@ class PegSolitaireGame {
         return this._enJuego;
     }
 
+    obtenerCantidadMovimientos(){
+        return this._cantidadMovimientos;
+    }
+
     obtenerTiempoRestante() {
         return this._tiempoRestante;
+    }
+
+    obtenerTiempoDeJuego(){
+        return TIEMPODEJUEGO;
     }
 
     haExpiradoElTiempo() {
@@ -111,6 +120,7 @@ class PegSolitaireGame {
     iniciarTablero() {
         this._tablero = [];
         this._cantidadFichas = 0;
+        this._cantidadMovimientos = 0;
         this._enJuego = true;
 
         const limiteInferior = 2;
@@ -203,6 +213,7 @@ class PegSolitaireGame {
         this._tablero[fMedio][cMedio].quitarFicha();
 
         this._cantidadFichas--;
+        this._cantidadMovimientos++;
     }
 
     quitarFicha(f, c) {
