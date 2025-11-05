@@ -291,6 +291,23 @@ class PegSolitaireGame {
         this.iniciarTimer();
     }
 
+    vaciarTablero() {
+        for (let f = 0; f < this._tamano; f++) {
+            for (let c = 0; c < this._tamano; c++) {
+                const casillero = this._tablero[f][c];
+                if (!casillero.esValido()) {
+                    continue;
+                }
+                if (casillero.tieneFicha()) {
+                    casillero.quitarFicha();
+                }
+            }
+        }
+        this._cantidadFichas = 0;
+        this._cantidadMovimientos = 0;
+        this._enJuego = false;
+    }
+
     tieneFicha(f, c) {
         return this._tablero[f]?.[c]?.tieneFicha() ?? false;
     }
