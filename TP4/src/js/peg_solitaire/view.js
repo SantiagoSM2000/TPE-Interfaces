@@ -173,7 +173,7 @@ class View {
         }
 
         this._drawEndBanner(renderState.endBanner,renderState.hud.buttons);
-        this._drawEndBanner(renderState.endBanner,renderState.hud.buttons);
+        //this._drawEndBanner(renderState.endBanner,renderState.hud.buttons);
     }
 
     resetHintAnimation() {
