@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const previewModel = new PegSolitaireGame();
         previewModel.detenerTimer();
+        previewModel.vaciarTablero();
 
         const previewView = new View(previewCanvas, getSelectedPieceSrc(), {
             showHud: false,
@@ -148,19 +149,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        drawPreview();
+        const renderVillainSelection = (pieceSrc) => {
+            previewModel.iniciarTablero();
+            previewModel.detenerTimer();
+            previewRenderState.posiblesMovimientos = [];
+            previewRenderState.fichaFlotante = null;
+            previewRenderState.hud.tiempoRestante = previewModel.obtenerTiempoRestante();
+
+            previewView
+                .updateSecondaryPiece(pieceSrc)
+                .then(drawPreview)
+                .catch((error) => {
+                    console.error('Error actualizando la vista previa:', error);
+                });
+        };
+
+        const initiallyChecked = Array.from(pieceRadios).find((radio) => radio.checked);
+        if (initiallyChecked) {
+            const initialSrc = `assets/img/peg-${initiallyChecked.value}.png`;
+            renderVillainSelection(initialSrc);
+        } else {
+            drawPreview();
+        }
 
         pieceRadios.forEach((radio) => {
             radio.addEventListener('change', () => {
                 const newSrc = `assets/img/peg-${radio.value}.png`;
-                previewView
-                    .updateSecondaryPiece(newSrc)
-                    .then(() => {
-                        previewView.draw(previewModel, previewRenderState);
-                    })
-                    .catch((error) => {
-                        console.error('Error actualizando la vista previa:', error);
-                    });
+                renderVillainSelection(newSrc);
             });
         });
     }
