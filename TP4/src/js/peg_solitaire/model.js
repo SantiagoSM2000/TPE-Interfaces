@@ -1,5 +1,5 @@
 
-// Duracion del reloj en segundos (2 minutos y medio)
+// Duracion del reloj en segundos
 const TIEMPODEJUEGO = 100;
 
 /* Clases de datos */

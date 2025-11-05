@@ -22,6 +22,8 @@ class View {
         this.imageLoaded = false;
         this.hintAnimationTime = 0;
         this.selectedPiece = selectedPiece;
+        this._timerWarningBlinkOn = true;
+        this._lastTimerBlinkToggle = 0;
 
         // Rutas de imagenes usadas por el tablero
         this.imageSources = {
@@ -185,14 +187,45 @@ class View {
         const buttons = hudState.buttons ?? [];
         buttons.forEach(button => this._drawHudButton(button));
         this.canvas.style.cursor = buttons.some(b => b.isHovered) ? 'pointer' : 'default';
-        
+
+        const now = (typeof performance !== 'undefined' && typeof performance.now === 'function')
+            ? performance.now()
+            : Date.now();
+
+        if (hudState.timeWarning) {
+            if (this._lastTimerBlinkToggle === 0) {
+                this._lastTimerBlinkToggle = now;
+            } else if (now - this._lastTimerBlinkToggle >= 500) {
+                this._timerWarningBlinkOn = !this._timerWarningBlinkOn;
+                this._lastTimerBlinkToggle = now;
+            }
+        } else {
+            this._timerWarningBlinkOn = true;
+            this._lastTimerBlinkToggle = 0;
+        }
+
         const paddingX = 30;
-        ctx.font = '24px "Segoe UI", Arial, sans-serif';
+        const labelFont = '24px "Segoe UI", Arial, sans-serif';
+        const valueFont = '28px "Segoe UI Semibold", Arial, sans-serif';
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'left';
-        const timerText = `Tiempo: ${hudState.tiempoRestante}s`;;
-        ctx.fillStyle = hudState.timeWarning ? '#ff7070' : '#ffffff';
-        ctx.fillText(timerText, paddingX, this.HUD_HEIGHT / 2);
+
+        const labelText = 'Tiempo:';
+        const valueText = `${hudState.tiempoRestante}s`;
+
+        ctx.font = labelFont;
+        const labelWidth = ctx.measureText(`${labelText} `).width;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(labelText, paddingX, this.HUD_HEIGHT / 2);
+
+        let valueColor = '#ffffff';
+        if (hudState.timeWarning) {
+            valueColor = this._timerWarningBlinkOn ? '#ff4040' : '#ffb3b5';
+        }
+
+        ctx.font = valueFont;
+        ctx.fillStyle = valueColor;
+        ctx.fillText(valueText, paddingX + labelWidth, this.HUD_HEIGHT / 2);
 
         ctx.restore();
     }
