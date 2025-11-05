@@ -166,10 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getSelectedPieceSrc() {
-        let selectedPiece = 'assets/img/peg-joker.png';
+        let selectedPiece = 'joker';
         pieceRadios.forEach((radio) => {
             if (radio.checked) {
-                selectedPiece = `assets/img/peg-${radio.value}.png`;
+                selectedPiece = radio.value;
             }
         });
         return selectedPiece;

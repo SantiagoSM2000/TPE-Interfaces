@@ -27,8 +27,9 @@ class View {
         this.imageSources = {
             background: 'assets/img/batman-peg-background.jpg',
             tipo1: 'assets/img/peg-batman.png',
-            tipo2: selectedPiece,
-            hint: 'assets/img/hint.png'
+            tipo2: `assets/img/peg-${selectedPiece}.png`,
+            hint: 'assets/img/hint.png',
+            hint2: `assets/img/hint-${selectedPiece}.png`
         };
 
         this.preloadImages();
@@ -138,7 +139,13 @@ class View {
                 const hintY = this.OFFSET_Y + move.f * this.TAMANO_CELDA + (this.TAMANO_CELDA / 2);
                 const drawX = hintX - hintSize / 2;
                 const drawY = hintY - hintSize / 2;
-                ctx.drawImage(this.images.hint, drawX, drawY, hintSize, hintSize);
+                let tipoVisualHint;
+                if (fichaFlotante.getTipoVisual() == 1){
+                    tipoVisualHint = this.images.hint;
+                }else{
+                    tipoVisualHint = this.images.hint2;
+                }
+                ctx.drawImage(tipoVisualHint, drawX, drawY, hintSize, hintSize);
             });
             ctx.globalAlpha = 1.0;
         }
