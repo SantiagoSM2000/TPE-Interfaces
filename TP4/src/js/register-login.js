@@ -1,0 +1,220 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const passwordIcon = document.querySelector("#password-icon");
+    const repeatPasswordIcon = document.querySelector("#repeat-password-icon");
+    const passwordInput = document.querySelector("#Password");
+    const repeatPasswordInput = document.querySelector("#repeat-password");
+    const registerForm = document.querySelector("#register-form");
+    const loginForm = document.querySelector("#login-form");
+    const googleBtn = document.querySelector(".btn-google");
+    const facebookBtn = document.querySelector(".btn-facebook");
+
+    // Desactivar validación HTML5 nativa solo si existe el formulario de registro
+    if(registerForm) {
+        registerForm.setAttribute('novalidate', '');
+    }
+
+    // Toggle password visibility (solo en register)
+    if(passwordIcon && passwordInput) {
+        passwordIcon.addEventListener("click", (e) => togglePasswordVisibility(e.target, passwordInput));
+    }
+    
+    if(repeatPasswordIcon && repeatPasswordInput) {
+        repeatPasswordIcon.addEventListener("click", (e) => togglePasswordVisibility(e.target, repeatPasswordInput));
+    }
+
+    function togglePasswordVisibility(icon, input) {
+        if(icon.getAttribute("data-open")=="false"){
+            icon.src="assets/svg/eye-closed.svg";
+            icon.setAttribute('data-open', 'true');
+            input.type = "text";
+        }else{
+            icon.src="assets/svg/eye-open.svg";
+            icon.setAttribute('data-open', 'false');
+            input.type = "password";
+        }
+    }
+
+    // Función para mostrar mensaje de error
+    function showError(input, message) {
+        // Remover error previo si existe
+        removeError(input);
+
+        // Crear elemento de error
+        const errorMsg = document.createElement('p');
+        errorMsg.className = 'error-message body-b3';
+        errorMsg.textContent = message;
+
+        // Agregar clase de error al input
+        input.classList.add('input-error');
+
+        // Encontrar el contenedor padre (.input-label)
+        const parent = input.closest('.input-label');
+
+        // Insertar el mensaje al final del contenedor
+        if(parent) {
+            parent.appendChild(errorMsg);
+        }
+    }
+
+    // Función para remover mensaje de error
+    function removeError(input) {
+        const parent = input.closest('.input-label');
+        if(parent) {
+            const errorMsg = parent.querySelector('.error-message');
+            if(errorMsg) {
+                errorMsg.remove();
+            }
+        }
+        input.classList.remove('input-error');
+    }
+
+    // Función para mostrar animación de éxito
+    function showSuccessAnimation(message) {
+        // Crear overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'success-overlay';
+        
+        // Crear mensaje de éxito
+        const successBox = document.createElement('div');
+        successBox.className = 'success-message';
+        
+        // Crear checkmark
+        const checkmark = document.createElement('div');
+        checkmark.className = 'success-checkmark';
+        
+        // Crear texto
+        const text = document.createElement('p');
+        text.className = 'success-text subtitle-s1';
+        text.textContent = message;
+        
+        // Ensamblar
+        successBox.appendChild(checkmark);
+        successBox.appendChild(text);
+        overlay.appendChild(successBox);
+        document.body.appendChild(overlay);
+        
+        // Animar formulario
+        const form = registerForm || loginForm;
+        if(form) {
+            form.classList.add('form-success-exit');
+        }
+        
+        // Redirigir después de la animación
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1500);
+    }
+
+    // Limpiar errores cuando el usuario empiece a escribir - SOLO EN REGISTER
+    if(registerForm) {
+        const allInputs = registerForm.querySelectorAll('input');
+        allInputs.forEach(input => {
+            input.addEventListener('input', () => removeError(input));
+        });
+
+        // Manejar el envío del formulario de registro
+        registerForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Obtengo todos los campos requeridos
+            const nameInput = document.querySelector("#name");
+            const lastNameInput = document.querySelector("#last-name");
+            const ageInput = document.querySelector("#age");
+            const emailInput = document.querySelector("#Email");
+
+            // Validar campos requeridos
+            if(!nameInput.value.trim()) {
+                showError(nameInput, "El nombre es requerido");
+                isValid = false;
+            }
+
+            if(!lastNameInput.value.trim()) {
+                showError(lastNameInput, "El apellido es requerido");
+                isValid = false;
+            }
+
+            if(!ageInput.value) {
+                showError(ageInput, "La fecha de nacimiento es requerida");
+                isValid = false;
+            }
+
+            if(!emailInput.value.trim()) {
+                showError(emailInput, "El email es requerido");
+                isValid = false;
+            } else {
+                // Validar formato de email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if(!emailRegex.test(emailInput.value)) {
+                    showError(emailInput, "El email no es válido");
+                    isValid = false;
+                }
+            }
+
+            // Validar que la contraseña no esté vacía
+            if(!passwordInput.value) {
+                showError(passwordInput, "La contraseña es requerida");
+                isValid = false;
+            }
+            // Validar longitud mínima de 8 caracteres
+            else if(passwordInput.value.length < 8) {
+                showError(passwordInput, "La contraseña debe tener mínimo 8 caracteres");
+                isValid = false;
+            }
+            // Validar que tenga al menos 1 letra y 1 número
+            else {
+                const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)/;
+                if(!passwordRegex.test(passwordInput.value)) {
+                    showError(passwordInput, "La contraseña debe tener al menos 1 letra y 1 número");
+                    isValid = false;
+                }
+            }
+
+            // Validar que repita la contraseña
+            if(!repeatPasswordInput.value) {
+                showError(repeatPasswordInput, "Debes repetir la contraseña");
+                isValid = false;
+            }
+            // Validar que las contraseñas coincidan
+            else if(passwordInput.value !== repeatPasswordInput.value) {
+                showError(repeatPasswordInput, "Las contraseñas no coinciden");
+                isValid = false;
+            }
+
+            // Si todo está correcto, mostrar animación y redirigir
+            if(isValid) {
+                showSuccessAnimation('¡Cuenta creada exitosamente!');
+            }
+        });
+    }
+
+    // Manejar el envío del formulario de login
+    if(loginForm) {
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            
+            const emailInput = document.querySelector("#Email");
+            const passwordInput = document.querySelector("#Password");
+            
+            // Validación básica y mostrar animación
+            if(emailInput.value && passwordInput.value) {
+                showSuccessAnimation('¡Bienvenido de nuevo!');
+            }
+        });
+    }
+
+    // Botones de redes sociales con animación de éxito
+    if(googleBtn) {
+        googleBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            showSuccessAnimation('¡Bienvenido!');
+        });
+    }
+
+    if(facebookBtn) {
+        facebookBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            showSuccessAnimation('¡Bienvenido!');
+        });
+    }
+});

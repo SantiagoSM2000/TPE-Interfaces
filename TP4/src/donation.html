@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlayNow</title>
+  <link rel="shortcut icon" href="assets/Logo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/donation.css">
+  <link rel="stylesheet" href="css/sidebar.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header id="header-placeholder"></header>
+
+  <main class="donation-page">
+    <div class="donation-container">
+      <section class="donation-copy">
+        <p class="subtitle-s1">
+          Ante todo, &iexcl;gracias! Si has llegado hasta aqu&iacute; es porque est&aacute;s pensando en apoyar a
+          PlayNow, nuestra plataforma de juegos online pensada para que disfrutes sin l&iacute;mites.
+        </p>
+        <p class="subtitle-s1">
+          Cada a&ntilde;o, gracias al aporte de una peque&ntilde;a parte de nuestros jugadores, podemos mantener la
+          p&aacute;gina activa, mejorar la experiencia de juego y seguir sumando nuevas propuestas para toda la comunidad.
+        </p>
+        <p class="subtitle-s1">
+          Si PlayNow tambi&eacute;n es importante y divertido para ti, puedes unirte a quienes ya nos apoyan y
+          hacer una donaci&oacute;n de $1000, $2000, $5000, $7500, $10000, $20000, $50000 o la cantidad que prefieras.
+        </p>
+        <p class="subtitle-s1">
+          PlayNow es diferente: no tenemos publicidad invasiva, cuotas de suscripci&oacute;n ni juegos bloqueados por pago.
+          Todo lo que encuentres aqu&iacute; est&aacute; pensado para que juegues libremente.
+        </p>
+        <p class="subtitle-s1">
+          Si quieres contribuir a que sigamos creciendo, elige cu&aacute;nto deseas donar y mu&eacute;strale al mundo que valoras un espacio
+          de entretenimiento gratuito y accesible para todos.
+        </p>
+        <p class="subtitle-s1">&iexcl;Gracias por ser parte de nuestra comunidad!</p>
+      </section>
+
+      <aside class="donation-widget" aria-labelledby="donation-title">
+        <h3 id="donation-title" class="widget-title subtitle-s1">Importe de la donaci&oacute;n (AR$)</h3>
+
+        <div class="amount-grid" role="group" aria-label="Montos sugeridos">
+          <button class="amount-button is-selected" data-amount="1000">$1000</button>
+          <button class="amount-button" data-amount="2000">$2000</button>
+          <button class="amount-button" data-amount="5000">$5000</button>
+          <button class="amount-button" data-amount="7500">$7500</button>
+          <button class="amount-button" data-amount="10000">$10000</button>
+          <button class="amount-button" data-amount="20000">$20000</button>
+          <button class="amount-button" data-amount="50000">$50000</button>
+          <button class="amount-button" data-other="true">Otro</button>
+        </div>
+
+        <div class="custom-amount" hidden>
+          <label class="body-b2" for="monto">Monto personalizado</label>
+          <div class="custom-input">
+            <span>$</span>
+            <input id="monto" type="number" min="10" step="10" placeholder="Ingrese monto" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn-giant secondary">Tarjeta de cr&eacute;dito o d&eacute;bito</button>
+          <button class="btn-giant secondary">Paypal (USD)</button>
+        </div>
+
+        <div class="what-for">
+          <h4 class="subtitle-s1">&iquest;Para qu&eacute; usamos tus donaciones?</h4>
+          <p class="body-b2">Servidores, ancho de banda, mantenimiento y desarrollo.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo" id="footer-placeholder">
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/sidebar.js"></script>
+</body>
+
+</html>
