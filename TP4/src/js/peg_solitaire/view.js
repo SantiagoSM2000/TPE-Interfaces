@@ -5,14 +5,15 @@ class View {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
 
+        // Configuración visual: HUD y auto escalado opcional para reutilizar la misma vista
         this.showHud = options.showHud !== false;
         this.enableHints = options.enableHints !== false;
         const hudHeight = this.showHud ? (options.hudHeight ?? 100) : 0;
         const autoCellSize = options.autoScale ? this._computeAutoCellSize(hudHeight) : null;
-        this.TAMANO_CELDA = options.cellSize ?? autoCellSize ?? 90;
+        this.TAMANO_CELDA = options.cellSize ?? autoCellSize ?? 90; // Cada casilla del tablero mide TAMANO_CELDA px
         this.HUD_HEIGHT = hudHeight;
-        this._boardSize = this.TAMANO_CELDA * 7;
-        this.OFFSET_X = (this.canvas.width - this._boardSize) / 2;
+        this._boardSize = this.TAMANO_CELDA * 7; // El Peg solitaire usa un tablero 7x7
+        this.OFFSET_X = (this.canvas.width - this._boardSize) / 2; // Centramos el tablero horizontalmente
         if (this.showHud) {
             const espacioDisponible = this.canvas.height - this.HUD_HEIGHT - this._boardSize;
             this.OFFSET_Y = this.HUD_HEIGHT + Math.max(0, espacioDisponible / 2);
@@ -20,6 +21,7 @@ class View {
             this.OFFSET_Y = Math.max(0, (this.canvas.height - this._boardSize) / 2);
         }
 
+        // Estados internos para cachear imágenes y animar ayudas/temporizador
         this.images = {};
         this.imageLoaded = false;
         this.hintAnimationTime = 0;
@@ -39,6 +41,7 @@ class View {
         this.preloadImages();
     }
 
+    // Ajusta automáticamente el tamaño de la celda para que el tablero siempre quepa en pantalla.
     _computeAutoCellSize(hudHeight) {
         const usableHeight = this.canvas.height - (this.showHud ? hudHeight : 0);
         const maxSize = Math.min(this.canvas.width, usableHeight);
@@ -97,6 +100,7 @@ class View {
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         if (this.images.background) {
+            // Imagen temática que cubre todo el canvas; actúa como fondo del tablero.
             ctx.drawImage(this.images.background, 0, 0, this.canvas.width, this.canvas.height);
         }
 
@@ -134,6 +138,7 @@ class View {
         });
 
         // Resalta los destinos permitidos cuando la ficha está siendo arrastrada.
+        // El seno produce un pulso suave que hace que el hint "respire" para llamar la atención.
         if (this.enableHints && isDragging && posiblesMovimientos.length > 0 && this.images.hint) {
             this.hintAnimationTime += 0.1;
             const pulse = Math.sin(this.hintAnimationTime);
@@ -159,6 +164,7 @@ class View {
             ctx.globalAlpha = 1.0;
         }
 
+        // Durante el arrastre dibujamos la ficha por encima del tablero siguiendo el mouse.
         if (isDragging && fichaFlotante) {
             const imgKeyFlotante = fichaFlotante.getTipoVisual() === 1 ? 'tipo1' : 'tipo2';
             const imgFlotante = this.images[imgKeyFlotante];
@@ -172,10 +178,12 @@ class View {
             }
         }
 
+        
         this._drawEndBanner(renderState.endBanner,renderState.hud.buttons);
-        this._drawEndBanner(renderState.endBanner,renderState.hud.buttons);
+        //this._drawEndBanner(renderState.endBanner,renderState.hud.buttons);
     }
 
+    // Reinicia el contador del pulso para que los hints arranquen suaves después de un movimiento.
     resetHintAnimation() {
         this.hintAnimationTime = 0;
     }
@@ -223,12 +231,14 @@ class View {
         const valueText = `${hudState.tiempoRestante}s`;
 
         ctx.font = labelFont;
+        // Medimos el ancho del texto "Tiempo:" para colocar el número a continuación.
         const labelWidth = ctx.measureText(`${labelText} `).width;
         ctx.fillStyle = '#ffffff';
         ctx.fillText(labelText, paddingX, this.HUD_HEIGHT / 2);
 
         let valueColor = '#ffffff';
         if (hudState.timeWarning) {
+            // Alternamos entre rojo intenso y un tono claro para lograr el efecto de alarma.
             valueColor = this._timerWarningBlinkOn ? '#ff4040' : '#ffb3b5';
         }
 
@@ -372,6 +382,7 @@ class View {
         ctx.restore();
     }
 
+    // Utilidad para dibujar rectángulos con bordes redondeados en canvas.
     _roundedRect(ctx, x, y, width, height, radius) {
         const r = Math.min(radius, width / 2, height / 2);
         ctx.moveTo(x + r, y);
