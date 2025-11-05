@@ -61,6 +61,7 @@ class Casillero {
 class PegSolitaireGame {
     constructor() {
         // Estado principal del tablero y del reloj
+        // _tablero es una matriz 7x7 de Casillero; _cantidadFichas ayuda a evaluar victoria.
         this._tamano = 7;
         this._tablero = [];
         this._cantidadFichas = 0;
@@ -95,6 +96,7 @@ class PegSolitaireGame {
         return this._tiempoRestante <= 0;
     }
 
+    // Itera por cada coordenada y ejecuta el callback con información de solo lectura.
     forEachCasillero(callback) {
         for (let f = 0; f < this._tamano; f++) {
             for (let c = 0; c < this._tamano; c++) {
@@ -190,6 +192,7 @@ class PegSolitaireGame {
         return true;
     }
 
+    // Devuelve una lista de destinos accesibles (salto ortogonal de dos casillas).
     getPosiblesMovimientos(fOrigen, cOrigen) {
         const movimientos = [];
         const direcciones = [
@@ -210,6 +213,7 @@ class PegSolitaireGame {
         return movimientos;
     }
 
+    // Ejecuta el salto: mueve la ficha y elimina la que quedó en el centro.
     ejecutarMovimiento(fOrigen, cOrigen, fDestino, cDestino, fichaMovida) {
         const fMedio = (fOrigen + fDestino) / 2;
         const cMedio = (cOrigen + cDestino) / 2;
@@ -223,6 +227,7 @@ class PegSolitaireGame {
         this._cantidadMovimientos++;
     }
 
+    // Quita la ficha de un casillero y la devuelve (se usa al iniciar un arrastre).
     quitarFicha(f, c) {
         const casillero = this._tablero[f]?.[c];
         if (!casillero?.tieneFicha()) {
@@ -231,6 +236,7 @@ class PegSolitaireGame {
         return casillero.quitarFicha();
     }
 
+    // Vuelve a colocar una ficha previamente retirada (por ejemplo al cancelar arrastre).
     devolverFicha(ficha, f, c) {
         const casillero = this._tablero[f]?.[c];
         if (casillero) {
@@ -238,6 +244,7 @@ class PegSolitaireGame {
         }
     }
 
+    // Devuelve true cuando ninguna ficha puede moverse; también detiene la cuenta regresiva.
     comprobarFinDeJuego() {
         for (let f = 0; f < this._tamano; f++) {
             for (let c = 0; c < this._tamano; c++) {
@@ -256,6 +263,7 @@ class PegSolitaireGame {
         return this._cantidadFichas === 1;
     }
 
+    // Comienza (o reinicia) el intervalo de 1 segundo que reduce el tiempo restante.
     iniciarTimer() {
         if (this._timerID) {
             clearInterval(this._timerID);
@@ -267,6 +275,7 @@ class PegSolitaireGame {
         }, 1000);
     }
 
+    // Llamado cada segundo: descuenta tiempo y detiene el juego si llega a cero.
     tick() {
         if (!this._enJuego) {
             this.detenerTimer();
@@ -280,6 +289,7 @@ class PegSolitaireGame {
         }
     }
 
+    // Cancela el intervalo en curso si existe (se usa al pausar o finalizar).
     detenerTimer() {
         if (this._timerID) {
             clearInterval(this._timerID);

@@ -16,11 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const pieceRadios = document.querySelectorAll('input[name="peg-piece"]');
 
+    // Referencias a los componentes activos del juego en curso
     let activeModel = null;
     let activeView = null;
     let activeController = null;
-    let animationFrameId = null;
-    let imageCheckTimeoutId = null;
+    let animationFrameId = null; // requestAnimationFrame actual (para cancelarlo al volver al menú)
+    let imageCheckTimeoutId = null; // timeout que reintenta cuando aún no se cargaron las texturas
     let gameRunning = false;
 
     initPreview();
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startScreen.classList.add('hidden');
         canvas.classList.remove('hidden');
 
+        // El villano activo define la textura de las fichas secundarias (Joker por defecto).
         const selectedPiece = getSelectedPieceSrc();
 
         activeModel = new PegSolitaireGame();
@@ -61,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             activeModel.iniciarTimer();
             animationFrameId = requestAnimationFrame(gameLoop);
         } else {
+            // Todavía hay assets cargándose: reintentamos en 100ms para evitar bloquear la UI.
             console.log('Esperando imagenes...');
             imageCheckTimeoutId = setTimeout(waitForImagesAndStartLoop, 100);
         }
@@ -76,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             activeView.draw(activeModel, activeController.getRenderState());
         }
 
+        // Cuando el cronómetro llega a cero detiene el loop y muestra el modal de tiempo agotado.
         if (!activeModel.estaEnJuego() && activeModel.obtenerTiempoRestante() === 0) {
             activeController.showTiempoAgotado();
         }
@@ -108,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             activeController.destroy();
         }
 
+        // Rehabilitamos la portada para que el usuario pueda configurar otra partida.
         startScreen.classList.remove('hidden');
         canvas.classList.add('hidden');
 
@@ -125,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const previewModel = new PegSolitaireGame();
         previewModel.detenerTimer();
-        previewModel.vaciarTablero();
+        previewModel.vaciarTablero(); // Para la preview queremos mostrar solo el tablero vacío inicial
 
         const previewView = new View(previewCanvas, getSelectedPieceSrc(), {
             showHud: false,
@@ -133,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
             autoScale: true
         });
 
+        // RenderState "fake" para la preview: no hay arrastre ni botones visibles.
         const previewRenderState = {
             isDragging: false,
             posiblesMovimientos: [],
@@ -172,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         };
 
+        // Algunos navegadores recuerdan la selección entre sesiones: respetamos esa elección.
         const initiallyChecked = Array.from(pieceRadios).find((radio) => radio.checked);
         if (initiallyChecked) {
             const initialSrc = `assets/img/peg-${initiallyChecked.value}.png`;

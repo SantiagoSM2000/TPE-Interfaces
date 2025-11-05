@@ -1,6 +1,8 @@
 // Controla la interacción del jugador con el tablero y actualiza la vista en cada frame.
 class Controller {
     constructor(model, view) {
+        // model: instancia de PegSolitaireGame que mantiene el estado.
+        // view: objeto View encargado de dibujar los cambios en pantalla.
         this.model = model;
         this.view = view;
 
@@ -12,8 +14,8 @@ class Controller {
         this.mouseX = 0;
         this.mouseY = 0;
 
-        this.posiblesMovimientos = [];
-        // Estado de la UI del HUD
+        this.posiblesMovimientos = []; // Movimientos legales de la ficha seleccionada
+        // Estado de la UI del HUD para botones de reinicio y menú
         this.isRestartButtonHovered = false;
         this.isRestartButtonPressed = false;
         this.isMenuButtonHovered = false;
@@ -23,7 +25,7 @@ class Controller {
             title: '',
             subtitle: ''
         };
-        this.timeUpNotified = false;
+        this.timeUpNotified = false; // Evita mostrar el banner de tiempo agotado más de una vez
 
         // Precalculamos los rectangulos de los botones para reutilizarlos
         const { restart, menu } = this._createHudButtonBounds();
@@ -33,7 +35,7 @@ class Controller {
         // Callback opcional para notificar vuelta al menu principal
         this.onRequestMenu = null;
 
-        // Referencias a handlers para poder remover eventos
+        // Referencias a handlers para poder remover eventos y evitar múltiples registros
         this._handlersBound = false;
         this._mouseDownHandler = null;
         this._mouseMoveHandler = null;
@@ -79,6 +81,7 @@ class Controller {
         }
 
         if (this.mouseY < this.view.HUD_HEIGHT) {
+            // Parte superior reservada para el HUD: ignoramos arrastres allí.
             return;
         }
 
@@ -171,6 +174,7 @@ class Controller {
         this.posiblesMovimientos = [];
 
         if (movimientoRealizado) {
+            // Esperamos un frame para que la vista actualice antes de comprobar el fin de juego.
             setTimeout(() => this.checkGameEnd(), 100);
         }
     }
@@ -224,6 +228,7 @@ class Controller {
             hud: {
                 tiempoRestante,
                 timeWarning: this.model.estaEnJuego() && tiempoRestante <= 10,
+                // Reutilizamos las mismas dimensiones calculadas para que View pinte los botones.
                 buttons: [
                     {
                         ...this.restartButtonBounds,
@@ -336,6 +341,7 @@ class Controller {
         this._mouseOutHandler = null;
     }
 
+    // Helper geométrico para saber si el mouse está dentro de un botón rectangular.
     _isInsideButton(bounds, x, y) {
         const { x: bx, y: by, width, height } = bounds;
         return x >= bx && x <= bx + width && y >= by && y <= by + height;
