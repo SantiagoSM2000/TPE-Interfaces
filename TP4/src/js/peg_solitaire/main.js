@@ -1,3 +1,4 @@
+// Punto de entrada del juego Peg Solitaire: arma la pantalla y lanza el loop del canvas.
 document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('game-start-button');
     const canvas = document.getElementById('game-canvas');
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startButton.addEventListener('click', startGame);
 
+    // Crea una nueva partida y oculta la pantalla inicial.
     function startGame() {
         if (gameRunning) {
             return;
@@ -46,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         waitForImagesAndStartLoop();
     }
 
+    // Espera a que todas las imágenes estén listas antes de comenzar el render loop.
     function waitForImagesAndStartLoop() {
         imageCheckTimeoutId = null;
 
@@ -63,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Ciclo principal: pinta el canvas y revisa condiciones de fin de partida.
     function gameLoop() {
         if (!gameRunning || !activeModel || !activeController || !activeView) {
             return;
@@ -79,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animationFrameId = requestAnimationFrame(gameLoop);
     }
 
+    // Limpia una partida en curso y vuelve a mostrar el menú inicial.
     function handleReturnToMenu() {
         if (!gameRunning) {
             return;
@@ -111,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         activeController = null;
     }
 
+    // Configura el mini tablero del menú para que muestre el villano seleccionado.
     function initPreview() {
         const previewCanvas = document.getElementById('preview-canvas');
         if (!previewCanvas) {
@@ -141,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             endBanner: { visible: false, title: '', subtitle: '' }
         };
 
+        // Dibuja la preview solo cuando las texturas ya están disponibles.
         const drawPreview = () => {
             if (previewView.imageLoaded) {
                 previewView.draw(previewModel, previewRenderState);
@@ -149,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        // Rellena el tablero de preview con fichas del villano elegido.
         const renderVillainSelection = (pieceSrc) => {
             previewModel.iniciarTablero();
             previewModel.detenerTimer();
@@ -172,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
             drawPreview();
         }
 
+        // Cada cambio de selección refresca el tablero mostrado en la tarjeta de inicio.
         pieceRadios.forEach((radio) => {
             radio.addEventListener('change', () => {
                 const newSrc = `assets/img/peg-${radio.value}.png`;
@@ -180,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Devuelve el villano actualmente seleccionado en los radios (joker por defecto).
     function getSelectedPieceSrc() {
         let selectedPiece = 'joker';
         pieceRadios.forEach((radio) => {

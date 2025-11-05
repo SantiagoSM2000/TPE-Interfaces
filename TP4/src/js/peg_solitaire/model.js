@@ -1,9 +1,13 @@
 
+// Modelo de reglas y estado para el Peg Solitaire de Batman.
+// Se encarga de construir el tablero, validar movimientos y manejar el temporizador.
+
 // Duracion del reloj en segundos
 const TIEMPODEJUEGO = 100;
 
 /* Clases de datos */
 
+// Representa una ficha individual del tablero.
 class Ficha {
     constructor(tipoVisual = 1) {
         // El tipo visual determina que imagen dibuja la vista
@@ -18,6 +22,7 @@ class Ficha {
     }
 }
 
+// Casillero del tablero: puede ser válido (parte de la cruz) y contener una ficha.
 class Casillero {
     constructor() {
         this._esValido = false;
@@ -52,7 +57,7 @@ class Casillero {
 }
 
 /* Clase principal del modelo */
-
+// Mantiene el tablero, el contador de tiempo y calcula movimientos legales.
 class PegSolitaireGame {
     constructor() {
         // Estado principal del tablero y del reloj
@@ -118,6 +123,8 @@ class PegSolitaireGame {
     }
 
     iniciarTablero() {
+        // Recorre la grilla 7x7 y habilita solo los casilleros que forman la cruz central.
+        // Cada casillero válido recibe una ficha inicial salvo el centro vacío.
         this._tablero = [];
         this._cantidadFichas = 0;
         this._cantidadMovimientos = 0;
@@ -291,6 +298,7 @@ class PegSolitaireGame {
         this.iniciarTimer();
     }
 
+    // Deja el tablero vacío conservando la estructura de casilleros válidos (usado en la preview).
     vaciarTablero() {
         for (let f = 0; f < this._tamano; f++) {
             for (let c = 0; c < this._tamano; c++) {

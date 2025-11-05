@@ -1,3 +1,4 @@
+// Controla la interacción del jugador con el tablero y actualiza la vista en cada frame.
 class Controller {
     constructor(model, view) {
         this.model = model;
@@ -40,6 +41,7 @@ class Controller {
         this._mouseOutHandler = null;
     }
 
+    // Registra los listeners del canvas; debe llamarse una sola vez por partida.
     init() {
         if (this._handlersBound) {
             return;
@@ -59,6 +61,7 @@ class Controller {
         this._handlersBound = true;
     }
 
+    // Detecta clicks sobre botones del HUD o empieza a arrastrar una ficha.
     handleMouseDown(e) {
         this.mouseX = e.offsetX;
         this.mouseY = e.offsetY;
@@ -84,6 +87,7 @@ class Controller {
             return;
         }
 
+        // Convertimos las coordenadas del mouse a índices de tablero.
         const [f, c] = this.pixelToGrid(this.mouseX, this.mouseY);
         if (f < 0 || c < 0) {
             this.posiblesMovimientos = [];
@@ -108,6 +112,7 @@ class Controller {
         }
     }
 
+    // Mantiene el estado de hover de botones y posicion del mouse mientras se arrastra.
     handleMouseMove(e) {
         this.mouseX = e.offsetX;
         this.mouseY = e.offsetY;
@@ -116,6 +121,7 @@ class Controller {
         this.isMenuButtonHovered = this._isInsideButton(this.menuButtonBounds, this.mouseX, this.mouseY);
     }
 
+    // Completa el arrastre: resuelve clicks sobre botones o movimiento de fichas.
     handleMouseUp(e) {
         this.mouseX = e.offsetX;
         this.mouseY = e.offsetY;
@@ -169,6 +175,7 @@ class Controller {
         }
     }
 
+    // Si el cursor sale del canvas, limpiamos interacciones pendientes.
     handleMouseOut() {
         this.isRestartButtonPressed = false;
         this.isRestartButtonHovered = false;
@@ -177,6 +184,7 @@ class Controller {
         this.cancelDrag();
     }
 
+    // Traduce coordenadas del mouse a índices (fila, columna) del tablero de 7x7.
     pixelToGrid(x, y) {
         const gridX = x - this.view.OFFSET_X;
         const gridY = y - this.view.OFFSET_Y;
@@ -190,6 +198,7 @@ class Controller {
         return [-1, -1];
     }
 
+    // Revisa si ya no quedan movimientos y muestra el banner correspondiente.
     checkGameEnd() {
         if (!this.model.estaEnJuego()) {
             return;
@@ -202,6 +211,7 @@ class Controller {
         }
     }
 
+    // Devuelve un objeto inmutable que la vista usa para dibujar el frame actual.
     getRenderState() {
         const tiempoRestante = this.model.obtenerTiempoRestante();
         return {
@@ -233,6 +243,7 @@ class Controller {
         };
     }
 
+    // Devuelve la ficha al casillero original si el arrastre no concluyó en un movimiento válido.
     cancelDrag() {
         if (this.isDragging && this.fichaFlotante) {
             this.model.devolverFicha(this.fichaFlotante, this.fOrigen, this.cOrigen);
@@ -264,6 +275,7 @@ class Controller {
         this.timeUpNotified = false;
     }
 
+    // Restaura estados y avisa al exterior que hay que volver al menú principal.
     returnToMenu() {
         this.model.detenerTimer();
         this.cancelDrag();
@@ -284,6 +296,7 @@ class Controller {
         }
     }
 
+    // Muestra el banner final específico cuando el temporizador llega a cero.
     showTiempoAgotado() {
         if (this.timeUpNotified) {
             return;
@@ -304,6 +317,7 @@ class Controller {
         this.menuButtonBounds = menu;
     }
 
+    // Limpia los listeners registrados para liberar el canvas antes de volver al menú.
     destroy() {
         if (!this._handlersBound) {
             return;
@@ -327,6 +341,7 @@ class Controller {
         return x >= bx && x <= bx + width && y >= by && y <= by + height;
     }
 
+    // Calcula la posición de los botones del HUD, variando si se muestra el banner final.
     _createHudButtonBounds() {
         let paddingX;
         let buttonWidth;
@@ -356,6 +371,7 @@ class Controller {
         };
     }
 
+    // Configura el banner final con estadísticas según victoria o derrota por bloqueo.
     _mostrarFinDeJuego(esVictoria) {
         this.cancelDrag();
         const title = esVictoria ? 'Ganaste!' : 'Sin movimientos';

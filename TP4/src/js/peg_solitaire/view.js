@@ -1,4 +1,6 @@
+// Se encarga de dibujar el tablero, el HUD y las animaciones en el canvas HTML.
 class View {
+    // canvas: elemento HTMLCanvasElement destino, selectedPiece: id del villano seleccionado.
     constructor(canvas, selectedPiece, options = {}) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
@@ -46,6 +48,7 @@ class View {
         return Math.max(20, Math.floor(maxSize / 7));
     }
 
+    // Precarga las imágenes necesarias antes de empezar a dibujar el juego.
     async preloadImages() {
         const promises = Object.entries(this.imageSources).map(([key, src]) => {
             return new Promise((resolve, reject) => {
@@ -68,6 +71,7 @@ class View {
         }
     }
 
+    // Permite cambiar la imagen de las fichas secundarias sin reinstanciar la vista.
     updateSecondaryPiece(newSrc) {
         return new Promise((resolve, reject) => {
             if (!newSrc || this.imageSources.tipo2 === newSrc) {
@@ -87,6 +91,7 @@ class View {
         });
     }
 
+    // Dibuja un frame completo del juego en base al estado del modelo y del controlador.
     draw(model, renderState) {
         const ctx = this.ctx;
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -101,6 +106,7 @@ class View {
         const HUECO_SIZE = this.TAMANO_CELDA * 0.4;
         const { isDragging, posiblesMovimientos, fichaFlotante, mouseX, mouseY } = renderState;
 
+        // Recorremos cada casillero para dibujar huecos y fichas en sus posiciones.
         model.forEachCasillero((f, c, estado) => {
             const x = this.OFFSET_X + c * this.TAMANO_CELDA + (this.TAMANO_CELDA / 2);
             const y = this.OFFSET_Y + f * this.TAMANO_CELDA + (this.TAMANO_CELDA / 2);
@@ -127,6 +133,7 @@ class View {
             }
         });
 
+        // Resalta los destinos permitidos cuando la ficha está siendo arrastrada.
         if (this.enableHints && isDragging && posiblesMovimientos.length > 0 && this.images.hint) {
             this.hintAnimationTime += 0.1;
             const pulse = Math.sin(this.hintAnimationTime);
@@ -173,6 +180,7 @@ class View {
         this.hintAnimationTime = 0;
     }
 
+    // Dibuja la barra superior con el temporizador y los botones interactivos.
     _drawHud(hudState) {
         if (!this.showHud || !hudState) {
             return;
@@ -192,6 +200,7 @@ class View {
             ? performance.now()
             : Date.now();
 
+        // Cuando el tiempo es crítico se alterna el color del número para simular parpadeo.
         if (hudState.timeWarning) {
             if (this._lastTimerBlinkToggle === 0) {
                 this._lastTimerBlinkToggle = now;
@@ -230,6 +239,7 @@ class View {
         ctx.restore();
     }
 
+    // Renderiza un botón estilo cómic con estados de hover y presionado.
     _drawHudButton(buttonState) {
         const ctx = this.ctx;
         const { x, y, width, height, isHovered, isPressed, label } = buttonState;
@@ -316,6 +326,7 @@ class View {
         ctx.restore(); // Restaura el contexto (quita todas las sombras)
     }
 
+    // Muestra el modal de fin de partida sobre el tablero e integra los mismos botones del HUD.
     _drawEndBanner(endBanner,buttons) {
         if (!endBanner.visible) {
             return;
