@@ -202,10 +202,10 @@
     // Order by minHeight descending so the first match wins.
     const pipeSpriteSets = {
         bottom: [
-            { minHeight: 188, src: "/src/assets/flappy_bird/Obstacles/BrickWall.png" },
-            { minHeight: 179, src: "/src/assets/flappy_bird/Obstacles/WoodWall.png" },
-            { minHeight: 92, src: "/src/assets/flappy_bird/Obstacles/WoodWall.png" },
-            { minHeight: 0, src: "/src/assets/flappy_bird/Obstacles/WoodWall.png" }
+            { minHeight: 188, src: "assets/flappy_bird/Obstacles/BrickWall.png" },
+            { minHeight: 179, src: "assets/flappy_bird/Obstacles/WoodWall.png" },
+            { minHeight: 92, src: "assets/flappy_bird/Obstacles/WoodWall.png" },
+            { minHeight: 0, src: "assets/flappy_bird/Obstacles/WoodWall.png" }
         ]
     };
 
