@@ -65,55 +65,55 @@
 
 /* Capa 1: Cielo */
 #bg-sky {
-    background-image: url('/src/assets/flappy_bird/Background/sky.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Background/sky.png');
     z-index: 1;
     animation: scroll-background 0s linear infinite;
 }
 /* Capa 2: Nubes lejanas */
 #bg-clouds-far {
-    background-image: url('/src/assets/flappy_bird/Background/clouds_2.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Background/clouds_2.png');
     z-index: 2;
     animation: scroll-background 300s linear infinite;
 }
 
 /* Capa 3: Rocas */
 #bg-rocks {
-    background-image: url('/src/assets/flappy_bird/Background/rocks.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Background/rocks.png');
     z-index: 3;
     animation: scroll-background 250s linear infinite;
 }
 
 /* Capa 5: Nubes cercanas */
 #bg-clouds-near {
-    background-image: url('/src/assets/flappy_bird/Background/clouds_1.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Background/clouds_1.png');
     z-index: 4;
     animation: scroll-background 180s linear infinite;
 }
 
 /* Capa 7: Suelo lejos */
 #bg-ground-far {
-    background-image: url('/src/assets/flappy_bird/Background/ground_1.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Background/ground_1.png');
     z-index: 5;
     animation: scroll-background 90s linear infinite;
 }
 
 /* Capa 6: Suelo medio */
 #bg-ground-mid {
-    background-image: url('/src/assets/flappy_bird/Background/ground_2.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Background/ground_2.png');
     z-index: 6;
     animation: scroll-background 80s linear infinite;
 }
 
 /* Capa 4: Suelo cerca */
 #bg-ground-near {
-    background-image: url('/src/assets/flappy_bird/Background/ground_3.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Background/ground_3.png');
     z-index: 7;
     animation: scroll-background 65s linear infinite;
 }
 
 /* Layer 8: Foreground plant (closest and fastest) */
 #bg-plant-front {
-    background-image: url('/src/assets/flappy_bird/Background/plant.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Background/plant.png');
     z-index: 8;
     animation: scroll-background 10s linear infinite; 
 }
@@ -126,7 +126,7 @@
     transform-origin: center;
     width: 16px;
     height: 16px;
-    background-image: url('/src/assets/flappy_bird/Sprites/Bird/Bird.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Sprites/Bird/Bird.png');
     background-repeat: no-repeat;
     background-size: 400% 100%;
     animation: bird-flap 0.5s steps(4) infinite;
@@ -157,17 +157,17 @@
 }
 
 @keyframes power-vfx {
-    0% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a1.png'); }
-    16% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a2.png'); }
-    33% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a3.png'); }
-    50% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a4.png'); }
-    66% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a5.png'); }
-    83% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a6.png'); }
-    100% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a1.png'); }
+    0% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a1.png'); }
+    16% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a2.png'); }
+    33% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a3.png'); }
+    50% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a4.png'); }
+    66% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a5.png'); }
+    83% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a6.png'); }
+    100% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a1.png'); }
 }
 
 .bird-super {
-    background-image: url('/src/assets/flappy_bird/Sprites/Bird/BirdSuper.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Sprites/Bird/BirdSuper.png');
     background-size: 400% 100%;
     animation: bird-flap 0.5s steps(4) infinite;
 }
@@ -266,7 +266,7 @@
 .crow {
     width: var(--crow-size, calc(16px * var(--bird-scale)));
     height: var(--crow-size, calc(16px * var(--bird-scale)));
-    background-image: url('/src/assets/flappy_bird/Sprites/Crow/Crow.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Sprites/Crow/Crow.png');
     background-repeat: no-repeat;
     background-size: calc(var(--crow-size, calc(16px * var(--bird-scale))) * 8) var(--crow-size, calc(16px * var(--bird-scale)));
     background-position: 0 0;
@@ -311,17 +311,17 @@
 }
 
 .coin-gold {
-    background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png');
     animation: coin-gold-spin 0.6s linear infinite;
 }
 
 .coin-silver {
-    background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png');
     animation: coin-silver-spin 0.6s linear infinite;
 }
 
 .coin-bronze {
-    background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png');
+    background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png');
     animation: coin-bronze-spin 0.6s linear infinite;
 }
 
@@ -330,45 +330,45 @@
 }
 
 @keyframes coin-gold-spin {
-    0% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png'); }
-    10% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_2.png'); }
-    20% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_3.png'); }
-    30% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_4.png'); }
-    40% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_5.png'); }
-    50% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_6.png'); }
-    60% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_7.png'); }
-    70% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_8.png'); }
-    80% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_9.png'); }
-    90% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_10.png'); }
-    100% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png'); }
+    0% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_1.png'); }
+    10% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_2.png'); }
+    20% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_3.png'); }
+    30% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_4.png'); }
+    40% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_5.png'); }
+    50% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_6.png'); }
+    60% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_7.png'); }
+    70% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_8.png'); }
+    80% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_9.png'); }
+    90% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_10.png'); }
+    100% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png'); }
 }
 
 @keyframes coin-silver-spin {
-    0% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png'); }
-    10% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_2.png'); }
-    20% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_3.png'); }
-    30% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_4.png'); }
-    40% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_5.png'); }
-    50% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_6.png'); }
-    60% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_7.png'); }
-    70% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_8.png'); }
-    80% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_9.png'); }
-    90% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_10.png'); }
-    100% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png'); }
+    0% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png'); }
+    10% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_2.png'); }
+    20% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_3.png'); }
+    30% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_4.png'); }
+    40% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_5.png'); }
+    50% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_6.png'); }
+    60% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_7.png'); }
+    70% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_8.png'); }
+    80% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_9.png'); }
+    90% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_10.png'); }
+    100% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png'); }
 }
 
 @keyframes coin-bronze-spin {
-    0% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png'); }
-    10% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_2.png'); }
-    20% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_3.png'); }
-    30% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_4.png'); }
-    40% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_5.png'); }
-    50% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_6.png'); }
-    60% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_7.png'); }
-    70% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_8.png'); }
-    80% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_9.png'); }
-    90% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_10.png'); }
-    100% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png'); }
+    0% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png'); }
+    10% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_2.png'); }
+    20% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_3.png'); }
+    30% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_4.png'); }
+    40% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_5.png'); }
+    50% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_6.png'); }
+    60% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_7.png'); }
+    70% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_8.png'); }
+    80% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_9.png'); }
+    90% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_10.png'); }
+    100% { background-image: url('/TP5/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png'); }
 }
 
 .scoreboard {
@@ -440,7 +440,7 @@
     display: block;
     width: 64px;
     height: 68px; /* preserves approximate aspect ratio of 304x317 per frame */
-    background-image: url('/src/assets/flappy_bird/UI/PowerRune.png');
+    background-image: url('/TP5/src/assets/flappy_bird/UI/PowerRune.png');
     background-repeat: no-repeat;
     /* Scale the 4x1 sprite sheet down so each frame is ~64px wide */
     background-size: 256px 68px;
