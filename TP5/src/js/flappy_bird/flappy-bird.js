@@ -505,6 +505,7 @@
         }
 
         if (config.controls.power.includes(event.key)) {
+            event.preventDefault();
             tryActivatePower();
         }
     };
@@ -598,12 +599,12 @@
         const timeFactor = isWin ? config.timer.maxSeconds : remaining;
         if (endTime) endTime.textContent = `${elapsed}s`;
         if (endCoins) endCoins.textContent = coinsCollected.toString();
-        if (endFinal) endFinal.textContent = (coinsCollected * timeFactor).toString();
+        if (endFinal) endFinal.textContent = (elapsed + (coinsCollected * timeFactor)).toString();
     };
 
     const handleTimerElapsed = () => {
         openEndScreen({
-            title: "¡Victoria por tiempo!",
+            title: "¡Victoria!",
             subtitle: "Aguantaste hasta el final.",
             isWin: true
         });
