@@ -14,13 +14,23 @@
     --panel-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#game-container {
+#flappy-game-container {
+    position: relative;
     width: var(--game-width);
     aspect-ratio: 16 / 9;
-    border: 3px solid black;
-    overflow: hidden; 
-    position: relative; 
     margin: 0 auto;
+    border: 3px solid black;
+    border-radius: 12px;
+    overflow: hidden;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 0, 127, 0.08), transparent 45%);
+}
+
+#game-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .parallax-layer {
@@ -147,13 +157,13 @@
 }
 
 @keyframes power-vfx {
-    0% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a1.png'); }
-    16% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a2.png'); }
-    33% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a3.png'); }
-    50% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a4.png'); }
-    66% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a5.png'); }
-    83% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a6.png'); }
-    100% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a1.png'); }
+    0% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a1.png'); }
+    16% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a2.png'); }
+    33% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a3.png'); }
+    50% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a4.png'); }
+    66% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a5.png'); }
+    83% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a6.png'); }
+    100% { background-image: url('/src/assets/flappy_bird/Sprites/PowerActivation/vfx-a1.png'); }
 }
 
 .bird-super {
@@ -528,4 +538,124 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+}
+
+#flappy-start-screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    padding: 0;
+    background: linear-gradient(180deg, rgba(19,25,39,0.94), rgba(19,25,39,0.94));
+    z-index: 50;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+#flappy-end-screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: linear-gradient(180deg, rgba(19,25,39,0.94), rgba(19,25,39,0.94));
+    z-index: 60;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+#flappy-end-screen .end-card {
+    width: min(900px, 95%);
+    max-height: 90%;
+    border-radius: 14px;
+    overflow: auto;
+    padding: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.end-head {
+    text-align: center;
+    display: grid;
+    gap: 0.25rem;
+    justify-items: center;
+}
+
+.end-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: rgba(0, 0, 0, 0.18);
+    padding: 1rem;
+    border-radius: 12px;
+    width: min(100%, 360px);
+    margin: 0 auto;
+}
+
+.end-stats .stat {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    text-align: center;
+}
+
+.end-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    width: 100%;
+}
+
+.end-stats .stat .h3 {
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+}
+
+.coin-legend {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.coin-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.coin-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.coin-item img {
+    width: 42px;
+    height: 42px;
+    image-rendering: pixelated;
+}
+
+#flappy-start-screen .start-card {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: inherit;
+    overflow: hidden;
+    padding: 1.25rem 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }

@@ -2,6 +2,19 @@
     // Core elements; bail early if they are missing so errors don't spam the console.
     const bird = document.querySelector(".bird");
     const container = document.getElementById("game-container");
+    const startScreen = document.getElementById("flappy-start-screen");
+    const startButton = document.getElementById("flappy-start-button");
+    const hitboxOption = document.getElementById("flappy-option-hitboxes");
+    const debugOption = document.getElementById("flappy-option-debug");
+    const debugPanel = document.getElementById("flappy-debug-panel");
+    const endScreen = document.getElementById("flappy-end-screen");
+    const restartButton = document.getElementById("flappy-restart-button");
+    const menuButton = document.getElementById("flappy-menu-button");
+    const endFinal = document.getElementById("flappy-end-final");
+    const endTime = document.getElementById("flappy-end-time");
+    const endCoins = document.getElementById("flappy-end-coins");
+    const endTitle = document.getElementById("flappy-end-title");
+    const endSubtitle = document.getElementById("flappy-end-subtitle");
     if (!bird || !container) return;
 
     // Central config keeps constants in one place to avoid magic numbers scattered around.
@@ -97,6 +110,7 @@
     let nextSuperAt = config.powers.scoreForSuperStep;
     let ghostActive = false;
     let ghostEndTime = 0;
+    let coinsCollected = 0;
 
     // Cache DOM nodes for the pipe pairs so we don't keep querying on every frame.
     const pipeGroups = Array.from(document.querySelectorAll(".flappy-pipe-group"));
@@ -171,12 +185,19 @@
                 dimensions.pipeWidth;
         }
     };
+    const resetPipes = () => {
+        if (!pipePairs.length) return;
+        recomputeDimensions();
+        pipePairs.forEach((pair) => randomizeHeights(pair, { reroll: true }));
+        initPipePositions();
+    };
 
     const timerState = {
         startTime: performance.now(),
         lastDisplay: config.timer.maxSeconds
     };
     let timerExpired = false;
+    let gameOver = false;
 
     // Order by minHeight descending so the first match wins.
     const pipeSpriteSets = {
@@ -343,7 +364,8 @@
         pipeDuration: config.difficulty.pipeSpeedRange.maxDuration
     };
     let lastDifficultySampleSec = -1;
-    const startTime = performance.now();
+    let startTime = performance.now();
+    let gameStarted = false;
     let lastFrameTime = performance.now();
     let lastPipeSpeed = 0;
 
@@ -565,9 +587,26 @@
         }
     };
 
+    const openEndScreen = ({ title, subtitle, isWin }) => {
+        gameOver = true;
+        if (endScreen) endScreen.classList.remove("hidden");
+        if (startScreen) startScreen.classList.add("hidden");
+        if (title && endTitle) endTitle.textContent = title;
+        if (subtitle && endSubtitle) endSubtitle.textContent = subtitle;
+        const elapsed = Math.ceil((performance.now() - timerState.startTime) / 1000);
+        const remaining = Math.max(0, config.timer.maxSeconds - elapsed);
+        const timeFactor = isWin ? config.timer.maxSeconds : remaining;
+        if (endTime) endTime.textContent = `${elapsed}s`;
+        if (endCoins) endCoins.textContent = coinsCollected.toString();
+        if (endFinal) endFinal.textContent = (coinsCollected * timeFactor).toString();
+    };
+
     const handleTimerElapsed = () => {
-        // Timer game-over hook: replace with your end-game logic instead of reload when ready.
-        // Example: showGameOverScreen();
+        openEndScreen({
+            title: "¡Victoria por tiempo!",
+            subtitle: "Aguantaste hasta el final.",
+            isWin: true
+        });
     };
 
     const updatePowerBoard = () => {
@@ -598,6 +637,7 @@
                 coin.dataset.collected = "true";
                 const value = Number(coin.dataset.value) || 1;
                 score += value;
+                coinsCollected += value;
                 updateScore();
                 armSuperIfReady();
                 updatePowerBoard();
@@ -636,6 +676,7 @@
     updateTimerDisplay(timerState.lastDisplay);
 
     const tick = () => {
+        if (!gameStarted || gameOver) return;
         const now = performance.now();
         const deltaSeconds = Math.min((now - lastFrameTime) / 1000, 0.05);
         lastFrameTime = now;
@@ -711,7 +752,11 @@
         updatePowerBoard();
 
         if (checkPipeCollision()) {
-            window.location.reload();
+            openEndScreen({
+                title: "Te estrellaste",
+                subtitle: "Vuelve a intentarlo.",
+                isWin: false
+            });
             return;
         }
 
@@ -719,5 +764,69 @@
         requestAnimationFrame(tick);
     };
 
-    tick();
+    const startGame = (fromMenu = false) => {
+        if (gameStarted && !gameOver && !fromMenu) return;
+        gameOver = false;
+        gameStarted = true;
+        score = 0;
+        coinsCollected = 0;
+        updateScore();
+        superReady = false;
+        isSuper = false;
+        ghostActive = false;
+        nextSuperAt = config.powers.scoreForSuperStep;
+        bird.classList.remove("bird-super", "bird-ghost", "bird-up", "bird-down");
+        velocity = 0;
+        birdTop = 50;
+        setBirdPosition(birdTop);
+        startTime = performance.now();
+        timerState.startTime = performance.now();
+        timerState.lastDisplay = config.timer.maxSeconds;
+        timerExpired = false;
+        updateTimerDisplay(timerState.lastDisplay);
+        setPowerVfx(false);
+        updatePowerBoard();
+        if (debugPanel) {
+            const showDebug = !debugOption || debugOption.checked;
+            debugPanel.classList.toggle("hidden", !showDebug);
+        }
+        showHitboxes = !!(hitboxOption && hitboxOption.checked);
+        if (startScreen) startScreen.classList.add("hidden");
+        if (endScreen) endScreen.classList.add("hidden");
+        container.classList.remove("hidden");
+        resetPipes();
+        hitboxLayer.style.display = showHitboxes ? "block" : "none";
+        updateHitboxButton();
+        if (showHitboxes) {
+            updateHitboxOverlays();
+        }
+        lastFrameTime = performance.now();
+        requestAnimationFrame(tick);
+    };
+
+    if (startButton) {
+        startButton.addEventListener("click", startGame);
+    } else {
+        startGame();
+    }
+
+    if (restartButton) {
+        restartButton.addEventListener("click", () => startGame(true));
+    }
+    if (menuButton) {
+        menuButton.addEventListener("click", () => {
+            gameStarted = false;
+            gameOver = false;
+            velocity = 0;
+            birdTop = 50;
+            setBirdPosition(birdTop);
+            timerExpired = false;
+            coinsCollected = 0;
+            score = 0;
+            updateScore();
+            resetPipes();
+            if (endScreen) endScreen.classList.add("hidden");
+            if (startScreen) startScreen.classList.remove("hidden");
+        });
+    }
 })();

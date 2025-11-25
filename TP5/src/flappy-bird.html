@@ -26,57 +26,147 @@
     <div class="sub-container">
       <h1 class="page-title h1">Flappy Bird - Parallax Rush</h1>
 
-      <div id="game-container" class="game-container">
-        <div class="parallax-layer" id="bg-sky"></div>
-        <div class="parallax-layer" id="bg-clouds-far"></div>
-        <div class="parallax-layer" id="bg-rocks"></div>
-        <div class="parallax-layer" id="bg-clouds-near"></div>
-        <div class="parallax-layer" id="bg-ground-far"></div>
-        <div class="parallax-layer" id="bg-ground-mid"></div>
-        <div class="parallax-layer" id="bg-ground-near"></div>
-        <div class="parallax-layer" id="bg-plant-front"></div>
-
-        <div class="bird" aria-hidden="true"></div>
-
-        <div class="flappy-pipe-group" data-pipe-index="0" aria-hidden="true">
-          <span class="flappy-pipe flappy-pipe-top"></span>
-          <span class="coin pipe-coin coin-gold"></span>
-          <span class="flappy-pipe flappy-pipe-bottom"></span>
-        </div>
-        <div class="flappy-pipe-group" data-pipe-index="1" aria-hidden="true">
-          <span class="flappy-pipe flappy-pipe-top"></span>
-          <span class="coin pipe-coin coin-gold"></span>
-          <span class="flappy-pipe flappy-pipe-bottom"></span>
-        </div>
-        <div class="flappy-pipe-group" data-pipe-index="2" aria-hidden="true">
-          <span class="flappy-pipe flappy-pipe-top"></span>
-          <span class="coin pipe-coin coin-gold"></span>
-          <span class="flappy-pipe flappy-pipe-bottom"></span>
-        </div>
-
-        <div class="scoreboard hud-panel" aria-live="polite" aria-atomic="true">
-          <div class="score-item">
-            <span class="score-label">Puntos:</span>
-            <span id="score-value">0</span>
+      <div id="flappy-game-container" class="game-placeholder">
+        <div id="flappy-start-screen">
+          <div class="start-card">
+            <div class="start-hero">
+              <div class="hero-media">
+                <img src="assets/flappy_bird/Background/rocks.png" alt="Vista previa del valle parallax">
+              </div>
+              <div class="hero-copy">
+                <p class="body-b1">Surca el valle, esquiva columnas y activa el poder fantasma para atravesar peligros. Física suavizada y HUD limpio para reaccionar rápido.</p>
+                <ul class="hero-highlights body-b3">
+                  <li>Parallax con 7 capas y monedas animadas</li>
+                  <li>Poder fantasma acumulable por puntaje</li>
+                  <li>Panel de depuración e hitboxes opcionales</li>
+                </ul>
+              </div>
+            </div>
+            <section class="start-options">
+              <div class="piece-selector start-pane">
+                <h3 class="subtitle-s1">Opciones</h3>
+                <p class="body-b3">Activa utilidades antes de despegar.</p>
+                <label class="body-b2">
+                  <input type="checkbox" id="flappy-option-hitboxes">
+                  Mostrar hitboxes al iniciar
+                </label>
+                <label class="body-b2">
+                  <input type="checkbox" id="flappy-option-debug">
+                  Mostrar panel de depuración
+                </label>
+              </div>
+              <div class="start-pane coin-legend">
+                <h3 class="subtitle-s1">Puntaje de monedas</h3>
+                <p class="body-b3">Cada tipo suma puntos distintos al recogerla.</p>
+                <ul class="coin-list">
+                  <li class="coin-item">
+                    <img src="assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png" alt="Moneda de bronce">
+                    <span class="body-b2">Bronce: 1 punto</span>
+                  </li>
+                  <li class="coin-item">
+                    <img src="assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png" alt="Moneda de plata">
+                    <span class="body-b2">Plata: 3 puntos</span>
+                  </li>
+                  <li class="coin-item">
+                    <img src="assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png" alt="Moneda de oro">
+                    <span class="body-b2">Oro: 5 puntos</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="start-pane start-meta">
+                <h3 class="subtitle-s1">Controles</h3>
+                <ul class="body-b3">
+                  <li>W / Flecha arriba: impulso ascendente.</li>
+                  <li>S / Flecha abajo: descenso rápido.</li>
+                  <li>Barra espaciadora: activa el poder fantasma.</li>
+                </ul>
+              </div>
+            </section>
+            <div class="start-actions">
+              <button id="flappy-start-button" class="btn-large primary">Jugar</button>
+            </div>
           </div>
-          <div class="score-item">
-            <span class="score-label">Tiempo:</span>
-            <span id="time-value" data-max-time="10">10</span>
+        </div>
+
+        <div id="game-container">
+          <div id="flappy-end-screen" class="hidden">
+            <div class="end-card start-card">
+              <div class="end-head">
+                <h2 class="h2" id="flappy-end-title">Fin de partida</h2>
+                <p class="body-b1" id="flappy-end-subtitle">Resumen de tu vuelo</p>
+              </div>
+              <div class="end-stats">
+                <div class="stat">
+                  <span class="subtitle-s1">Tiempo</span>
+                  <strong class="h3" id="flappy-end-time">0s</strong>
+                </div>
+                <div class="stat">
+                  <span class="subtitle-s1">Puntos conseguidos</span>
+                  <strong class="h3" id="flappy-end-coins">0</strong>
+                </div>
+                <div class="stat">
+                  <span class="subtitle-s1">Puntaje final</span>
+                  <strong class="h3" id="flappy-end-final">0</strong>
+                </div>
+              </div>
+              <div class="end-actions">
+                <button id="flappy-restart-button" class="btn-large primary">Volver a jugar</button>
+                <button id="flappy-menu-button" class="btn-large secondary">Menú principal</button>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="debugboard hud-panel" aria-live="polite" aria-atomic="true">
-          <div><span class="debug-label">Gap:</span><span id="debug-gap">--</span></div>
-          <div><span class="debug-label">Speed:</span><span id="debug-speed">--</span></div>
-          <div><span class="debug-label">Vel:</span><span id="debug-vel">--</span></div>
-          <button id="toggle-hitboxes" type="button">Hitboxes: Off</button>
-        </div>
+          <div class="parallax-layer" id="bg-sky"></div>
+          <div class="parallax-layer" id="bg-clouds-far"></div>
+          <div class="parallax-layer" id="bg-rocks"></div>
+          <div class="parallax-layer" id="bg-clouds-near"></div>
+          <div class="parallax-layer" id="bg-ground-far"></div>
+          <div class="parallax-layer" id="bg-ground-mid"></div>
+          <div class="parallax-layer" id="bg-ground-near"></div>
+          <div class="parallax-layer" id="bg-plant-front"></div>
 
-        <div class="powerboard hud-panel" aria-live="polite" aria-atomic="true" id="power-board">
-          <button id="power-button" type="button" aria-label="Activar poder (barra espaciadora)">
-            <span class="sr-only">Activar poder (barra espaciadora)</span>
-            <span class="power-button-icon" aria-hidden="true"></span>
-          </button>
+          <div class="bird" aria-hidden="true"></div>
+
+          <div class="flappy-pipe-group" data-pipe-index="0" aria-hidden="true">
+            <span class="flappy-pipe flappy-pipe-top"></span>
+            <span class="coin pipe-coin coin-gold"></span>
+            <span class="flappy-pipe flappy-pipe-bottom"></span>
+          </div>
+          <div class="flappy-pipe-group" data-pipe-index="1" aria-hidden="true">
+            <span class="flappy-pipe flappy-pipe-top"></span>
+            <span class="coin pipe-coin coin-gold"></span>
+            <span class="flappy-pipe flappy-pipe-bottom"></span>
+          </div>
+          <div class="flappy-pipe-group" data-pipe-index="2" aria-hidden="true">
+            <span class="flappy-pipe flappy-pipe-top"></span>
+            <span class="coin pipe-coin coin-gold"></span>
+            <span class="flappy-pipe flappy-pipe-bottom"></span>
+          </div>
+
+          <div class="scoreboard hud-panel" aria-live="polite" aria-atomic="true">
+            <div class="score-item">
+              <span class="score-label">Puntos:</span>
+              <span id="score-value">0</span>
+            </div>
+            <div class="score-item">
+              <span class="score-label">Tiempo:</span>
+              <span id="time-value" data-max-time="60">60</span>
+            </div>
+          </div>
+
+          <div class="debugboard hud-panel" aria-live="polite" aria-atomic="true" id="flappy-debug-panel">
+            <div><span class="debug-label">Gap:</span><span id="debug-gap">--</span></div>
+            <div><span class="debug-label">Speed:</span><span id="debug-speed">--</span></div>
+            <div><span class="debug-label">Vel:</span><span id="debug-vel">--</span></div>
+            <button id="toggle-hitboxes" type="button">Hitboxes: Off</button>
+          </div>
+
+          <div class="powerboard hud-panel" aria-live="polite" aria-atomic="true" id="power-board">
+            <button id="power-button" type="button" aria-label="Activar poder (barra espaciadora)">
+              <span class="sr-only">Activar poder (barra espaciadora)</span>
+              <span class="power-button-icon" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
       </div>
 
