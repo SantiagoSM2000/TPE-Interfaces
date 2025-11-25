@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="40" height="26" viewBox="0 0 40 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0.5 26 L 28.667 26 L 28.667 21.667 L 0.5 21.667 L 0.5 26 Z M 0.5 10.833 L 0.5 15.167 L 22.167 15.167 L 22.167 10.833 L 0.5 10.833 Z M 0.5 0 L 0.5 4.333 L 18.734 4.333 L 18.734 0 L 0.5 0 Z" fill="#D2D5DB"/>
+  <ellipse style="stroke: rgb(210, 213, 219); stroke-width: 3px;" cx="30.477" cy="7.869" rx="6.017" ry="6.017"/>
+  <path style="fill: rgb(216, 216, 216); stroke: rgb(210, 213, 219); stroke-width: 3px;" d="M 33.236 13.613 L 38.303 25.195"/>
+</svg>
