@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flappy Bird | PlayNow</title>
+  <link rel="shortcut icon" href="assets/Logo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/carousel.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/flappy-bird.css">
+</head>
+<body class="game-page">
+  <header id="header-placeholder"></header>
+  <main class="container">
+    <nav class="breadcrumb subtitle-s1" aria-label="breadcrumbs">
+      <a href="index.html">Juegos</a>
+      <span aria-hidden="true">></span>
+      <a href="#">Arcade</a>
+      <span aria-hidden="true">></span>
+      <a href="#" class="active">Flappy Bird</a>
+    </nav>
+    <div class="sub-container">
+      <h1 class="page-title h1">Flappy Bird - Parallax Rush</h1>
+
+      <div id="flappy-game-container" class="game-placeholder">
+        <div id="flappy-start-screen">
+          <div class="start-card">
+            <div class="start-hero">
+              <div class="hero-media">
+                <img src="assets/flappy_bird/Background/rocks.png" alt="Vista previa del valle parallax">
+              </div>
+              <div class="hero-copy">
+                <p class="body-b1">Surca el valle, esquiva columnas y activa el poder fantasma para atravesar peligros. Física suavizada y HUD limpio para reaccionar rápido.</p>
+                <ul class="hero-highlights body-b3">
+                  <li>Parallax con 8 capas y monedas animadas</li>
+                  <li>Power Up conseguible juntando monedas</li>
+                </ul>
+              </div>
+            </div>
+            <section class="start-options">
+              <div class="piece-selector start-pane">
+                <h3 class="subtitle-s1">Opciones</h3>
+                <p class="body-b3">Activa utilidades antes de despegar.</p>
+                <label class="body-b2">
+                  <input type="checkbox" id="flappy-option-hitboxes">
+                  Mostrar hitboxes al iniciar
+                </label>
+                <label class="body-b2">
+                  <input type="checkbox" id="flappy-option-debug">
+                  Mostrar panel de depuración
+                </label>
+              </div>
+              <div class="start-pane coin-legend">
+                <h3 class="subtitle-s1">Puntaje de monedas</h3>
+                <p class="body-b3">Cada tipo suma puntos distintos al recogerla.</p>
+                <ul class="coin-list">
+                  <li class="coin-item">
+                    <img src="assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png" alt="Moneda de bronce">
+                    <span class="body-b2">Bronce: 1 punto</span>
+                  </li>
+                  <li class="coin-item">
+                    <img src="assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png" alt="Moneda de plata">
+                    <span class="body-b2">Plata: 3 puntos</span>
+                  </li>
+                  <li class="coin-item">
+                    <img src="assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png" alt="Moneda de oro">
+                    <span class="body-b2">Oro: 5 puntos</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="start-pane start-meta">
+                <h3 class="subtitle-s1">Controles</h3>
+                <ul class="body-b3">
+                  <li>W / Flecha arriba: impulso ascendente.</li>
+                  <li>S / Flecha abajo: descenso rápido.</li>
+                  <li>Barra espaciadora: activa el poder fantasma.</li>
+                </ul>
+              </div>
+            </section>
+            <div class="start-actions">
+              <button id="flappy-start-button" class="btn-large primary">Jugar</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="game-container">
+          <div id="flappy-end-screen" class="hidden">
+            <div class="end-card start-card">
+              <div class="end-head">
+                <h2 class="h2" id="flappy-end-title">Fin de partida</h2>
+                <p class="body-b1" id="flappy-end-subtitle">Resumen de tu vuelo</p>
+              </div>
+              <div class="end-stats">
+                <div class="stat">
+                  <span class="subtitle-s1">Tiempo</span>
+                  <strong class="h3" id="flappy-end-time">0s</strong>
+                </div>
+                <div class="stat">
+                  <span class="subtitle-s1">Puntos conseguidos</span>
+                  <strong class="h3" id="flappy-end-coins">0</strong>
+                </div>
+                <div class="stat">
+                  <span class="subtitle-s1">Puntaje final</span>
+                  <strong class="h3" id="flappy-end-final">0</strong>
+                </div>
+              </div>
+              <div class="end-actions">
+                <button id="flappy-restart-button" class="btn-large primary">Volver a jugar</button>
+                <button id="flappy-menu-button" class="btn-large secondary">Menú principal</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="parallax-layer" id="bg-sky"></div>
+          <div class="parallax-layer" id="bg-clouds-far"></div>
+          <div class="parallax-layer" id="bg-rocks"></div>
+          <div class="parallax-layer" id="bg-clouds-near"></div>
+          <div class="parallax-layer" id="bg-ground-far"></div>
+          <div class="parallax-layer" id="bg-ground-mid"></div>
+          <div class="parallax-layer" id="bg-ground-near"></div>
+          <div class="parallax-layer" id="bg-plant-front"></div>
+
+          <div class="bird" aria-hidden="true"></div>
+
+          <div class="flappy-pipe-group" data-pipe-index="0" aria-hidden="true">
+            <span class="flappy-pipe flappy-pipe-top"></span>
+            <span class="coin pipe-coin coin-gold"></span>
+            <span class="flappy-pipe flappy-pipe-bottom"></span>
+          </div>
+          <div class="flappy-pipe-group" data-pipe-index="1" aria-hidden="true">
+            <span class="flappy-pipe flappy-pipe-top"></span>
+            <span class="coin pipe-coin coin-gold"></span>
+            <span class="flappy-pipe flappy-pipe-bottom"></span>
+          </div>
+          <div class="flappy-pipe-group" data-pipe-index="2" aria-hidden="true">
+            <span class="flappy-pipe flappy-pipe-top"></span>
+            <span class="coin pipe-coin coin-gold"></span>
+            <span class="flappy-pipe flappy-pipe-bottom"></span>
+          </div>
+
+          <div class="scoreboard hud-panel" aria-live="polite" aria-atomic="true">
+            <div class="score-item">
+              <span class="score-label">Puntos:</span>
+              <span id="score-value">0</span>
+            </div>
+            <div class="score-item">
+              <span class="score-label">Tiempo:</span>
+              <span id="time-value" data-max-time="60">60</span>
+            </div>
+          </div>
+
+          <div class="debugboard hud-panel" aria-live="polite" aria-atomic="true" id="flappy-debug-panel">
+            <div><span class="debug-label">Gap:</span><span id="debug-gap">--</span></div>
+            <div><span class="debug-label">Speed:</span><span id="debug-speed">--</span></div>
+            <div><span class="debug-label">Vel:</span><span id="debug-vel">--</span></div>
+            <button id="toggle-hitboxes" type="button">Hitboxes: Off</button>
+          </div>
+
+          <div class="powerboard hud-panel" aria-live="polite" aria-atomic="true" id="power-board">
+            <button id="power-button" type="button" aria-label="Activar poder (barra espaciadora)">
+              <span class="sr-only">Activar poder (barra espaciadora)</span>
+              <span class="power-button-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="share" role="group" aria-label="Opciones para compartir">
+        <img class="share-label" src="assets/svg/Compartir.svg" alt="Compartir">
+        <div class="share-icons" aria-hidden="true">
+          <img src="assets/svg/share-facebook.svg" alt="">
+          <img src="assets/svg/share-x.svg" alt="">
+          <img src="assets/svg/share-mail.svg" alt="">
+          <img src="assets/svg/share-whatsapp.svg" alt="">
+        </div>
+      </div>
+
+      <section class="description">
+        <article>
+          <h2 class="section-title h2">Descripci&oacute;n</h2>
+          <p class="body-b1">
+            Atraviesa un valle de parallax en este homenaje a Flappy Bird. Esquiva columnas, recolecta monedas y usa el poder fantasma para abrirte camino mientras el escenario se acelera con cada segundo.
+            Gravedad suave, saltos con impulso y un HUD minimalista mantienen la acci&oacute;n clara y legible.
+          </p>
+        </article>
+      </section>
+
+      <section class="controls">
+        <article>
+          <h2 class="section-title h2">C&oacute;mo jugar</h2>
+          <div class="controls-wrap peg-controls">
+            <div class="mouse-control">
+              <img class="mouse-img" src="assets/svg/Letra=W.svg" alt="Tecla W o flecha arriba">
+              <div class="label subtitle-s1">Ascender</div>
+              <p class="body-b2">Pulsa W para aplicar impulso y ganar altura.</p>
+            </div>
+            <div class="mouse-control">
+              <img class="mouse-img" src="assets/svg/Letra=S.svg" alt="Tecla S o flecha abajo">
+              <div class="label subtitle-s1">Descender r&aacute;pido</div>
+              <p class="body-b2">Pulsa S para bajar m&aacute;s r&aacute;pido y alinear el paso.</p>
+            </div>
+            <div class="mouse-control">
+              <img class="mouse-img" src="assets/svg/Tecla=Espacio.svg" alt="Barra espaciadora">
+              <div class="label subtitle-s1">Activar Poder</div>
+              <p class="body-b2">Activa el poder al juntar puntos: barra espaciadora o click en la runa.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="media-images">
+        <h2 class="section-title h2">Galer&iacute;a del juego</h2>
+        <div class="carousel-container">
+          <div class="carousel">
+            <div class="carousel-track">
+              <div class="carousel-slide active">
+                <img src="assets/img/demoFlappyBird1.png" alt="Cielo parallax de Flappy Bird">
+              </div>
+              <div class="carousel-slide">
+                <img src="assets/img/demoFlappyBird2.png" alt="Sprite del p&aacute;jaro en acci&oacute;n">
+              </div>
+              <div class="carousel-slide">
+                <img src="assets/flappy_bird/Background/ground_3.png" alt="Suelo y plantas en primer plano">
+              </div>
+            </div>
+            <button class="carousel-btn btn-prev" aria-label="Anterior"><</button>
+            <button class="carousel-btn btn-next" aria-label="Siguiente">></button>
+          </div>
+          <div class="carousel-counter">
+            <span class="current subtitle-s1">1</span> <span class="subtitle-s1">/</span> <span
+              class="total subtitle-s1">3</span>
+          </div>
+          <div class="carousel-indicators">
+            <button class="indicator" data-slide="0"></button>
+            <button class="indicator" data-slide="1"></button>
+            <button class="indicator" data-slide="2"></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="push-xxl">
+        <game-carousel title="Juegos similares" genre="arcade" limit="9"></game-carousel>
+      </section>
+
+      <section class="comments push-xxl" aria-labelledby="comments-title">
+        <h2 class="section-title h2" id="comments-title">Comentarios</h2>
+        <div class="comment-new" role="form" aria-label="Agregar un comentario">
+          <div class="avatar" aria-hidden="true"></div>
+          <div class="comment-field">
+            <label class="comment-label body-b2" for="comment-text">T&uacute;</label>
+            <input id="comment-text" type="text" placeholder="Agrega tu comentario"
+              aria-label="Escribe tu comentario">
+          </div>
+          <button class="comment-submit" type="button">Enviar</button>
+        </div>
+
+        <article class="comment">
+          <div class="bubble">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <strong class="comment-name subtitle-s1">PixelPilot</strong>
+                  <span class="comment-date body-b1">Hace 2 d&iacute;as</span>
+                </div>
+                <button class="comment-like" type="button" aria-label="Me gusta">
+                  <span>74</span>
+                  <img src="assets/svg/corazon-like.svg" alt="" aria-hidden="true">
+                </button>
+              </div>
+              <p class="body-b1">Se siente cl&aacute;sico pero con un toque moderno: parallax suave y power-up que te salva
+                en el momento justo.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="comment">
+          <div class="bubble">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <strong class="comment-name subtitle-s1">ArcadeLover</strong>
+                  <span class="comment-date body-b1">Hace 1 semana</span>
+                </div>
+                <button class="comment-like" type="button" aria-label="Me gusta">
+                  <span>58</span>
+                  <img src="assets/svg/corazon-like.svg" alt="" aria-hidden="true">
+                </button>
+              </div>
+              <p class="body-b1">El modo depuraci&oacute;n con hitboxes ayuda a entender el ritmo. Va perfecto en escritorio.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="comment">
+          <div class="bubble">
+            <div class="avatar" aria-hidden="true"></div>
+            <div class="comment-content">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <strong class="comment-name subtitle-s1">NeoRunner</strong>
+                  <span class="comment-date body-b1">Hace 3 horas</span>
+                </div>
+                <button class="comment-like" type="button" aria-label="Me gusta">
+                  <span>33</span>
+                  <img src="assets/svg/corazon-like.svg" alt="" aria-hidden="true">
+                </button>
+              </div>
+              <p class="body-b1">Despu&eacute;s de unos minutos la velocidad te exige al m&aacute;ximo. El poder fantasma cambia el ritmo y
+                suma estrategia.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer" role="contentinfo" id="footer-placeholder"></footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/carousel-media-images.js" defer></script>
+  <script src="js/game-card.js" defer></script>
+  <script src="js/carousel.js" defer></script>
+  <script src="js/sidebar.js" defer></script>
+  <script type="module" src="js/flappy_bird/flappy-bird.js"></script>
+</body>
+</html>

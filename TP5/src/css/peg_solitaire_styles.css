@@ -1,0 +1,90 @@
+/* Contenedor principal del juego */
+.game-container {
+    display: flex;
+    flex-direction: column; /* Cambiado para móvil primero */
+    align-items: center;
+    gap: 20px; /* Espacio entre canvas y UI */
+    margin: 20px auto; /* Centrado */
+    width: fit-content; /* Ajustar al contenido */
+}
+
+/* Canvas del juego */
+#game-canvas {
+    border: 3px solid #333; /* Borde oscuro */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Sombra */
+    max-width: 100%; /* Asegurar responsividad */
+    height: auto; /* Mantener aspect ratio */
+    display: block; /* Eliminar espacio extra debajo */
+}
+
+/* Panel de UI */
+.game-ui-panel {
+    display: flex;
+    flex-direction: column; /* Apilar elementos */
+    align-items: center; /* Centrar elementos */
+    gap: 15px; /* Espacio entre timer y botón */
+    padding: 15px;
+    background-color: var(--b-800); /* Fondo oscuro */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid var(--b-700);
+    width: 100%; /* Ocupar ancho en móvil */
+    max-width: 300px; /* Limitar ancho en desktop */
+    box-sizing: border-box;
+}
+
+.timer-display {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--b-050); /* Texto claro */
+}
+
+.reset-button {
+    width: 100%; /* Botón ocupa todo el ancho del panel */
+}
+
+/* Estilos específicos para controles de Peg Solitaire */
+.peg-controls {
+    grid-template-columns: 1fr; /* Una columna en móvil */
+    gap: 40px; /* Más espacio vertical */
+    justify-items: center; /* Centrar horizontalmente */
+}
+
+.mouse-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 250px; /* Limitar ancho del texto */
+}
+
+.mouse-control .mouse-img {
+    width: 60px; /* Tamaño del icono del mouse */
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.mouse-control .label {
+    margin-bottom: 4px; /* Menos espacio antes del párrafo */
+}
+
+.mouse-control p {
+    color: var(--b-300); /* Texto de ayuda más claro */
+}
+
+/* Media Query para pantallas más grandes (Desktop) */
+@media (min-width: 992px) {
+    .game-container {
+        flex-direction: row; /* Canvas y UI lado a lado */
+        align-items: flex-start; /* Alinear arriba */
+    }
+
+    .game-ui-panel {
+        width: 200px; /* Ancho fijo para el panel UI */
+        align-items: stretch; /* Estirar elementos */
+    }
+
+     .peg-controls {
+        grid-template-columns: 1fr 1fr; /* Dos columnas */
+        gap: 60px; /* Más espacio horizontal */
+    }
+}
