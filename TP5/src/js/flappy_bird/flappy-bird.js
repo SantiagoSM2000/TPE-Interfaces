@@ -202,17 +202,11 @@
     // Order by minHeight descending so the first match wins.
     const pipeSpriteSets = {
         bottom: [
-            { minHeight: 188, src: "/src/assets/flappy_bird/Obstacles/test1.png" },
-            { minHeight: 179, src: "/src/assets/flappy_bird/Obstacles/test2.png" },
-            { minHeight: 92, src: "/src/assets/flappy_bird/Obstacles/test2.png" },
-            { minHeight: 0, src: "/src/assets/flappy_bird/Obstacles/test2.png" }
-        ],
-        top: [
-            { minHeight: 200, src: "Pipe.png" },
-            { minHeight: 150, src: "Pipe.png" },
-            { minHeight: 0, src: "Pipe.png" }
-        ],
-        fallback: "Pipe.png"
+            { minHeight: 188, src: "/src/assets/flappy_bird/Obstacles/BrickWall.png" },
+            { minHeight: 179, src: "/src/assets/flappy_bird/Obstacles/WoodWall.png" },
+            { minHeight: 92, src: "/src/assets/flappy_bird/Obstacles/WoodWall.png" },
+            { minHeight: 0, src: "/src/assets/flappy_bird/Obstacles/WoodWall.png" }
+        ]
     };
 
     const pickPipeSprite = (height, variants) => {
