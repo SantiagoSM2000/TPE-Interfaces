@@ -1,0 +1,531 @@
+:root {
+    /* Core layout sizing and animation constants */
+    --base-speed: 10s;
+    --game-width: min(90vw, 1200px);
+    --pipe-width: 160px;
+    --pipe-duration: 3s;
+    --pipe-delay-1: 1.6s;
+    --pipe-delay-2: 5.2s;
+    --bird-scale: 5;
+    --crow-size: calc(16px * var(--bird-scale));
+    --panel-bg: rgba(0, 0, 0, 0.55);
+    --panel-bg-muted: rgba(0, 0, 0, 0.45);
+    --panel-text: #d0f0ff;
+    --panel-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#game-container {
+    width: var(--game-width);
+    aspect-ratio: 16 / 9;
+    border: 3px solid black;
+    overflow: hidden; 
+    position: relative; 
+    margin: 0 auto;
+}
+
+.parallax-layer {
+    /* Shared parallax styling for all background layers */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: repeat-x;
+    background-size: 100% auto;
+    will-change: background-position;
+    /* Apply scrolling animation to any layer using this class */
+    animation-name: scroll-background;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    /* Duration scales with the layer depth: duration = base speed * depth */
+    animation-duration: calc(var(--base-speed) * var(--depth, 1));
+}
+
+/* Scroll animation */
+@keyframes scroll-background {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        
+        background-position: calc(var(--game-width) * -1) 0;
+    }
+}
+
+
+/* Capa 1: Cielo */
+#bg-sky {
+    background-image: url('/src/assets/flappy_bird/Background/sky.png');
+    z-index: 1;
+    animation: scroll-background 0s linear infinite;
+}
+/* Capa 2: Nubes lejanas */
+#bg-clouds-far {
+    background-image: url('/src/assets/flappy_bird/Background/clouds_2.png');
+    z-index: 2;
+    animation: scroll-background 300s linear infinite;
+}
+
+/* Capa 3: Rocas */
+#bg-rocks {
+    background-image: url('/src/assets/flappy_bird/Background/rocks.png');
+    z-index: 3;
+    animation: scroll-background 250s linear infinite;
+}
+
+/* Capa 5: Nubes cercanas */
+#bg-clouds-near {
+    background-image: url('/src/assets/flappy_bird/Background/clouds_1.png');
+    z-index: 4;
+    animation: scroll-background 180s linear infinite;
+}
+
+/* Capa 7: Suelo lejos */
+#bg-ground-far {
+    background-image: url('/src/assets/flappy_bird/Background/ground_1.png');
+    z-index: 5;
+    animation: scroll-background 90s linear infinite;
+}
+
+/* Capa 6: Suelo medio */
+#bg-ground-mid {
+    background-image: url('/src/assets/flappy_bird/Background/ground_2.png');
+    z-index: 6;
+    animation: scroll-background 80s linear infinite;
+}
+
+/* Capa 4: Suelo cerca */
+#bg-ground-near {
+    background-image: url('/src/assets/flappy_bird/Background/ground_3.png');
+    z-index: 7;
+    animation: scroll-background 65s linear infinite;
+}
+
+/* Layer 8: Foreground plant (closest and fastest) */
+#bg-plant-front {
+    background-image: url('/src/assets/flappy_bird/Background/plant.png');
+    z-index: 8;
+    animation: scroll-background 10s linear infinite; 
+}
+
+.bird {
+    position: absolute;
+    left: 33.333%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(var(--bird-scale));
+    transform-origin: center;
+    width: 16px;
+    height: 16px;
+    background-image: url('/src/assets/flappy_bird/Sprites/Bird/Bird.png');
+    background-repeat: no-repeat;
+    background-size: 400% 100%;
+    animation: bird-flap 0.5s steps(4) infinite;
+    z-index: 9;
+    pointer-events: none;
+    image-rendering: pixelated;
+    transition: transform 0.16s ease-out;
+}
+
+.bird-power-vfx {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 32px;
+    height: 32px;
+    transform: translate(-50%, -50%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    pointer-events: none;
+    image-rendering: pixelated;
+    display: none;
+}
+
+.bird-power-vfx.active {
+    display: block;
+    animation: power-vfx 0.6s steps(6) infinite;
+}
+
+@keyframes power-vfx {
+    0% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a1.png'); }
+    16% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a2.png'); }
+    33% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a3.png'); }
+    50% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a4.png'); }
+    66% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a5.png'); }
+    83% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a6.png'); }
+    100% { background-image: url('/src/assets/flappy_birdSprites/PowerActivation/vfx-a1.png'); }
+}
+
+.bird-super {
+    background-image: url('/src/assets/flappy_bird/Sprites/Bird/BirdSuper.png');
+    background-size: 400% 100%;
+    animation: bird-flap 0.5s steps(4) infinite;
+}
+
+.bird-ghost {
+    opacity: 0.6;
+    filter: drop-shadow(0 0 8px #7ff);
+    animation: ghost-blink 0.4s ease-in-out infinite;
+}
+
+@keyframes ghost-blink {
+    0% { opacity: 0.25; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.25; }
+}
+
+@keyframes power-rune {
+    from { background-position: 0 50%; }
+    to { background-position: -256px 50%; }
+}
+
+.bird-up {
+    /* Keep the same sprite; only tilt it while flapping */
+    transform: translate(-50%, -50%) scale(var(--bird-scale)) rotate(-35deg);
+}
+
+.bird-down {
+    /* Rotate downward when falling fast */
+    transform: translate(-50%, -50%) scale(var(--bird-scale)) rotate(45deg);
+}
+@keyframes bird-flap {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -64px 0;
+    }
+}
+
+.flappy-pipe-group {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--pipe-width);
+    height: 100%;
+    z-index: 10;
+    will-change: transform;
+}
+
+.flappy-pipe-group[data-pipe-index="1"] {
+    animation-delay: var(--pipe-delay-1);
+}
+
+.flappy-pipe-group[data-pipe-index="2"] {
+    animation-delay: var(--pipe-delay-2);
+}
+
+.flappy-pipe {
+    position: absolute;
+    left: 0;
+    width: var(--pipe-width);
+    height: 240px;
+    background-image: url('tree.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0;
+    image-rendering: pixelated;
+}
+
+.flappy-pipe-top {
+    top: 0;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+}
+
+.flappy-pipe-bottom {
+    bottom: 0;
+}
+
+.crow-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    gap: 0;
+}
+
+.crow {
+    width: var(--crow-size, calc(16px * var(--bird-scale)));
+    height: var(--crow-size, calc(16px * var(--bird-scale)));
+    background-image: url('/src/assets/flappy_bird/Sprites/Crow/Crow.png');
+    background-repeat: no-repeat;
+    background-size: calc(var(--crow-size, calc(16px * var(--bird-scale))) * 8) var(--crow-size, calc(16px * var(--bird-scale)));
+    background-position: 0 0;
+    image-rendering: pixelated;
+    animation: crow-flap 0.6s steps(8) infinite reverse;
+    transform-origin: center;
+}
+
+@keyframes crow-flap {
+    from { background-position: 0 0; }
+    to { background-position: calc(-8 * var(--crow-size, calc(16px * var(--bird-scale)))) 0; }
+}
+
+@keyframes pipe-fly {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        /* Move past the left edge (extra pipe width) so pipes don't pop away immediately. */
+        transform: translateX(calc(-1 * (var(--game-width) + 2 * var(--pipe-width))));
+    }
+}
+
+.coin {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    z-index: 11;
+    pointer-events: none;
+    transition: opacity 0.2s linear;
+    image-rendering: pixelated;
+}
+
+.pipe-coin {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+}
+
+.coin-gold {
+    background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png');
+    animation: coin-gold-spin 0.6s linear infinite;
+}
+
+.coin-silver {
+    background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png');
+    animation: coin-silver-spin 0.6s linear infinite;
+}
+
+.coin-bronze {
+    background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png');
+    animation: coin-bronze-spin 0.6s linear infinite;
+}
+
+.coin-hidden {
+    opacity: 0;
+}
+
+@keyframes coin-gold-spin {
+    0% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png'); }
+    10% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_2.png'); }
+    20% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_3.png'); }
+    30% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_4.png'); }
+    40% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_5.png'); }
+    50% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_6.png'); }
+    60% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_7.png'); }
+    70% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_8.png'); }
+    80% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_9.png'); }
+    90% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_10.png'); }
+    100% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png'); }
+}
+
+@keyframes coin-silver-spin {
+    0% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png'); }
+    10% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_2.png'); }
+    20% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_3.png'); }
+    30% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_4.png'); }
+    40% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_5.png'); }
+    50% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_6.png'); }
+    60% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_7.png'); }
+    70% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_8.png'); }
+    80% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_9.png'); }
+    90% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_10.png'); }
+    100% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png'); }
+}
+
+@keyframes coin-bronze-spin {
+    0% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png'); }
+    10% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_2.png'); }
+    20% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_3.png'); }
+    30% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_4.png'); }
+    40% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_5.png'); }
+    50% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_6.png'); }
+    60% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_7.png'); }
+    70% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_8.png'); }
+    80% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_9.png'); }
+    90% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_10.png'); }
+    100% { background-image: url('/src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png'); }
+}
+
+.scoreboard {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: var(--panel-bg);
+    color: var(--panel-text);
+    font-family: var(--panel-font);
+    font-size: clamp(18px, 2vw, 28px);
+    padding: 8px 14px;
+    border-radius: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 20;
+}
+
+.score-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.score-label {
+    font-weight: 600;
+}
+
+.hud-panel {
+    background: var(--panel-bg);
+    color: var(--panel-text);
+    font-family: var(--panel-font);
+    border-radius: 8px;
+}
+
+.powerboard {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    background: var(--panel-bg-muted);
+    padding: 8px 10px;
+    border-radius: 12px;
+    z-index: 20;
+    user-select: none;
+    transition: opacity 0.2s ease, filter 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+}
+
+.power-disabled {
+    opacity: 0.4;
+    filter: grayscale(1);
+}
+
+.powerboard button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.powerboard button:disabled {
+    cursor: not-allowed;
+}
+
+.power-button-icon {
+    display: block;
+    width: 64px;
+    height: 68px; /* preserves approximate aspect ratio of 304x317 per frame */
+    background-image: url('/src/assets/flappy_bird/UI/PowerRune.png');
+    background-repeat: no-repeat;
+    /* Scale the 4x1 sprite sheet down so each frame is ~64px wide */
+    background-size: 256px 68px;
+    background-position: 0 50%;
+    image-rendering: pixelated;
+    animation: power-rune 0.8s steps(4) infinite;
+}
+
+.power-disabled .power-button-icon {
+    animation-play-state: paused;
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+
+.debugboard {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    background: var(--panel-bg-muted);
+    color: var(--panel-text);
+    font-family: var(--panel-font);
+    font-size: clamp(14px, 1.5vw, 20px);
+    padding: 6px 10px;
+    border-radius: 8px;
+    display: grid;
+    gap: 4px;
+    z-index: 20;
+    min-width: 120px;
+}
+
+.debug-label {
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+/* Keep debug values aligned */
+.debugboard div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.debugboard button {
+    margin-top: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    border: 1px solid #7ff;
+    background: rgba(0, 0, 0, 0.25);
+    color: #d0f0ff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.hitbox-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 25;
+}
+
+.hitbox-rect {
+    position: absolute;
+    border: 2px dashed;
+    box-sizing: border-box;
+    opacity: 0.7;
+    mix-blend-mode: screen;
+}
+
+.hitbox-bird { border-color: #00ffff; }
+.hitbox-pipe-top { border-color: #ff00ff; }
+.hitbox-pipe-bottom { border-color: #ff0000; }
+.hitbox-coin { border-color: #ffd700; }
+.hitbox-crow { border-color: #7f00ff; }
+
+@media (prefers-reduced-motion: reduce) {
+    .parallax-layer {
+        animation: none;
+    }
+
+    .coin-gold,
+    .coin-silver,
+    .coin-bronze {
+        animation-duration: 1.2s;
+    }
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
