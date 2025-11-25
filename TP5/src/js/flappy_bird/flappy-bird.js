@@ -594,12 +594,12 @@
         if (startScreen) startScreen.classList.add("hidden");
         if (title && endTitle) endTitle.textContent = title;
         if (subtitle && endSubtitle) endSubtitle.textContent = subtitle;
-        const elapsed = Math.ceil((performance.now() - timerState.startTime) / 1000);
+        const elapsed = Math.floor((performance.now() - timerState.startTime) / 1000);
         const remaining = Math.max(0, config.timer.maxSeconds - elapsed);
         const timeFactor = isWin ? config.timer.maxSeconds : remaining;
         if (endTime) endTime.textContent = `${elapsed}s`;
         if (endCoins) endCoins.textContent = coinsCollected.toString();
-        if (endFinal) endFinal.textContent = (elapsed + (coinsCollected * timeFactor)).toString();
+        if (endFinal) endFinal.textContent = (elapsed + (coinsCollected * elapsed)).toString();
     };
 
     const handleTimerElapsed = () => {

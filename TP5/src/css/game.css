@@ -260,10 +260,10 @@
 article p{ color: var(--b-100); margin-top: 8px; }
 
 .controls .controls-wrap {
-  display: grid;
-  grid-template-columns: repeat(2, 280px);
-  gap: 40px;
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
   justify-content: center;
 }
 
