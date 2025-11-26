@@ -790,7 +790,7 @@
         setPowerVfx(false);
         updatePowerBoard();
         if (debugPanel) {
-            const showDebug = !debugOption || debugOption.checked;
+            const showDebug = debugOption ? debugOption.checked : false;
             debugPanel.classList.toggle("hidden", !showDebug);
         }
         showHitboxes = !!(hitboxOption && hitboxOption.checked);
