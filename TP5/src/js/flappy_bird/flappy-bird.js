@@ -876,4 +876,5 @@
             if (startScreen) startScreen.classList.remove("hidden");
         });
     }
+
 })();
