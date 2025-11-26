@@ -24,14 +24,25 @@
       <a href="#" class="active">Flappy Bird</a>
     </nav>
     <div class="sub-container">
-      <h1 class="page-title h1">Flappy Bird - Parallax Rush</h1>
+      <h1 class="page-title h1">Flappy Bird - Bosque Rúnico</h1>
 
+      <!-- Zona de juego con overlays de inicio/fin apilados -->
       <div id="flappy-game-container" class="game-placeholder">
         <div id="flappy-start-screen">
           <div class="start-card">
             <div class="start-hero">
               <div class="hero-media">
-                <img src="assets/flappy_bird/Background/rocks.png" alt="Vista previa del valle parallax">
+                <div class="flappy-mini" aria-hidden="true">
+                  <div class="flappy-mini-layer mini-sky"></div>
+                  <div class="flappy-mini-layer mini-clouds-far"></div>
+                  <div class="flappy-mini-layer mini-rocks"></div>
+                  <div class="flappy-mini-layer mini-clouds-near"></div>
+                  <div class="flappy-mini-layer mini-ground-far"></div>
+                  <div class="flappy-mini-layer mini-ground-mid"></div>
+                  <div class="flappy-mini-layer mini-ground-near"></div>
+                  <div class="flappy-mini-layer mini-plant"></div>
+                  <div class="flappy-mini-bird"></div>
+                </div>
               </div>
               <div class="hero-copy">
                 <p class="body-b1">Surca el valle, esquiva columnas y activa el poder fantasma para atravesar peligros. Física suavizada y HUD limpio para reaccionar rápido.</p>
@@ -43,6 +54,18 @@
             </div>
             <section class="start-options">
               <div class="piece-selector start-pane">
+                <h3 class="subtitle-s1">Elige tu poder</h3>
+                <p class="body-b3">Elige entre atravesar tus enemigos o ralentizar el tiempo.</p>
+                <label class="body-b2">
+                  <input type="radio" name="power-select" value="ghost">
+                  Fantasma
+                </label>
+                <label class="body-b2">
+                  <input type="radio" name="power-select" value="slow">
+                  Ralentizar
+                </label>
+              </div>
+              <!-- <div class="piece-selector start-pane">
                 <h3 class="subtitle-s1">Opciones</h3>
                 <p class="body-b3">Activa utilidades antes de despegar.</p>
                 <label class="body-b2">
@@ -53,13 +76,13 @@
                   <input type="checkbox" id="flappy-option-debug">
                   Mostrar panel de depuración
                 </label>
-              </div>
+              </div> -->
               <div class="start-pane coin-legend">
                 <h3 class="subtitle-s1">Puntaje de monedas</h3>
                 <p class="body-b3">Cada tipo suma puntos distintos al recogerla.</p>
                 <ul class="coin-list">
                   <li class="coin-item">
-                    <img src="assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png" alt="Moneda de bronce">
+                    <img src="assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_10.png" alt="Moneda de bronce">
                     <span class="body-b2">Bronce: 1 punto</span>
                   </li>
                   <li class="coin-item">
@@ -243,7 +266,7 @@
       </section>
 
       <section class="push-xxl">
-        <game-carousel title="Juegos similares" genre="arcade" limit="9"></game-carousel>
+        <game-carousel title="Juegos similares" limit="9"></game-carousel>
       </section>
 
       <section class="comments push-xxl" aria-labelledby="comments-title">
