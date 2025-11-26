@@ -4,4 +4,4 @@
 * Bustos, Jeremías Emanuel.
 * Coria, Agustín Ariel.
 
-Entrega 1, 2, 3 y 4
+Entrega 1, 2, 3, 4 y 5
