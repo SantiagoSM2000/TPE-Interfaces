@@ -312,29 +312,17 @@
 }
 
 .coin-gold {
-<<<<<<< HEAD
-    background-image: url('../src/assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png');
-=======
     background-image: url('../assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png');
->>>>>>> main
     animation: coin-gold-spin 0.6s linear infinite;
 }
 
 .coin-silver {
-<<<<<<< HEAD
-    background-image: url('../src/assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png');
-=======
     background-image: url('../assets/flappy_bird/Sprites/Coins/Silver/Silver_Star_1.png');
->>>>>>> main
     animation: coin-silver-spin 0.6s linear infinite;
 }
 
 .coin-bronze {
-<<<<<<< HEAD
-    background-image: url('../src/assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png');
-=======
     background-image: url('../assets/flappy_bird/Sprites/Coins/Bronze/Bronze_Star_1.png');
->>>>>>> main
     animation: coin-bronze-spin 0.6s linear infinite;
 }
 
@@ -343,11 +331,7 @@
 }
 
 @keyframes coin-gold-spin {
-<<<<<<< HEAD
-    0% { background-image: url('../assets/flappy_bird/Sprites/Coins/Gold/Gold_1.png'); }
-=======
     0% { background-image: url('../assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_1.png'); }
->>>>>>> main
     10% { background-image: url('../assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_2.png'); }
     20% { background-image: url('../assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_3.png'); }
     30% { background-image: url('../assets/flappy_bird/Sprites/Coins/Gold/Gold_Star_4.png'); }
@@ -456,11 +440,7 @@
 .power-button-icon {
     display: block;
     width: 64px;
-<<<<<<< HEAD
-    height: 68px; /* preserves approximate aspect ratio of 304x317 per frame */
-=======
     height: 68px; /* mantiene la proporción aproximada de 304x317 por cuadro */
->>>>>>> main
     background-image: url('../assets/flappy_bird/UI/PowerRune.png');
     background-repeat: no-repeat;
     /* Escala el sprite sheet 4x1 para que cada cuadro mida ~64px de ancho */
