@@ -1,5 +1,5 @@
-:root {
-    /* Core layout sizing and animation constants */
+﻿:root {
+    /* Constantes base de tamaÃ±o y animaciÃ³n */
     --base-speed: 10s;
     --game-width: min(90vw, 1200px);
     --pipe-width: 160px;
@@ -14,6 +14,7 @@
     --panel-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Contenedor general de overlays y escenario de juego */
 #flappy-game-container {
     position: relative;
     width: var(--game-width);
@@ -34,7 +35,7 @@
 }
 
 .parallax-layer {
-    /* Shared parallax styling for all background layers */
+    /* Estilo compartido de parallax para todas las capas */
     width: 100%;
     height: 100%;
     position: absolute;
@@ -43,15 +44,15 @@
     background-repeat: repeat-x;
     background-size: 100% auto;
     will-change: background-position;
-    /* Apply scrolling animation to any layer using this class */
+    /* Aplica la animación de scroll a cualquier capa con esta clase */
     animation-name: scroll-background;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-    /* Duration scales with the layer depth: duration = base speed * depth */
+    /* La duración escala según la profundidad: duración = velocidad base * profundidad */
     animation-duration: calc(var(--base-speed) * var(--depth, 1));
 }
 
-/* Scroll animation */
+/* Animación de scroll */
 @keyframes scroll-background {
     from {
         background-position: 0 0;
@@ -111,7 +112,7 @@
     animation: scroll-background 65s linear infinite;
 }
 
-/* Layer 8: Foreground plant (closest and fastest) */
+/* Capa 8: Planta en primer plano (la más cercana y rápida) */
 #bg-plant-front {
     background-image: url('../assets/flappy_bird/Background/plant.png');
     z-index: 8;
@@ -190,12 +191,12 @@
 }
 
 .bird-up {
-    /* Keep the same sprite; only tilt it while flapping */
+    /* Mantiene el sprite, solo se inclina al aletear */
     transform: translate(-50%, -50%) scale(var(--bird-scale)) rotate(-35deg);
 }
 
 .bird-down {
-    /* Rotate downward when falling fast */
+    /* Se inclina hacia abajo cuando cae rápido */
     transform: translate(-50%, -50%) scale(var(--bird-scale)) rotate(45deg);
 }
 @keyframes bird-flap {
@@ -285,7 +286,7 @@
         transform: translateX(0);
     }
     to {
-        /* Move past the left edge (extra pipe width) so pipes don't pop away immediately. */
+        /* Pasa más allá del borde izquierdo para que los tubos no desaparezcan de golpe. */
         transform: translateX(calc(-1 * (var(--game-width) + 2 * var(--pipe-width))));
     }
 }
@@ -380,7 +381,7 @@
     font-family: var(--panel-font);
     font-size: clamp(18px, 2vw, 28px);
     padding: 8px 14px;
-    border-radius: 8px;
+    border-radius: 12px;
     display: flex;
     gap: 10px;
     align-items: center;
@@ -401,7 +402,7 @@
     background: var(--panel-bg);
     color: var(--panel-text);
     font-family: var(--panel-font);
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 .powerboard {
@@ -439,10 +440,10 @@
 .power-button-icon {
     display: block;
     width: 64px;
-    height: 68px; /* preserves approximate aspect ratio of 304x317 per frame */
+    height: 68px; /* mantiene la proporción aproximada de 304x317 por cuadro */
     background-image: url('../assets/flappy_bird/UI/PowerRune.png');
     background-repeat: no-repeat;
-    /* Scale the 4x1 sprite sheet down so each frame is ~64px wide */
+    /* Escala el sprite sheet 4x1 para que cada cuadro mida ~64px de ancho */
     background-size: 256px 68px;
     background-position: 0 50%;
     image-rendering: pixelated;
@@ -464,7 +465,7 @@
     font-family: var(--panel-font);
     font-size: clamp(14px, 1.5vw, 20px);
     padding: 6px 10px;
-    border-radius: 8px;
+    border-radius: 12px;
     display: grid;
     gap: 4px;
     z-index: 20;
@@ -476,7 +477,7 @@
     margin-right: 6px;
 }
 
-/* Keep debug values aligned */
+/* Mantiene alineados los valores de debug */
 .debugboard div {
     display: flex;
     justify-content: space-between;
@@ -489,7 +490,7 @@
     border: 1px solid #7ff;
     background: rgba(0, 0, 0, 0.25);
     color: #d0f0ff;
-    border-radius: 4px;
+    border-radius: 12px;
     cursor: pointer;
 }
 
@@ -540,6 +541,7 @@
     border: 0;
 }
 
+/* El overlay de inicio cubre el área hasta que comienza el juego */
 #flappy-start-screen {
     position: absolute;
     inset: 0;
@@ -553,6 +555,7 @@
     border-radius: inherit;
 }
 
+/* Overlay de fin para el resumen de victoria/derrota */
 #flappy-end-screen {
     position: absolute;
     inset: 0;
@@ -569,7 +572,7 @@
 #flappy-end-screen .end-card {
     width: min(900px, 95%);
     max-height: 90%;
-    border-radius: 14px;
+    border-radius: 12px;
     overflow: auto;
     padding: 2rem;
     box-sizing: border-box;
@@ -601,7 +604,7 @@
 .end-stats .stat {
     background: rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 0.75rem 1rem;
     text-align: center;
 }
@@ -646,6 +649,7 @@
     image-rendering: pixelated;
 }
 
+/* Mini vista previa en el héroe */
 .flappy-mini {
     position: relative;
     width: 100%;
@@ -698,6 +702,7 @@
     50% { transform: translate(-50%, -56%) scale(3.2); }
 }
 
+/* Layout de la tarjeta de inicio */
 #flappy-start-screen .start-card {
     width: 100%;
     height: 100%;

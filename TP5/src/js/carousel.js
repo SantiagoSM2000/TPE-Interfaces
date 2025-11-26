@@ -19,6 +19,15 @@
       genres: [{ name: 'Platformer' }],
       rating: 5,
       href: 'blocka.html'
+    },
+    {
+      genre: 'platformer',
+      id: '__manual_platformer_FlappyBird__',
+      name: 'Flappy Bird - Bosque Rúnico',
+      background_image: 'assets/img/logo-flappy-bird.png',
+      genres: [{ name: 'Platformer' }],
+      rating: 5,
+      href: 'flappy-bird.html'
     }
   ];
 
