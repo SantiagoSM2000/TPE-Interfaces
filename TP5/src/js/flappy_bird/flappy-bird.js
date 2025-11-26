@@ -1,5 +1,5 @@
-(() => {
-    // Core elements; bail early if they are missing so errors don't spam the console.
+﻿(() => {
+    // Elementos clave; si faltan salimos para evitar errores en consola.
     const bird = document.querySelector(".bird");
     const container = document.getElementById("game-container");
     const startScreen = document.getElementById("flappy-start-screen");
@@ -17,7 +17,7 @@
     const endSubtitle = document.getElementById("flappy-end-subtitle");
     if (!bird || !container) return;
 
-    // Central config keeps constants in one place to avoid magic numbers scattered around.
+    // Configuración centralizada para evitar números mágicos sueltos.
     const elements = {
         scoreValue: document.getElementById("score-value"),
         timerValue: document.getElementById("time-value"),
@@ -29,7 +29,7 @@
         toggleHitboxes: document.getElementById("toggle-hitboxes")
     };
 
-    // Tweakable knobs for physics, controls, difficulty, and visuals.
+    // Parámetros ajustables de física, controles, dificultad y visuales.
     const config = {
         bounds: { top: 5, bottom: 95 },
         physics: {
@@ -50,7 +50,7 @@
             scoreForSuperStep: 5
         },
         difficulty: {
-            // Gap starts wide and ramps tighter over time.
+            // La brecha arranca amplia y se ajusta con el tiempo.
             gapRange: { max: 0.45, min: 0.25 },
             pipeSpeedRange: { maxDuration: 3, minDuration: 1.6 },
             rampSeconds: 60,
@@ -62,7 +62,7 @@
     hitboxInsets: {
         bird: {
             neutral: { x: 10, y: 10 },
-            // Make climb/dive visibly different in debug: narrower x on climb, shorter y on dive.
+            // En debug se diferencia subida/bajada: x más angosta al subir, y más corta al bajar.
             climb: { x: 6, y: 18 },
             dive: { x: 18, y: 6 }
         },
@@ -78,6 +78,7 @@
         }
     };
 
+    // Tabla de rareza/valor de monedas (pesos suman 1).
     const coinTypes = [
         { key: "bronze", className: "coin-bronze", weight: 0.6, value: 1 },
         { key: "silver", className: "coin-silver", weight: 0.3, value: 3 },
@@ -112,7 +113,7 @@
     let ghostEndTime = 0;
     let coinsCollected = 0;
 
-    // Cache DOM nodes for the pipe pairs so we don't keep querying on every frame.
+    // Cachea nodos de los tubos para no consultar el DOM en cada frame.
     const pipeGroups = Array.from(document.querySelectorAll(".flappy-pipe-group"));
     const scoreValue = elements.scoreValue;
     const timerValue = elements.timerValue;
@@ -142,7 +143,7 @@
         coin: [],
         crow: []
     };
-    // Power VFX sprite layered on top of the bird.
+    // Sprite del efecto de poder sobre el pájaro.
     const powerVfx = document.createElement("span");
     powerVfx.className = "bird-power-vfx";
     bird.appendChild(powerVfx);
@@ -165,7 +166,7 @@
         updateHitboxButton();
     }
 
-    // Precompute static dimensions to avoid layout thrash each frame; update on resize.
+    // Precálculo de dimensiones para evitar relayout en cada frame; se actualiza en resize.
     const dimensions = {
         containerWidth: container.clientWidth,
         containerHeight: container.clientHeight,
@@ -185,6 +186,7 @@
                 dimensions.pipeWidth;
         }
     };
+    // Recalcula y reposiciona tubos/monedas tras resize o reinicio.
     const resetPipes = () => {
         if (!pipePairs.length) return;
         recomputeDimensions();
@@ -192,6 +194,7 @@
         initPipePositions();
     };
 
+    // Lleva el tiempo transcurrido y el valor mostrado del temporizador.
     const timerState = {
         startTime: performance.now(),
         lastDisplay: config.timer.maxSeconds
@@ -199,9 +202,10 @@
     let timerExpired = false;
     let gameOver = false;
 
-    // Order by minHeight descending so the first match wins.
+    // Ordenados por altura mínima descendente para que gane el primer match.
     const pipeSpriteSets = {
         bottom: [
+<<<<<<< HEAD
             { minHeight: 188, src: "assets/flappy_bird/Obstacles/obstacle1.png" },
             { minHeight: 179, src: "assets/flappy_bird/Obstacles/obstacle2.png" },
             { minHeight: 92, src: "assets/flappy_bird/Obstacles/obstacle2.png" },
@@ -213,6 +217,13 @@
             { minHeight: 0, src: "Pipe.png" }
         ],
         fallback: "Pipe.png"
+=======
+            { minHeight: 188, src: "assets/flappy_bird/Obstacles/BrickWall.png" },
+            { minHeight: 179, src: "assets/flappy_bird/Obstacles/WoodWall.png" },
+            { minHeight: 92, src: "assets/flappy_bird/Obstacles/WoodWall.png" },
+            { minHeight: 0, src: "assets/flappy_bird/Obstacles/WoodWall.png" }
+        ]
+>>>>>>> main
     };
 
     const pickPipeSprite = (height, variants) => {
@@ -275,11 +286,11 @@
         const birdRect = bird.getBoundingClientRect();
         const centerX = (birdRect.left + birdRect.right) / 2;
         const centerY = (birdRect.top + birdRect.bottom) / 2;
-        // Use unrotated sprite size (16px * scale) and shrink slightly to track the visible body.
+        // Usa el tamaño sin rotar (16px * escala) y reduce un poco para ceñirse al cuerpo visible.
         const size = 16 * getBirdScale() * 0.85;
         const half = size / 2;
 
-        // Map velocity to a tilt angle for the overlay.
+        // Mapea la velocidad a un ángulo de inclinación.
         const v = Math.max(
             config.physics.maxRiseSpeed,
             Math.min(config.physics.maxFallSpeed, velocity)
@@ -323,7 +334,7 @@
     const populateCrowStack = (pair, topHeight) => {
         const stack = ensureCrowStack(pair);
         const crowSize = Math.max(1, getCrowSize());
-        // If the top pipe is too short to fit even one crow at full size, skip spawning.
+        // Si el tubo superior es muy corto para un cuervo a tamaño completo, se omite.
         if (topHeight < crowSize) {
             stack.innerHTML = "";
             stack.style.paddingTop = "0px";
@@ -358,7 +369,7 @@
         pair.top.style.backgroundImage = "none";
     };
 
-    // Difficulty state is sampled at most once per second to avoid tiny per-frame churn.
+    // La dificultad se recalcula como máximo una vez por segundo para evitar variaciones mínimas.
     const difficultyState = {
         gapRatio: config.difficulty.gapRange.max,
         pipeDuration: config.difficulty.pipeSpeedRange.maxDuration
@@ -370,7 +381,7 @@
     let lastPipeSpeed = 0;
 
     const randomizeHeights = (pair, { reroll = true } = {}) => {
-        // Keeps the opening in a valid range and positions the coin in the middle of the gap.
+        // Mantiene la abertura en rango válido y ubica la moneda en medio del hueco.
         const { top, bottom, coin } = pair;
         const containerHeight = dimensions.containerHeight || container.clientHeight;
         const gap = containerHeight * difficultyState.gapRatio;
@@ -436,7 +447,7 @@
         const spacing = computeSpacing(dimensions.containerWidth, dimensions.pipeWidth);
         pipePairs.forEach((pair, index) => {
             pair.x = dimensions.containerWidth + spacing * (index + 1);
-            // Disable CSS animation to let JS control movement.
+            // Desactiva la animación CSS para que el movimiento sea por JS.
             pair.group.style.animation = "none";
             pair.group.style.visibility = "visible";
             pair.group.style.transform = `translateX(${pair.x}px)`;
@@ -451,7 +462,7 @@
         initPipePositions();
 
         window.addEventListener("resize", () => {
-            // When resizing, recompute sizes and keep pipe spacing stable.
+            // En un resize se recalculan tamaños y se mantiene el espaciado de tubos.
             recomputeDimensions();
             pipePairs.forEach((pair) => randomizeHeights(pair, { reroll: false }));
             initPipePositions();
@@ -483,12 +494,12 @@
         setPowerVfx(true);
     };
 
-    // Single input handler to keep key logic in one place.
+    // Un solo manejador de entrada para centralizar la lógica.
     const handleKeydown = (event) => {
         const key = event.key.toLowerCase();
         if (config.controls.jump.includes(key)) {
             event.preventDefault();
-            // Apply an upward impulse instead of teleporting the bird for a smoother jump arc.
+            // Aplica un impulso hacia arriba para un salto más suave, sin teletransportar.
             velocity = -config.physics.jumpImpulse;
             bird.classList.add("bird-up");
             bird.classList.remove("bird-down");
@@ -496,9 +507,9 @@
         }
 
         if (config.controls.dive.includes(key)) {
-            // Push the bird downward and force the downward tilt.
+            // Empuja hacia abajo y fuerza la inclinación descendente.
             velocity += config.physics.downImpulse;
-            setBirdPosition(birdTop + velocity); // immediate response to avoid perceived delay
+            setBirdPosition(birdTop + velocity); // respuesta inmediata para evitar sensación de retardo
             bird.classList.add("bird-down");
             bird.classList.remove("bird-up");
             return;
@@ -541,7 +552,7 @@
         hitboxes.crow.forEach((el) => {
             if (el) el.style.display = "none";
         });
-        // Bird hitbox uses a custom centered box with a rotated overlay.
+        // El hitbox del pájaro usa una caja centrada con overlay rotado.
         const { rect: birdRect, angleDeg } = getBirdHitboxRect();
         hitboxes.bird = ensureHitbox(hitboxes, "bird", "hitbox-bird");
         setBirdHitboxOverlay(hitboxes.bird, birdRect, angleDeg, containerRect);
@@ -552,7 +563,7 @@
             setRect(bottomBox, bottomRect, containerRect);
             (pair.crows || []).forEach((crow, crowIndex) => {
                 const crowRect = getCrowHitboxRect(crow);
-                const boxIndex = index * 10 + crowIndex; // simple stable index space
+                const boxIndex = index * 10 + crowIndex; // índice simple y estable
                 const crowBox = ensureHitbox(hitboxes.crow, boxIndex, "hitbox-crow");
                 setRect(crowBox, crowRect, containerRect);
             });
@@ -588,6 +599,8 @@
         }
     };
 
+
+    // Muestra el overlay final y detiene el loop.
     const openEndScreen = ({ title, subtitle, isWin }) => {
         gameOver = true;
         if (endScreen) endScreen.classList.remove("hidden");
@@ -602,9 +615,10 @@
         if (endFinal) endFinal.textContent = (elapsed + (coinsCollected * elapsed)).toString();
     };
 
+    // Condición de victoria cuando el tiempo llega a cero.
     const handleTimerElapsed = () => {
         openEndScreen({
-            title: "¡Victoria!",
+            title: "Â¡Victoria!",
             subtitle: "Aguantaste hasta el final.",
             isWin: true
         });
@@ -627,7 +641,7 @@
     };
 
     const handleCoinCollection = () => {
-        // Coins are tied to the pipes; collecting them increments the score once per spawn.
+        // Las monedas van junto a los tubos; al recogerlas suman puntos una vez por aparición.
         if (!pipePairs.length) return;
         const { rect: birdRect } = getBirdHitboxRect();
         pipePairs.forEach(({ coin }) => {
@@ -662,7 +676,7 @@
         if (wholeSeconds === lastDifficultySampleSec) return;
         lastDifficultySampleSec = wholeSeconds;
 
-        // Difficulty ramp: tighten gaps and speed up pipes over time.
+        // Rampa de dificultad: reduce el hueco y acelera los tubos con el tiempo.
         const progress = Math.min(1, elapsedSeconds / config.difficulty.rampSeconds);
         difficultyState.gapRatio =
             config.difficulty.gapRange.max -
@@ -676,6 +690,7 @@
 
     updateTimerDisplay(timerState.lastDisplay);
 
+    // Bucle principal: física, scroll, HUD y debug.
     const tick = () => {
         if (!gameStarted || gameOver) return;
         const now = performance.now();
@@ -699,7 +714,7 @@
             handleTimerElapsed();
         }
 
-        // Basic physics loop: apply gravity, clamp velocity, clamp position, check collisions, and loop.
+        // Físicas básicas: aplica gravedad, limita velocidad y posición, chequea colisiones y repite.
         velocity += config.physics.gravity;
         velocity = Math.min(
             config.physics.maxFallSpeed,
@@ -714,7 +729,7 @@
             endGhost();
         }
 
-        // Move pipes manually for smooth motion and spacing.
+        // Movimiento manual de tubos para mantener fluidez y espaciado.
         if (pipePairs.length) {
             const travelDistance = dimensions.containerWidth + dimensions.pipeWidth;
             const pipeSpeed = travelDistance / difficultyState.pipeDuration; // px per second
@@ -725,7 +740,7 @@
                 pair.x -= pipeSpeed * deltaSeconds;
                 pair.crowDrift -= pipeSpeed * deltaSeconds * config.crow.leadRatio;
                 if (pair.x < -dimensions.pipeWidth) {
-                    // Send to the rightmost position and reroll heights/coins.
+                    // Envía al extremo derecho y rerrollea alturas/monedas.
                     const maxX = Math.max(...pipePairs.map((p) => p.x));
                     pair.x = maxX + spacing;
                     pair.crowDrift = 0;
@@ -765,6 +780,7 @@
         requestAnimationFrame(tick);
     };
 
+    // Resetea estado transitorio e inicia o reinicia el loop.
     const startGame = (fromMenu = false) => {
         if (gameStarted && !gameOver && !fromMenu) return;
         gameOver = false;
@@ -830,4 +846,5 @@
             if (startScreen) startScreen.classList.remove("hidden");
         });
     }
+
 })();
